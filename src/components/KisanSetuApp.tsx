@@ -1718,5 +1718,8 @@ import { useState, useEffect, useMemo } from "react";
             </div>
           </footer>
 
+        </div>
+      );
+    }
 
 export default App;
