@@ -1,0 +1,86 @@
+export const INITIAL_CENTRES = [
+      {
+        id: "c1",
+        name: "Karnal Main Grain Mandi (Gate 2)",
+        district: "Karnal",
+        tehsil: "Karnal Urban",
+        distance: 4.2,
+        status: "open",
+        congestion: "low",
+        waitTime: "15 min",
+        openHours: "07:00 AM - 06:00 PM",
+        crops: ["Paddy (Dhan)", "Wheat (Gehu)", "Mustard"],
+        availableSlots: 48,
+        officer: "S. K. Verma",
+        phone: "+91 98765 43210"
+      },
+      {
+        id: "c2",
+        name: "Gharaunda Sub-Yard",
+        district: "Karnal",
+        tehsil: "Gharaunda",
+        distance: 11.8,
+        status: "open",
+        congestion: "med",
+        waitTime: "30 min",
+        openHours: "08:00 AM - 05:30 PM",
+        crops: ["Paddy (Dhan)", "Wheat (Gehu)"],
+        availableSlots: 19,
+        officer: "Rajesh Kumar",
+        phone: "+91 98123 00987"
+      },
+      {
+        id: "c3",
+        name: "Taraori Procurement Yard",
+        district: "Karnal",
+        tehsil: "Taraori",
+        distance: 16.5,
+        status: "open",
+        congestion: "low",
+        waitTime: "10 min",
+        openHours: "07:30 AM - 06:00 PM",
+        crops: ["Paddy (Dhan)", "Chana"],
+        availableSlots: 62,
+        officer: "Harpreet Singh",
+        phone: "+91 94160 11223"
+      },
+      {
+        id: "c4",
+        name: "Ambala City Grain Hub",
+        district: "Ambala",
+        tehsil: "Ambala Urban",
+        distance: 28.0,
+        status: "open",
+        congestion: "high",
+        waitTime: "60+ min",
+        openHours: "07:00 AM - 05:00 PM",
+        crops: ["Paddy (Dhan)", "Wheat (Gehu)", "Cotton"],
+        availableSlots: 4,
+        officer: "M. P. Sharma",
+        phone: "+91 99912 33445"
+      },
+      {
+        id: "c5",
+        name: "Kurukshetra Sector 13 Yard",
+        district: "Kurukshetra",
+        tehsil: "Thanesar",
+        distance: 32.4,
+        status: "open",
+        congestion: "med",
+        waitTime: "25 min",
+        openHours: "08:00 AM - 06:00 PM",
+        crops: ["Paddy (Dhan)", "Mustard"],
+        availableSlots: 31,
+        officer: "Gurdev Singh",
+        phone: "+91 98722 88776"
+      }
+    ];
+
+export const MSP_RATES = [
+      { crop: "Paddy (Grade A)", msp: 2300, unit: "Qtl", season: "Kharif 2025-26", change: "+₹117", status: "Active" },
+      { crop: "Paddy (Common)", msp: 2300, unit: "Qtl", season: "Kharif 2025-26", change: "+₹117", status: "Active" },
+      { crop: "Wheat (Gehu)", msp: 2425, unit: "Qtl", season: "Rabi 2025-26", change: "+₹150", status: "Upcoming" },
+      { crop: "Mustard (Sarson)", msp: 5950, unit: "Qtl", season: "Rabi 2025-26", change: "+₹300", status: "Active" },
+      { crop: "Chana (Gram)", msp: 5650, unit: "Qtl", season: "Rabi 2025-26", change: "+₹210", status: "Active" },
+      { crop: "Cotton (Long Staple)", msp: 7521, unit: "Qtl", season: "Kharif 2025-26", change: "+₹501", status: "Active" },
+    ];
