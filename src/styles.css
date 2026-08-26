@@ -19,6 +19,16 @@
  */
 
 @theme inline {
+  --color-ksbg: #f4f6f0;
+  --color-kssec: #e6d8c3;
+  --color-ksborder: #c2a68c;
+  --color-ksbrand: #4a7c59;
+  --color-ksbrand-hover: #3b6447;
+  --color-ksbrand-dark: #2a4732;
+  --color-ksbrand-light: #ebf2ee;
+  --color-ksaccent: #c86d12;
+  --color-ksaccent-hover: #a5590d;
+  --color-ksaccent-light: #fdf6ee;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
