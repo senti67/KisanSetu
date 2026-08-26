@@ -19,6 +19,16 @@
  */
 
 @theme inline {
+  --color-ksbg: #f4f6f0;
+  --color-kssec: #e6d8c3;
+  --color-ksborder: #c2a68c;
+  --color-ksbrand: #4a7c59;
+  --color-ksbrand-hover: #3b6447;
+  --color-ksbrand-dark: #2a4732;
+  --color-ksbrand-light: #ebf2ee;
+  --color-ksaccent: #c86d12;
+  --color-ksaccent-hover: #a5590d;
+  --color-ksaccent-light: #fdf6ee;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -140,5 +150,53 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+}
+
+/* KisanSetu portal base + print styles */
+body {
+  background-color: #f4f6f0;
+  color: #1f2421;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f4f6f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #c2a68c;
+  border-radius: 3px;
+}
+
+.node-glow {
+  transition: all 0.2s ease-in-out;
+}
+.node-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(74, 124, 89, 0.25);
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-token,
+  #printable-token * {
+    visibility: visible;
+  }
+  #printable-token {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: 2px solid #4a7c59 !important;
+    box-shadow: none !important;
+  }
+  .no-print {
+    display: none !important;
   }
 }
