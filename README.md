@@ -1,127 +1,155 @@
-# 🌾 किसानसेतु / KisanSetu
-### *National Agricultural Procurement, Mandi E-Gate Pass & Direct MSP Settlement System*
+<div align="center">
 
-[![React 19](https://img.shields.io/badge/Frontend-React_19_%2B_Vite-61DAFB?logo=react&logoColor=white)](https://react.dev/)
-[![TanStack Start](https://img.shields.io/badge/Routing-TanStack_Start_Fullstack-FF4154?logo=tanstack&logoColor=white)](https://tanstack.com/)
-[![Express.js](https://img.shields.io/badge/Backend-Express.js_REST_API-000000?logo=express&logoColor=white)](https://expressjs.com/)
-[![Prisma ORM](https://img.shields.io/badge/ORM-Prisma_7-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
-[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL_16-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Cloudflare Tunnel](https://img.shields.io/badge/Deploy-Cloudflare_Tunnel-F38020?logo=cloudflare&logoColor=white)](https://cloudflare.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+<img src="./public/kisansetu-circle.png" width="140" alt="KisanSetu Official Logo" />
+
+# 🌾 किसानसेतु / KisanSetu
+### *National Agricultural Procurement, Mandi E-Gate Pass & Fair MSP Settlement System*
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online%20Portal-138808?style=for-the-badge&logo=cloudflare&logoColor=white)](https://exemption-recruitment-sagem-carnival.trycloudflare.com)
+[![React 19](https://img.shields.io/badge/Frontend-React%2019%20%7C%20Vite%208-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Express API](https://img.shields.io/badge/Backend-Express%20%7C%20Node.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL%20%7C%20Prisma%207-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![License](https://img.shields.io/badge/License-MIT-4a7c59?style=for-the-badge)](LICENSE)
+
+<br/>
+
+**Bridging Indian Farmers, APMC Mandis, and Government Procurement Officers through Real-Time Digital Gate Passes, IVR Telephony for Feature Phones, and Multilingual AI Assistance.**
+
+[🌐 Live Demo](https://exemption-recruitment-sagem-carnival.trycloudflare.com) • [✨ Key Innovations](#-key-innovations--features) • [🏗️ Monorepo Architecture](#-monorepo-architecture) • [⚙️ Quickstart](#-quickstart--local-setup) • [🛡️ Officer Portal](#-mandi-officer-control-center) • [📡 API Reference](#-key-api-endpoints)
 
 ---
+
+</div>
+
+<br/>
 
 ## 📌 Executive Summary & Problem Statement
 
 Indian farmers lose hundreds of hours every harvesting season waiting in unorganized truck queues at APMC Mandis and Procurement Centres. Extreme congestion causes:
-1. **Prolonged Queue Wait Times**: Up to 18–36 hours of idling outside Mandi gates with perishable grain.
-2. **Moisture-Based Distress Selling**: Middlemen exploiting lack of awareness around the government's official 17% moisture limit.
-3. **Delayed Payouts**: Manual paperwork delaying DBT (Direct Benefit Transfer) settlements for weeks.
+- ⏳ **Prolonged Queue Wait Times**: Up to 18–36 hours of idling outside Mandi gates with perishable grain.
+- 💧 **Moisture-Based Distress Selling**: Middlemen exploiting lack of awareness around the government's official 17% moisture limit.
+- 💸 **Delayed Payouts**: Manual paperwork delaying DBT (Direct Benefit Transfer) settlements for weeks.
 
-**KisanSetu (किसानसेतु)** is an end-to-end full-stack platform built to bridge the gap between farmers, mandis, and government procurement officials. It introduces **instant digital gate pass tokens, time-slot management, live queue status, a multilingual AI assistant, IVR telephony for feature phones, and an authorized Mandi Officer Control Center.**
+**KisanSetu (किसानसेतु)** is an end-to-end full-stack monorepo built to eliminate gate congestion, streamline weighing and inspection, and empower every farmer with direct, transparent procurement access.
 
 ---
 
-## 🚀 Key Innovations & Core Features
+## ✨ Key Innovations & Features
 
-### 1. 🎟️ Digital Mandi E-Gate Pass & Slot Booking
-- **Fast-Track Gate Entry**: Real-time slot allocation based on dynamic procurement center capacity.
-- **Scannable Barcode & QR**: High-resolution barcodes for instant gate officer verification.
-- **WhatsApp Share & SMS Integration**: 1-tap sharing with family or truck drivers.
-
-### 2. 🛡️ Mandi Officer Control Center & Token Scanner
-- **Secure Officer Portal**: Concealed from normal farmer view; accessible only via verified Officer credentials.
-- **Live Registry & Queue Management**: Search, filter, and track trucks inside the mandi yard.
-- **1-Click Workflow Lifecycle**: `Confirmed` ➔ `Gate In` ➔ `Weighed & Passed` ➔ `DBT Completed`.
-
-### 3. 🤖 Multilingual Kisan Mitra AI Assistant
-- Powered by streaming LLMs with **dynamic auto-language detection**.
-- Supports **Hindi (हिन्दी), Punjabi (ਪੰਜਾਬੀ), Marathi (मराठी), and English**.
-- Instant guidance on MSP rates, 17% moisture guidelines, required KYC documents, and DBT timelines.
-
-### 4. 🧮 Interactive Fair MSP & Moisture Calculator
-- **Official 2025-26 Crop MSP Data**: Instant payout calculations for Paddy, Wheat, Mustard, Chana, and Cotton.
-- **Moisture Threshold Analyzer**: Visual interactive slider displaying 0% deduction limits ($\le 17\%$) vs. sun-drying advisories.
-
-### 5. 📞 IVR Telephony Gateway for Non-Smartphone Farmers
-- Integrated voice IVR routes (`/api/ivr`) allowing farmers with basic feature phones to book gate passes and check slot availability via dial-in keypad prompts.
-
-### 6. 📱 Mobile-First Responsive PWA Experience
-- Sticky app navigation bar with thumb-friendly touch targets.
-- Smooth bottom-drawer sheet modals with numeric keypad optimization (`inputMode="numeric"`).
+<table>
+  <tr>
+    <td width="50%">
+      <h3>🎟️ Digital Mandi E-Gate Pass</h3>
+      <ul>
+        <li><b>Dynamic Slot Booking</b>: Real-time slot allocation based on live mandi capacity.</li>
+        <li><b>Scannable Barcode & QR</b>: High-resolution verification codes for gate entry officers.</li>
+        <li><b>1-Tap WhatsApp & SMS</b>: Instant pass sharing with family or truck drivers.</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>🛡️ Mandi Officer Control Center</h3>
+      <ul>
+        <li><b>Role-Protected Dashboard</b>: Hidden from public navigation until verified login.</li>
+        <li><b>Live Yard Registry</b>: Real-time search, filters, and truck queue metrics.</li>
+        <li><b>1-Click Lifecycle Tracker</b>: <code>Confirmed</code> ➔ <code>Gate In</code> ➔ <code>Weighed</code> ➔ <code>DBT Paid</code>.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>🤖 Multilingual Kisan Mitra AI</h3>
+      <ul>
+        <li><b>4 Indian Languages</b>: Hindi (हिन्दी), Punjabi (ਪੰਜਾਬੀ), Marathi (मराठी), and English.</li>
+        <li><b>Live Streaming LLM</b>: Instant advice on MSP rates, 17% moisture limits, and KYC papers.</li>
+        <li><b>Voice Mic Ready</b>: Accessible for rural and non-English-speaking farmers.</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>📞 IVR Gateway for Feature Phones</h3>
+      <ul>
+        <li><b>No Internet Required</b>: Keypad dial-in state machine for non-smartphone users.</li>
+        <li><b>Automated Pass Generation</b>: Book slots and check live queue position via toll-free phone call.</li>
+        <li><b>Full Database Sync</b>: IVR tokens sync directly with the Mandi Officer Registry.</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>🧮 Interactive Fair MSP & Moisture Calculator</h3>
+      <ul>
+        <li><b>Official 2025-26 Rates</b>: Live MSP rates for Paddy (₹2,300/Qtl), Wheat, Mustard, etc.</li>
+        <li><b>Moisture Threshold Analyzer</b>: Interactive slider displaying 0% price deduction threshold ($\le 17\%$).</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>📱 Mobile-First Responsive PWA</h3>
+      <ul>
+        <li><b>Sticky Bottom Navigation</b>: Large thumb-friendly app controls (Home, Mandis, Pass, MSP, Help).</li>
+        <li><b>Bottom Sheet Drawers</b>: Touch-optimized numeric inputs (<code>inputMode="numeric"</code>).</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 ---
 
 ## 🏗️ Monorepo Architecture
 
-The repository is organized as a unified full-stack monorepo:
-
 ```
-kisansetu/
-├── backend/                      # Express + Prisma Backend API
+kisansetu/ (Unified Full-Stack Repository)
+│
+├── backend/                       # 🟢 Express + Prisma REST API (Port 5000)
 │   ├── prisma/
-│   │   ├── migrations/           # Database schema migrations
-│   │   ├── schema.prisma         # Models (User, Farmer, Produce, Center, Slot, Booking)
-│   │   └── seed.js               # Database seeder with sample mandis & bookings
+│   │   ├── migrations/            # SQL schema migrations
+│   │   ├── schema.prisma          # PostgreSQL models (User, Farmer, Booking, Slot, Center)
+│   │   └── seed.js                # Database seeder with sample mandis & bookings
 │   ├── scripts/
-│   │   └── create-admin.js       # Admin user generator utility
+│   │   └── create-admin.js        # Admin user generator utility
 │   ├── src/
-│   │   ├── controllers/          # Procurement, Auth, Farmer, Crop, Produce controllers
-│   │   ├── ivr/                  # IVR telephony state machine and routes
-│   │   ├── middleware/           # JWT auth & role validation middleware
-│   │   └── routes/               # Modular REST endpoints
-│   ├── .env.example              # Backend environment template
-│   ├── package.json              # Backend dependencies & scripts
-│   └── server.js                 # Express server entry point (Port 5000)
+│   │   ├── controllers/           # Procurement, Auth, Farmer, Crop, Produce controllers
+│   │   ├── ivr/                   # IVR telephone state machine & dial-in routes
+│   │   ├── middleware/            # JWT auth & security rate limiters
+│   │   └── routes/                # Modular REST endpoints
+│   ├── .env.example               # Backend database configuration template
+│   ├── package.json               # Backend dependencies
+│   └── server.js                  # Express API server entry
 │
-├── src/                          # TanStack Start / React 19 Frontend
-│   ├── assets/                   # KisanSetu circular emblem & mascot graphics
+├── src/                           # 🌾 React 19 + TanStack Start Frontend (Port 3000)
+│   ├── assets/                    # Transparent circular emblem & mascots
 │   ├── components/
-│   │   ├── KisanSetuApp.tsx      # Main application dashboard & workflows
-│   │   └── KisanMitraChat.tsx    # Multilingual floating AI assistant
-│   ├── data/
-│   │   ├── centres.ts            # Procurement centers & MSP reference data
-│   │   └── translations.ts       # English, Hindi, Punjabi, Marathi dictionary
-│   ├── lib/
-│   │   └── procurementApi.ts     # Full-stack API client with fallback resilience
-│   ├── routes/
-│   │   ├── api/
-│   │   │   ├── chat.ts           # Streaming AI assistant endpoint
-│   │   │   └── procurement/      # TanStack server endpoints
-│   │   └── index.tsx             # Root application page
-│   ├── styles.css                # Natural agricultural theme & responsive tokens
-│   └── router.tsx                # Client/server route tree
+│   │   ├── KisanSetuApp.tsx       # Main dashboard, booking flow & officer control center
+│   │   └── KisanMitraChat.tsx     # Multilingual AI assistant widget
+│   ├── data/                      # Multi-language translations & MSP tables
+│   ├── lib/                       # API clients & service bridges
+│   ├── routes/                    # Server functions & page routes
+│   └── styles.css                 # Natural agricultural theme & responsive tokens
 │
-├── public/                       # Static public assets (Favicon, Logo, PWA manifest)
-├── vite.config.ts                # Vite build & Nitro server configuration
-├── package.json                  # Root monorepo scripts & frontend dependencies
-└── README.md                     # Project documentation
+├── public/                        # Static public assets (Favicon, Logo, PWA manifest)
+├── vite.config.ts                 # Vite build & Nitro server configuration
+├── package.json                   # Unified root monorepo scripts
+└── README.md                      # Project documentation
 ```
 
 ---
 
-## 💻 Tech Stack
+## 💻 Tech Stack Matrix
 
-| Layer | Technology | Purpose |
+| Category | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Frontend** | React 19, TypeScript, Vite 8 | Ultra-fast reactive UI with modern hooks |
-| **Framework** | TanStack Start, TanStack Router | Full-stack SSR routing and server functions |
-| **Styling** | Tailwind CSS v4, Lucide Icons | Responsive natural agricultural design |
-| **AI Assistant** | `@ai-sdk/react`, Streaming LLM | Multilingual conversational helper |
-| **Backend API** | Node.js, Express.js | High-throughput REST API with rate limiting |
-| **ORM & Database**| Prisma 7, PostgreSQL 16 | Relational data integrity for transactions |
-| **Telephony** | IVR Controller State Machine | Voice telephone booking for feature phones |
-| **Tunnel / Edge**| Cloudflare HTTP/2 Tunnel | Zero-config public HTTPS URL for demo testing |
+| **Frontend Framework** | **React 19 + TypeScript** | High-performance reactive UI with modern hooks |
+| **Routing & SSR** | **TanStack Start & Router** | Type-safe full-stack routing and server endpoints |
+| **Styling & Design** | **Tailwind CSS v4** | Natural agricultural color palette & mobile layout |
+| **AI Assistant** | **`@ai-sdk/react` + LLM** | Multilingual streaming voice/text assistant |
+| **Backend REST API** | **Express.js + Node.js** | Modular API with rate limiting and helmet security |
+| **Database & ORM** | **PostgreSQL 16 + Prisma 7** | Strongly typed relational schema with migrations |
+| **Voice Telephony** | **IVR State Machine** | Keypad DTMF booking for non-smartphone users |
+| **Public Deployment** | **Cloudflare HTTP/2 Tunnel** | Secure global HTTPS edge distribution |
 
 ---
 
 ## ⚙️ Quickstart & Local Setup
 
-### Prerequisites
-- **Node.js**: `v20.x` or higher
-- **PostgreSQL**: `v15.x` or higher (optional for frontend preview, required for full DB persistence)
-
-### 1. Clone the Unified Repository
+### 1. Clone the Unified Monorepo
 ```bash
 git clone https://github.com/soroshimukherjee/soil-sidekick-ai.git kisansetu
 cd kisansetu
@@ -136,86 +164,76 @@ npm install
 cd backend && npm install && cd ..
 ```
 
-### 3. Configure Environment Variables
+### 3. Environment Setup
 ```bash
-# Root Frontend .env
-cp .env.example .env
-
-# Backend .env
+# Configure Backend Database
 cp backend/.env.example backend/.env
 ```
 
-*Backend `.env` sample:*
+*`backend/.env` contents:*
 ```ini
 DATABASE_URL="postgresql://postgres:password@localhost:5432/kisansetu?schema=public"
-JWT_SECRET="kisansetu_secure_jwt_secret_2026"
+JWT_SECRET="kisansetu_production_secure_jwt_secret_key_2026"
 PORT=5000
 ```
 
-### 4. Database Setup & Migration (Prisma)
+### 4. Database Initialization (Prisma)
 ```bash
 # Generate Prisma Client
 npm run prisma:generate
 
-# Run schema migrations
+# Run Database Migrations
 npm run prisma:migrate
 
-# Seed database with sample mandis & bookings
+# Seed Sample Mandis & Bookings
 npm run prisma:seed
 ```
 
 ### 5. Start Development Servers
 
-**Run Frontend (Port 3000):**
-```bash
-npm run dev
-```
-
-**Run Backend API (Port 5000 in separate terminal):**
-```bash
-npm run dev:backend
-```
-
-Open `http://localhost:3000` in your browser.
+| Process | Command | URL |
+| :--- | :--- | :--- |
+| **Frontend (React 19)** | `npm run dev` | `http://localhost:3000` |
+| **Backend (Express API)** | `npm run dev:backend` | `http://localhost:5000` |
 
 ---
 
-## 🛡️ Mandi Officer Portal & Token Scanner
+## 🛡️ Mandi Officer Control Center & Demo Credentials
 
 To test the Mandi Officer workflow:
-1. Click **"Officer Login"** in the top navigation bar or footer.
-2. Click **"⚡ 1-Click Demo Officer Login"** (or use credentials: ID `MANDI-701`, PIN `7018`).
+1. Click **"Officer Login"** in the top navigation bar.
+2. Click **"⚡ 1-Click Demo Officer Login"** (or enter: ID `MANDI-701`, PIN `7018`).
 3. The **"Mandi Officer / Admin"** tab appears in the navigation.
-4. Use the **Token Scanner** to lookup `KS-8942` or search by farmer phone number.
+4. Test the **Gate Scanner** with sample Token `KS-8942` or search by farmer phone number.
 5. Update truck status live: `Gate In` ➔ `Weigh & Pass` ➔ `DBT Paid`.
 
 ---
 
 ## 📡 Key API Endpoints
 
-### Procurement & Gate Pass APIs
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/procurement/centers` | Fetch all live procurement centers and available slots |
-| `GET` | `/api/procurement/bookings` | Fetch booking list for officer registry view |
-| `GET` | `/api/procurement/bookings/:tokenId` | Fetch single pass verification details |
-| `POST` | `/api/procurement/bookings` | Generate new digital gate pass token and decrement slot |
-| `PATCH`| `/api/procurement/bookings` | Update token status (`Gate In`, `Weighed`, `Completed`, `Cancelled`) |
-| `DELETE`| `/api/procurement/bookings/:tokenId`| Cancel booked pass and restore slot capacity |
+### 🌾 Mandi Gate Pass & Procurement Endpoints
+```http
+GET    /api/procurement/centers           # List all active centers and live slot availability
+GET    /api/procurement/bookings          # Fetch registry bookings for officer dashboard
+GET    /api/procurement/bookings/:tokenId # Single gate pass verification details
+POST   /api/procurement/bookings          # Issue new digital gate pass and decrement slot
+PATCH  /api/procurement/bookings          # Update token lifecycle status
+DELETE /api/procurement/bookings/:tokenId # Cancel pass and restore slot capacity
+```
 
-### Kisan Mitra AI & IVR APIs
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `POST` | `/api/chat` | Streaming multilingual AI chatbot endpoint |
-| `POST` | `/api/ivr/call` | Inbound IVR call handler |
-| `POST` | `/api/ivr/input` | IVR DTMF keypad selection processor |
+### 🤖 Kisan Mitra AI & IVR Endpoints
+```http
+POST   /api/chat                          # Multilingual streaming AI conversation
+POST   /api/ivr/call                      # Inbound telephone IVR entry handler
+POST   /api/ivr/input                     # Keypad DTMF digit input processor
+```
 
 ---
 
 ## 👥 Hackathon Team & Acknowledgements
 - **Project**: KisanSetu (किसानसेतु)
 - **Built for**: National Innovation Hackathon 2026
-- **Special Thanks**: Ministry of Agriculture & Farmers Welfare data initiatives, e-NAM, and Digital India standards.
+- **Data & Standards**: Ministry of Agriculture & Farmers Welfare, e-NAM, and Digital India standards.
 
 ---
 
