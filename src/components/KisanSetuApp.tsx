@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { TRANSLATIONS } from "@/data/translations";
 import { INITIAL_CENTRES, MSP_RATES } from "@/data/centres";
 import kisanSetuCircle from "@/assets/kisansetu-circle.png";
+import { IvrPhoneModal } from "./IvrPhoneModal";
 import {
   getProcurementCenters,
   createProcurementBooking,
@@ -220,6 +221,7 @@ export default function KisanSetuApp() {
   const [isListening, setIsListening] = useState(false);
   const [copiedNotify, setCopiedNotify] = useState(false);
   const [showDocsModal, setShowDocsModal] = useState(false);
+  const [showIvrModal, setShowIvrModal] = useState<boolean>(false);
 
   // Calculator & Moisture Tester
   const [calcCrop, setCalcCrop] = useState(MSP_RATES[0]);
@@ -631,14 +633,15 @@ export default function KisanSetuApp() {
               </button>
             )}
 
-            {/* Helpline */}
-            <a
-              href="tel:18001801551"
-              className="text-yellow-300 hover:underline font-bold flex items-center gap-1 text-[10px] sm:text-[11px]"
+            {/* Helpline / IVR */}
+            <button
+              type="button"
+              onClick={() => setShowIvrModal(true)}
+              className="text-yellow-300 hover:underline font-bold flex items-center gap-1 text-[10px] sm:text-[11px] cursor-pointer"
             >
               <Icon name="phone-call" className="w-3 h-3 text-yellow-300" />
-              <span>Helpdesk: 1800-180-1551</span>
-            </a>
+              <span>IVR Helpline: 1800-180-1551</span>
+            </button>
 
             {/* Top Language Switcher */}
             <div className="hidden sm:flex items-center bg-black/20 rounded p-0.5 text-[10px]">
@@ -1068,13 +1071,14 @@ export default function KisanSetuApp() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f4f6f0]">
-                  <a
-                    href="tel:18001801551"
-                    className="w-full bg-[#c86d12] hover:bg-[#a5590d] text-white py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95"
+                  <button
+                    type="button"
+                    onClick={() => setShowIvrModal(true)}
+                    className="w-full bg-[#c86d12] hover:bg-[#a5590d] text-white py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95 cursor-pointer"
                   >
                     <Icon name="phone-call" className="w-4 h-4" />
                     <span>{t.callHelplineBtn}</span>
-                  </a>
+                  </button>
 
                   <button
                     type="button"
@@ -1839,6 +1843,35 @@ export default function KisanSetuApp() {
         {/* TAB: HELP & CITIZEN CHARTER */}
         {activeTab === "help" && (
           <div className="space-y-4">
+            {/* IVR Voice Phone Feature Banner */}
+            <div className="bg-gradient-to-r from-[#2a4732] to-[#4a7c59] text-white p-4 sm:p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3.5">
+                <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-2xl shrink-0 border border-white/20">
+                  📞
+                </div>
+                <div>
+                  <h3 className="font-black text-sm sm:text-base leading-snug">
+                    {lang === "hi"
+                      ? "किसानसेतु 24x7 IVR फोन बुकिंग सेवा (1800-180-1551)"
+                      : "KisanSetu 24x7 IVR Voice Booking Service (1800-180-1551)"}
+                  </h3>
+                  <p className="text-xs text-emerald-100 mt-0.5">
+                    {lang === "hi"
+                      ? "बिना स्मार्टफोन व बिना इंटरनेट, साधारण कीपैड फोन से स्लॉट बुक करें व टोकन पाएं।"
+                      : "Book procurement slots and receive gate pass tokens via phone call without internet."}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowIvrModal(true)}
+                className="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md transition cursor-pointer active:scale-95 whitespace-nowrap"
+              >
+                <span>📞</span>
+                <span>{lang === "hi" ? "लाइव IVR सिम्युलेटर खोलें" : "Open Live IVR Simulator"}</span>
+              </button>
+            </div>
+
             <div className="ks-card p-4 space-y-3">
               <h3 className="text-sm font-bold text-slate-900 border-b border-[#e6d8c3] pb-2">
                 {t.tollFreeTitle}
@@ -2119,7 +2152,23 @@ export default function KisanSetuApp() {
         </div>
       )}
 
-      {/* 8. BOOKING MODAL */}
+      {/* 8. IVR PHONE SIMULATOR MODAL */}
+      <IvrPhoneModal
+        isOpen={showIvrModal}
+        onClose={() => setShowIvrModal(false)}
+        onBookingSuccess={(newBooking) => {
+          setActiveToken(newBooking);
+          setCentresData((prev) =>
+            prev.map((c) =>
+              c.name === newBooking.centreName || c.id === newBooking.centreId
+                ? { ...c, availableSlots: Math.max(0, c.availableSlots - 1) }
+                : c
+            )
+          );
+        }}
+      />
+
+      {/* 9. BOOKING MODAL */}
       {bookingModalOpen && selectedCentreForBooking && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-3">
           <div className="bg-white border border-slate-300 w-full max-w-md rounded-t-2xl sm:rounded-xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">

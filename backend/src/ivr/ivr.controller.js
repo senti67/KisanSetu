@@ -1,248 +1,135 @@
-const ivrService = require("./ivr.service");
+const { ivrEngine } = require("./ivr.engine");
 const ivrSession = require("./ivr.session");
 
-// ==========================
-// IVR WEBHOOK
-// Supports:
-// 1. Development JSON requests
-// 2. Exotel Passthru requests
-// ==========================
-
+/**
+ * Main IVR Webhook Handler
+ * Supports:
+ * - Twilio / Exotel / Plivo / Standard Telephony Webhooks (POST & GET)
+ * - JSON Telephony Gateway / In-App Voice Simulator
+ * - TwiML Voice XML Response
+ */
 const handleIVR = async (req, res) => {
   try {
-    // ==========================
-    // READ EXOTEL / JSON INPUT
-    // ==========================
-
     const body = req.body || {};
     const query = req.query || {};
 
+    // Extract Call Identifier
     const callId =
+      body.CallSid ||
+      body.CallSid ||
       body.callId ||
       body.callsid ||
       body.call_sid ||
+      body.Sid ||
+      query.CallSid ||
       query.callId ||
       query.callsid ||
-      query.call_sid;
+      `sim-call-${Date.now()}`;
 
-    const phone =
+    // Extract Phone Number (Caller ID)
+    const rawPhone =
+      body.From ||
       body.phone ||
+      body.Caller ||
       body.callfrom ||
       body.call_from ||
+      query.From ||
       query.phone ||
-      query.callfrom ||
-      query.call_from;
+      query.callfrom;
 
+    const phone = rawPhone ? String(rawPhone).replace(/\D/g, "").slice(-10) : null;
+
+    // Extract Keypad DTMF Input (digits)
     let input =
-      body.input ??
+      body.Digits ??
       body.digits ??
-      query.input ??
-      query.digits;
+      body.input ??
+      query.Digits ??
+      query.digits ??
+      query.input;
 
-    // Exotel may send digits with quotes.
     if (typeof input === "string") {
-      input = input.replace(/^"+|"+$/g, "");
+      input = input.replace(/^"+|"+$/g, "").trim();
     }
 
-    // ==========================
-    // VALIDATE CALL ID
-    // ==========================
-
-    if (!callId) {
-      return res.status(400).json({
-        message: "Call ID is required",
-      });
-    }
-
-    // ==========================
-    // GET EXISTING SESSION
-    // ==========================
-
+    // Get or initialize Call Session
     let session = ivrSession.getSession(callId);
 
-    // ==========================
-    // CREATE NEW SESSION
-    // ==========================
-
     if (!session) {
-      if (!phone) {
-        return res.status(400).json({
-          message:
-            "Phone number is required for a new call",
-        });
-      }
-
-      const farmer =
-        await ivrService.findFarmerByPhone(phone);
-
-      if (!farmer) {
-        return res.status(404).json({
-          message:
-            "Farmer account not found for this phone number",
-        });
-      }
-
       session = ivrSession.createSession(callId, {
-        phone,
-        farmerId: farmer.farmer.id,
+        phone: phone || null,
+        language: body.language || query.language || null,
         stage: "LANGUAGE",
       });
-
-      // ==========================
-      // FIRST CALL RESPONSE
-      // ==========================
-
-      if (input === undefined || input === null) {
-        return res.status(200).json({
-          success: true,
-          session,
-          farmer: {
-            id: farmer.id,
-            name: farmer.name,
-          },
-          response:
-            ivrService.getLanguageMenu(),
-        });
-      }
     }
 
-    // ==========================
-    // LANGUAGE SELECTION
-    // ==========================
+    // Process State Machine Step
+    const result = await ivrEngine.processStep(session, input);
+    session = ivrSession.updateSession(callId, result.session);
 
-    if (session.stage === "LANGUAGE") {
-      if (input === undefined || input === null) {
-        return res.status(200).json({
-          success: true,
-          session,
-          response:
-            ivrService.getLanguageMenu(),
-        });
-      }
+    // Format response based on Client Request (TwiML vs JSON)
+    const isXmlRequested =
+      req.headers.accept?.includes("xml") ||
+      query.format === "xml" ||
+      query.format === "twiml" ||
+      body.format === "twiml";
 
-      const result =
-        ivrService.processLanguage(input);
-
-      if (!result.success) {
-        return res.status(200).json({
-          success: false,
-          session,
-          response: result,
-        });
-      }
-
-      session = ivrSession.updateSession(callId, {
-        language: result.language,
-        stage: "MAIN_MENU",
-      });
-
-      return res.status(200).json({
-        success: true,
-        session,
-        response: {
-          ...result,
-          next:
-            ivrService.getMainMenu(
-              result.language
-            ),
-        },
-      });
+    if (isXmlRequested) {
+      const twiml = ivrEngine.generateTwiML(
+        result.promptText,
+        `/api/ivr/webhook?callId=${encodeURIComponent(callId)}`,
+        result.expectDigits || 1
+      );
+      res.setHeader("Content-Type", "text/xml; charset=utf-8");
+      return res.send(twiml);
     }
 
-    // ==========================
-    // MAIN MENU
-    // ==========================
-
-    if (session.stage === "MAIN_MENU") {
-      const selectedLanguage =
-        session.language;
-
-      if (!selectedLanguage) {
-        return res.status(400).json({
-          message:
-            "Session language is missing",
-        });
-      }
-
-      // ==========================
-      // REPEAT MENU
-      // ==========================
-
-      if (
-        input === undefined ||
-        input === null ||
-        String(input) === "9"
-      ) {
-        return res.status(200).json({
-          success: true,
-          session,
-          response:
-            ivrService.getMainMenu(
-              selectedLanguage
-            ),
-        });
-      }
-
-      // ==========================
-      // MY PRODUCE
-      // ==========================
-
-      if (String(input) === "3") {
-        const produce =
-          await ivrService.getMyProduce(
-            session.farmerId
-          );
-
-        const message =
-          ivrService.formatProduceForIVR(
-            produce
-          );
-
-        return res.status(200).json({
-          success: true,
-          session,
-          response: {
-            action: "MY_PRODUCE",
-            message,
-            count: produce.length,
-          },
-        });
-      }
-
-      // ==========================
-      // OTHER OPTIONS
-      // ==========================
-
-      const response =
-        ivrService.processInput(
-          input,
-          selectedLanguage
-        );
-
-      return res.status(200).json({
-        success: true,
-        session,
-        response,
-      });
-    }
-
-    // ==========================
-    // INVALID SESSION STAGE
-    // ==========================
-
-    return res.status(400).json({
-      message:
-        "Invalid IVR session stage",
+    // Default: Clean JSON REST format for Simulator & API clients
+    return res.status(200).json({
+      success: true,
+      callId,
+      session: {
+        stage: session.stage,
+        language: session.language,
+        phone: session.phone,
+      },
+      promptText: result.promptText,
+      expectDigits: result.expectDigits || 1,
+      booking: result.booking || null,
     });
   } catch (error) {
-    console.error("IVR error:", error);
+    console.error("[IVR Controller Error]:", error);
+
+    const isXmlRequested = req.headers.accept?.includes("xml") || req.query.format === "xml";
+    if (isXmlRequested) {
+      res.setHeader("Content-Type", "text/xml; charset=utf-8");
+      return res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say language="hi-IN">क्षमा करें, तकनीकी समस्या के कारण सेवा अनुपलब्ध है।</Say>
+  <Hangup/>
+</Response>`);
+    }
 
     return res.status(500).json({
-      message: "Internal server error",
+      success: false,
+      message: "Internal IVR server error",
+      promptText: "क्षमा करें, तकनीकी समस्या के कारण सेवा अनुपलब्ध है। कृपया हेल्पलाइन 1800-180-1551 पर संपर्क करें।",
     });
   }
 };
 
+/**
+ * Reset / End Call Handler
+ */
+const endCall = (req, res) => {
+  const callId = req.params.callId || req.body.callId || req.query.callId;
+  if (callId) {
+    ivrSession.deleteSession(callId);
+  }
+  return res.json({ success: true, message: "Call ended and session cleared" });
+};
+
 module.exports = {
   handleIVR,
+  endCall,
 };
