@@ -1426,37 +1426,6 @@ export default function KisanSetuApp() {
         {/* TAB: GATE PASS TOKEN & QUEUE */}
         {activeTab === "my-booking" && (
           <div className="space-y-4 max-w-4xl mx-auto">
-            {/* Sync / Refresh Pass & Token Switcher */}
-            <div className="flex flex-wrap items-center justify-between gap-2 bg-white border border-[#c2a68c]/50 p-2.5 rounded-xl text-xs">
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-700">Live Passes:</span>
-                {adminBookings && adminBookings.length > 1 && (
-                  <select
-                    value={activeToken?.tokenId || ""}
-                    onChange={(e) => {
-                      const selected = adminBookings.find((b) => b.tokenId === e.target.value);
-                      if (selected) setActiveToken(selected);
-                    }}
-                    className="bg-slate-50 border border-slate-300 rounded px-2 py-1 font-mono font-bold text-slate-900 text-xs"
-                  >
-                    {adminBookings.map((b) => (
-                      <option key={b.tokenId} value={b.tokenId}>
-                        {b.tokenId} — {b.farmerName} ({b.crop})
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </div>
-
-              <button
-                type="button"
-                onClick={refreshAdminBookings}
-                className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer transition active:scale-95 ml-auto"
-              >
-                <Icon name="refresh" className={`w-3.5 h-3.5 ${isLoadingAdminBookings ? "animate-spin" : ""}`} />
-                <span>Sync Live Pass (रिफ्रेश)</span>
-              </button>
-            </div>
 
             {activeToken ? (
               <div className="space-y-3">
