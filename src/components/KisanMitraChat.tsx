@@ -169,18 +169,18 @@ export default function KisanMitraChat() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Kisan Mitra सहायक खोलें"
-          className="no-print fixed bottom-18 sm:bottom-4 right-3 sm:right-4 z-40 flex items-center gap-2 rounded-full border border-slate-300 bg-white py-1.5 pl-1.5 pr-3.5 shadow-lg transition hover:shadow-xl cursor-pointer active:scale-95"
+          className="no-print fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 flex items-center gap-2.5 rounded-full border border-[#c2a68c] bg-white py-2 pl-2 pr-4 shadow-xl hover:shadow-2xl transition hover:scale-105 cursor-pointer active:scale-95"
         >
           <img
             src={mascot}
             alt="Kisan Mitra"
             width={512}
             height={512}
-            className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-emerald-50 object-contain p-0.5"
+            className="h-10 w-10 sm:h-11 sm:w-11 rounded-full bg-emerald-50 object-contain p-0.5 border border-emerald-200"
           />
           <span className="text-left leading-tight">
-            <span className="block text-[11px] font-black text-[#003366]">Kisan Mitra AI</span>
-            <span className="block text-[9px] sm:text-[10px] font-bold text-slate-500">
+            <span className="block text-xs font-black text-[#2a4732]">Kisan Mitra AI</span>
+            <span className="block text-[10px] font-bold text-[#c86d12]">
               {lang === "hi"
                 ? "पूछिए / Ask me"
                 : lang === "pa"
@@ -194,9 +194,9 @@ export default function KisanMitraChat() {
       )}
 
       {open && (
-        <div className="no-print fixed bottom-16 sm:bottom-4 right-2 sm:right-4 z-50 flex h-[78vh] max-h-[540px] w-[calc(100vw-1rem)] sm:w-96 max-w-sm flex-col overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-2xl">
+        <div className="no-print fixed bottom-18 sm:bottom-6 right-3 sm:right-6 z-50 flex h-[78vh] max-h-[540px] w-[calc(100vw-1.5rem)] sm:w-96 max-w-sm flex-col overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-2xl">
           {/* Header */}
-          <div className="flex items-center gap-2 bg-[#003366] px-3 py-2.5 text-white">
+          <div className="flex items-center gap-2 bg-[#2a4732] px-3 py-2.5 text-white">
             <img
               src={mascot}
               alt="Kisan Mitra"

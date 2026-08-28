@@ -596,7 +596,7 @@ export default function KisanSetuApp() {
   }, [inputMoisture]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f4f6f0] text-[#1f2421] pb-20 md:pb-6">
+    <div className="min-h-screen flex flex-col bg-[#f4f6f0] text-[#1f2421]">
       {/* 1. TOP GOVT & UTILITY BAR (Warm Forest Green) */}
       <header className="bg-[#2a4732] text-white text-xs border-b border-[#1b3022]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex items-center justify-between gap-2">
@@ -868,7 +868,7 @@ export default function KisanSetuApp() {
       </section>
 
       {/* 4. MAIN CONTENT CONTAINER */}
-      <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex-grow space-y-4 sm:space-y-5">
+      <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 flex-1 space-y-4 sm:space-y-6 pb-24 md:pb-8">
         {/* TAB: HOME DASHBOARD (The Beloved 4-Box Layout) */}
         {activeTab === "home" && (
           <div className="space-y-4 sm:space-y-5">
@@ -2344,35 +2344,36 @@ export default function KisanSetuApp() {
       )}
 
       {/* 9. WARM FOOTER */}
-      <footer className="bg-[#1f2421] text-slate-400 py-6 px-4 text-xs mt-auto border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <footer className="bg-[#1f2421] text-slate-300 py-6 px-4 text-xs border-t border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3">
             <img
               src={kisanSetuCircle}
               alt="KisanSetu Logo"
-              className="w-8 h-8 object-contain shrink-0"
+              className="w-10 h-10 object-contain shrink-0"
             />
             <div>
-              <p className="font-bold text-white">
-                {t.portalName} • {t.footerGovt}
+              <p className="font-bold text-white text-sm">
+                {t.portalName} <span className="text-emerald-400 font-normal">•</span> {t.footerGovt}
               </p>
-              <p className="text-[11px] text-slate-400">{t.footerTagline}</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">{t.footerTagline}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex items-center gap-5 text-xs">
             <button
               type="button"
               onClick={() => setOfficerLoginModal(true)}
-              className="text-slate-400 hover:text-white underline cursor-pointer"
+              className="text-slate-300 hover:text-white underline cursor-pointer font-semibold"
             >
-              Officer Portal
+              Mandi Officer Portal
             </button>
             <a
               href="tel:18001801551"
-              className="hover:text-white transition font-bold text-yellow-300"
+              className="text-amber-400 hover:text-amber-300 transition font-bold flex items-center gap-1.5"
             >
-              {t.helpline}
+              <Icon name="phone-call" className="w-3.5 h-3.5" />
+              <span>1800-180-1551 (Toll-Free)</span>
             </a>
           </div>
         </div>
