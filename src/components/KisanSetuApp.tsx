@@ -685,32 +685,32 @@ export default function KisanSetuApp() {
 
       {/* 2. MAIN BRANDING BAR (Warm White with Clean Logo) */}
       <section className="bg-white border-b border-[#d8ccbe] sticky top-0 z-30 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-2">
           <div
             onClick={() => setActiveTab("home")}
-            className="flex items-center gap-2.5 cursor-pointer"
+            className="flex items-center gap-2 sm:gap-2.5 cursor-pointer shrink-0"
           >
             {/* Clean Circular Logo */}
             <img
               src={kisanSetuCircle}
               alt="KisanSetu Logo"
-              className="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0"
+              className="w-9 h-9 sm:w-11 sm:h-11 object-contain shrink-0"
             />
             <div>
-              <h1 className="text-base sm:text-lg font-extrabold text-slate-900 leading-none flex items-center gap-1.5">
+              <h1 className="text-sm sm:text-lg font-extrabold text-slate-900 leading-tight">
                 {t.portalName}
               </h1>
-              <p className="text-[11px] text-slate-500 mt-0.5 font-medium">{t.portalSub}</p>
+              <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium line-clamp-1">{t.portalSub}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {/* Language Pills on Header */}
-            <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 p-0.5 text-xs">
+            <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 p-0.5 text-[11px] sm:text-xs">
               <button
                 type="button"
                 onClick={() => setLang("hi")}
-                className={`px-2 py-1 rounded cursor-pointer font-bold ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded cursor-pointer font-bold ${
                   lang === "hi" ? "bg-[#4a7c59] text-white" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -719,7 +719,7 @@ export default function KisanSetuApp() {
               <button
                 type="button"
                 onClick={() => setLang("pa")}
-                className={`px-2 py-1 rounded cursor-pointer font-bold ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded cursor-pointer font-bold ${
                   lang === "pa" ? "bg-[#4a7c59] text-white" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -728,7 +728,7 @@ export default function KisanSetuApp() {
               <button
                 type="button"
                 onClick={() => setLang("mr")}
-                className={`px-2 py-1 rounded cursor-pointer font-bold ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded cursor-pointer font-bold ${
                   lang === "mr" ? "bg-[#4a7c59] text-white" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -737,7 +737,7 @@ export default function KisanSetuApp() {
               <button
                 type="button"
                 onClick={() => setLang("en")}
-                className={`px-2 py-1 rounded cursor-pointer font-bold ${
+                className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded cursor-pointer font-bold ${
                   lang === "en" ? "bg-[#4a7c59] text-white" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
@@ -745,10 +745,11 @@ export default function KisanSetuApp() {
               </button>
             </div>
 
+            {/* Desktop / Tablet Gate Pass Button */}
             <button
               type="button"
               onClick={() => handleOpenBooking()}
-              className="bg-[#4a7c59] hover:bg-[#3b6447] text-white px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer"
+              className="hidden sm:flex bg-[#4a7c59] hover:bg-[#3b6447] text-white px-3.5 py-2 rounded-lg text-xs font-bold items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer whitespace-nowrap"
             >
               <Icon name="ticket" className="w-4 h-4 text-emerald-200" />
               <span>{t.bookSlotBtn}</span>
@@ -2334,7 +2335,7 @@ export default function KisanSetuApp() {
       )}
 
       {/* 9. WARM FOOTER */}
-      <footer className="bg-[#1f2421] text-slate-300 py-6 px-4 text-xs border-t border-slate-800">
+      <footer className="bg-[#1f2421] text-slate-300 pt-6 pb-28 md:pb-6 px-4 text-xs border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3">
             <img
