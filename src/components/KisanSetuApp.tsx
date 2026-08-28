@@ -188,8 +188,8 @@ export default function KisanSetuApp() {
     return sessionStorage.getItem("kisansetu_officer_logged") === "true";
   });
   const [officerLoginModal, setOfficerLoginModal] = useState<boolean>(false);
-  const [officerIdInput, setOfficerIdInput] = useState<string>("MANDI-701");
-  const [officerPinInput, setOfficerPinInput] = useState<string>("7018");
+  const [officerIdInput, setOfficerIdInput] = useState<string>("");
+  const [officerPinInput, setOfficerPinInput] = useState<string>("");
   const [officerLoginError, setOfficerLoginError] = useState<string | null>(null);
 
   // Admin Bookings List & Filter State
@@ -2014,6 +2014,7 @@ export default function KisanSetuApp() {
                   required
                   value={officerIdInput}
                   onChange={(e) => setOfficerIdInput(e.target.value)}
+                  placeholder="e.g. MANDI-701"
                   className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 font-bold"
                 />
               </div>
@@ -2027,29 +2028,18 @@ export default function KisanSetuApp() {
                   required
                   value={officerPinInput}
                   onChange={(e) => setOfficerPinInput(e.target.value)}
+                  placeholder="Enter PIN / Password"
                   className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 font-bold"
                 />
               </div>
 
-              <div className="pt-1 space-y-2">
+              <div className="pt-2">
                 <button
                   type="submit"
                   className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2.5 rounded-lg font-bold shadow-xs cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                 >
                   <Icon name="log-in" className="w-4 h-4" />
                   <span>Secure Login</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setOfficerIdInput("MANDI-701");
-                    setOfficerPinInput("7018");
-                    handleOfficerLogin();
-                  }}
-                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 py-2 rounded-lg font-bold cursor-pointer active:scale-95"
-                >
-                  ⚡ 1-Click Demo Officer Login (S. K. Verma)
                 </button>
               </div>
             </form>
