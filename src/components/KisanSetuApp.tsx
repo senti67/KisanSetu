@@ -226,7 +226,9 @@ export default function KisanSetuApp() {
   // Calculator & Moisture Tester
   const [calcCrop, setCalcCrop] = useState(MSP_RATES[0]);
   const [calcQuantity, setCalcQuantity] = useState(60);
-  const [inputMoisture, setInputMoisture] = useState(16.5);
+  const [inputMoisture, setInputMoisture] = useState<string>("16.5");
+  const [moistureLastTestedAt, setMoistureLastTestedAt] = useState<string | null>("Today, 09:30 AM");
+  const [showMoistureGuide, setShowMoistureGuide] = useState<boolean>(false);
 
   const setLang = (newLang: string) => {
     setLangState(newLang);
@@ -573,29 +575,67 @@ export default function KisanSetuApp() {
   };
 
   const moistureAnalysis = useMemo(() => {
-    const val = parseFloat(inputMoisture.toString()) || 0;
-    if (val <= 14.0) {
+    const raw = (inputMoisture ?? "").toString().trim();
+    if (!raw) {
       return {
-        status: "Pass — 0% Deduction",
-        color: "text-[#2a4732] bg-[#ebf2ee] border-[#4a7c59]/40",
+        isValid: false,
+        reading: 0,
+        status: "EMPTY" as const,
+        badge: "Enter Meter Reading",
+        sub: t.moistureMeterHint || "Enter moisture % from your grain meter",
+        actionHint: "Please enter a moisture value",
+        color: "text-slate-700 bg-slate-100 border-slate-300",
+        isPass: false,
+        source: "manual_meter_input" as const,
+        limit: 17.0,
       };
-    } else if (val <= 17.0) {
+    }
+
+    const val = parseFloat(raw);
+    if (isNaN(val) || val < 0 || val > 50) {
       return {
-        status: "Pass — 0% Deduction",
-        color: "text-[#2a4732] bg-[#ebf2ee] border-[#4a7c59]/40",
+        isValid: false,
+        reading: 0,
+        status: "INVALID" as const,
+        badge: "Invalid Number",
+        sub: "Please enter a valid percentage between 0.0% and 40.0%",
+        actionHint: "Check grain moisture meter display",
+        color: "text-red-900 bg-red-50 border-red-300",
+        isPass: false,
+        source: "manual_meter_input" as const,
+        limit: 17.0,
       };
-    } else if (val <= 19.0) {
+    }
+
+    // EXACT THRESHOLD: 17.0% MUST PASS, >17.0% REQUIRES DRYING
+    if (val <= 17.0) {
       return {
-        status: "High Moisture (~1.5% Price Cut)",
-        color: "text-[#a5590d] bg-[#fffbeb] border-amber-300",
+        isValid: true,
+        reading: val,
+        status: "PASS" as const,
+        badge: `${t.passStatus || "PASS"} — 0% Deduction`,
+        sub: `${t.passSub || "Within 17.0% limit • 0% deduction"} (${val.toFixed(1)}%)`,
+        actionHint: `✓ ${t.passAction || "Proceed to procurement"}`,
+        color: "text-emerald-900 bg-emerald-50 border-emerald-400",
+        isPass: true,
+        source: "manual_meter_input" as const,
+        limit: 17.0,
       };
     } else {
       return {
-        status: "Rejected (Sun Drying Required)",
-        color: "text-red-900 bg-red-50 border-red-300",
+        isValid: true,
+        reading: val,
+        status: "DRYING_REQUIRED" as const,
+        badge: `${t.rejectStatus || "REJECTED"} — Sun Drying Required`,
+        sub: `${t.rejectSub || "Exceeds 17.0% limit"} (${val.toFixed(1)}%)`,
+        actionHint: `⚠️ ${t.rejectAction || "Dry the grain and test again"}`,
+        color: "text-red-900 bg-red-50 border-red-400",
+        isPass: false,
+        source: "manual_meter_input" as const,
+        limit: 17.0,
       };
     }
-  }, [inputMoisture]);
+  }, [inputMoisture, t]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f4f6f0] text-[#1f2421]">
@@ -984,7 +1024,7 @@ export default function KisanSetuApp() {
                 </div>
               </div>
 
-              {/* CARD 3: MOISTURE TESTER */}
+              {/* CARD 3: MOISTURE TESTER & PRE-CHECK */}
               <div className="ks-card p-4 flex flex-col justify-between space-y-3">
                 <div>
                   <div className="flex items-center justify-between border-b border-[#e6d8c3] pb-2.5">
@@ -1000,42 +1040,155 @@ export default function KisanSetuApp() {
                       </div>
                     </div>
                     <span className="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200">
-                      Max 17%
+                      Limit: 17.0%
                     </span>
                   </div>
 
-                  <div className="mt-3 bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1.5 text-xs">
-                    <div className="flex justify-between font-bold text-slate-800 text-[11px]">
-                      <span>{t.moistureBranch}:</span>
-                      <span className="text-slate-900 font-mono font-black">{inputMoisture}%</span>
+                  {/* Informational Pre-Check Disclaimer */}
+                  <div className="mt-2.5 p-2 bg-blue-50/70 border border-blue-200/80 rounded-lg text-[10px] sm:text-[11px] text-blue-900 space-y-0.5">
+                    <div className="font-bold flex items-center gap-1 text-blue-950">
+                      <span>🌾</span>
+                      <span>Farmer pre-check: enter reading from moisture meter.</span>
                     </div>
-                    <input
-                      type="range"
-                      min="10"
-                      max="22"
-                      step="0.5"
-                      value={inputMoisture}
-                      onChange={(e) => setInputMoisture(parseFloat(e.target.value))}
-                      className="w-full accent-[#4a7c59] h-2 bg-slate-200 rounded cursor-pointer"
-                    />
-                    <div className={`p-1 text-center rounded text-[11px] font-bold border ${moistureAnalysis.color}`}>
-                      {moistureAnalysis.status}
+                    <p className="text-[10px] text-blue-700 leading-tight">
+                      Official moisture verification is performed at the procurement centre.
+                    </p>
+                  </div>
+
+                  {/* Meter Reading Input & Presets */}
+                  <div className="mt-2.5 bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-2 text-xs">
+                    <div className="flex justify-between items-center text-slate-800 text-[11px] font-bold">
+                      <label htmlFor="grain-moisture-input" className="flex items-center gap-1">
+                        <Icon name="droplet" className="w-3.5 h-3.5 text-blue-600" />
+                        <span>{t.moistureInputLabel}:</span>
+                      </label>
+                      <span className="text-[10px] text-slate-500 font-mono">Max: 17.0%</span>
                     </div>
+
+                    <div className="flex items-center gap-2">
+                      <div className="relative flex-1">
+                        <input
+                          id="grain-moisture-input"
+                          type="number"
+                          step="0.1"
+                          min="0"
+                          max="40"
+                          value={inputMoisture}
+                          onChange={(e) => setInputMoisture(e.target.value)}
+                          placeholder="e.g. 16.5"
+                          className="w-full bg-white border border-slate-300 rounded-lg py-1.5 px-3 text-sm font-mono font-black text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-[#4a7c59] shadow-inner"
+                        />
+                        <span className="absolute right-3 top-1.5 text-xs font-black text-slate-400 font-mono">%</span>
+                      </div>
+
+                      <input
+                        type="range"
+                        min="10"
+                        max="24"
+                        step="0.5"
+                        value={parseFloat(inputMoisture) || 16.5}
+                        onChange={(e) => setInputMoisture(e.target.value)}
+                        className="w-20 sm:w-24 accent-[#4a7c59] h-2 bg-slate-200 rounded cursor-pointer"
+                        title="Fine-tune moisture reading"
+                      />
+                    </div>
+
+                    {/* Quick Demo Presets */}
+                    <div className="flex items-center gap-1 flex-wrap pt-0.5">
+                      <span className="text-[9px] text-slate-500 font-bold uppercase">Presets:</span>
+                      {[
+                        { l: "14%", v: "14.0" },
+                        { l: "16.5%", v: "16.5" },
+                        { l: "17% (Limit)", v: "17.0" },
+                        { l: "18.5%", v: "18.5" },
+                        { l: "20%", v: "20.0" },
+                      ].map((p) => (
+                        <button
+                          key={p.v}
+                          type="button"
+                          onClick={() => setInputMoisture(p.v)}
+                          className={`px-1.5 py-0.5 text-[10px] font-mono font-bold rounded border cursor-pointer transition ${
+                            inputMoisture === p.v
+                              ? "bg-slate-900 text-white border-slate-900"
+                              : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                          }`}
+                        >
+                          {p.l}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Dynamic Result Box */}
+                    <div className={`p-2 rounded-lg border text-xs space-y-0.5 transition ${moistureAnalysis.color}`}>
+                      <div className="flex items-center justify-between font-black text-xs sm:text-sm">
+                        <span>{moistureAnalysis.badge}</span>
+                        <span className="font-mono text-xs">
+                          {moistureAnalysis.isValid ? `${moistureAnalysis.reading?.toFixed(1)}%` : "--"}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-medium leading-tight">{moistureAnalysis.sub}</p>
+                      <p className="text-[10px] font-bold">{moistureAnalysis.actionHint}</p>
+                      {moistureLastTestedAt && (
+                        <div className="text-[9px] text-slate-500 pt-1 border-t border-black/10 flex justify-between">
+                          <span>Source: Digital Meter Input</span>
+                          <span>Checked: {moistureLastTestedAt}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* How It Works Collapsible */}
+                  <div className="mt-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setShowMoistureGuide(!showMoistureGuide)}
+                      className="text-[10px] text-blue-700 hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>ℹ️</span>
+                      <span>{showMoistureGuide ? "Hide testing guide ▲" : "How does moisture testing work? ▼"}</span>
+                    </button>
+                    {showMoistureGuide && (
+                      <div className="mt-1 p-2 bg-slate-50 border border-slate-200 rounded-lg text-[10px] text-slate-700 space-y-0.5 font-medium">
+                        <p className="font-bold text-slate-900">{t.howItWorksTitle}</p>
+                        <p>{t.howItWorksStep1}</p>
+                        <p>{t.howItWorksStep2}</p>
+                        <p>{t.howItWorksStep3}</p>
+                        <p>{t.howItWorksStep4}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-[#f4f6f0]">
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f4f6f0]">
                   <button
                     type="button"
                     onClick={() => {
-                      const val = prompt(`${t.moistureBranch} (%):`, inputMoisture.toString());
-                      if (val) setInputMoisture(parseFloat(val) || 16.5);
+                      const timeStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
+                      setMoistureLastTestedAt(`Today, ${timeStr}`);
                     }}
-                    className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95 cursor-pointer"
+                    className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 shadow-xs transition active:scale-95 cursor-pointer"
                   >
-                    <Icon name="droplet" className="w-4 h-4" />
+                    <Icon name="droplet" className="w-3.5 h-3.5" />
                     <span>{t.testMoistureBtn}</span>
                   </button>
+
+                  {moistureAnalysis.isPass ? (
+                    <button
+                      type="button"
+                      onClick={() => handleOpenBooking()}
+                      className="w-full bg-[#c86d12] hover:bg-[#a5590d] text-white py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 shadow-xs transition active:scale-95 cursor-pointer"
+                    >
+                      <span>Book Pass →</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => alert("Sun-Drying Guide: Spread grain 2-3 inches thick in direct sunlight on mandi drying yard or tarpaulin for 2-4 hours to drop moisture below 17.0%.")}
+                      className="w-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 py-2 px-2 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition active:scale-95 cursor-pointer"
+                    >
+                      <span>Drying Tips ☀️</span>
+                    </button>
+                  )}
                 </div>
               </div>
 
