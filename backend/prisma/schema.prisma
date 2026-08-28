@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String
+  phone        String?  @unique
+  role         UserRole @default(FARMER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  farmer Farmer?
+  orders Order[]
+}
+
+model Farmer {
+  id     Int  @id @default(autoincrement())
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  address  String?
+  district String?
+  state    String?
+  pincode  String?
+
+  farms    Farm[]
+  produces Produce[]
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Farm {
+  id       Int    @id @default(autoincrement())
+  farmerId Int
+  farmer   Farmer @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+
+  name      String
+  location  String?
+  areaAcres Float?
+
+  crops     Crop[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Crop {
+  id     Int  @id @default(autoincrement())
+  farmId Int
+  farm   Farm @relation(fields: [farmId], references: [id], onDelete: Cascade)
+
+  name     String
+  variety  String?
+  season   String?
+  quantity Float?
+  unit     String?
+
+  produces Produce[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Produce {
+  id       Int @id @default(autoincrement())
+  farmerId Int
+  cropId   Int
+
+  farmer Farmer @relation(fields: [farmerId], references: [id], onDelete: Cascade)
+  crop   Crop   @relation(fields: [cropId], references: [id], onDelete: Cascade)
+
+  quantity    Float
+  unit        String
+  price       Float?
+  harvestDate DateTime?
+  status      ProduceStatus @default(AVAILABLE)
+
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+
+  buyerId   Int
+  produceId Int
+
+  buyer   User    @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  produce Produce @relation(fields: [produceId], references: [id], onDelete: Cascade)
+
+  quantity   Float
+  unit       String
+  unitPrice  Float
+  totalPrice Float
+
+  status OrderStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum UserRole {
+  FARMER
+  BUYER
+  ADMIN
+}
+
+enum ProduceStatus {
+  AVAILABLE
+  RESERVED
+  SOLD
+}
+
+model ProcurementCenter {
+  id             Int                     @id @default(autoincrement())
+  name           String
+  location       String?
+  district       String?
+  operatingHours String?
+  dailyCapacity  Int
+  status         ProcurementCenterStatus @default(ACTIVE)
+
+  slots    ProcurementSlot[]
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProcurementSlot {
+  id       Int               @id @default(autoincrement())
+  centerId Int
+  center   ProcurementCenter @relation(fields: [centerId], references: [id], onDelete: Cascade)
+
+  date        DateTime
+  startTime   String
+  endTime     String
+  capacity    Int
+  bookedCount Int      @default(0)
+
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Booking {
+  id Int @id @default(autoincrement())
+
+  farmerId  Int
+  produceId Int
+  centerId  Int
+  slotId    Int
+
+  farmer  Farmer            @relation(fields: [farmerId], references: [id])
+  produce Produce           @relation(fields: [produceId], references: [id])
+  center  ProcurementCenter @relation(fields: [centerId], references: [id])
+  slot    ProcurementSlot   @relation(fields: [slotId], references: [id])
+
+  quantity    Float
+  unit        String
+  tokenNumber String
+  status      BookingStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([slotId, tokenNumber])
+}
+
+enum ProcurementCenterStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}

@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiProcurementBookingsRouteImport } from './routes/api/procurement/bookings'
+import { Route as ApiProcurementCentersRouteImport } from './routes/api/procurement/centers'
+import { Route as ApiProcurementIvrRouteImport } from './routes/api/procurement/ivr'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +25,74 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiProcurementBookingsRoute = ApiProcurementBookingsRouteImport.update({
+  id: '/api/procurement/bookings',
+  path: '/api/procurement/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProcurementCentersRoute = ApiProcurementCentersRouteImport.update({
+  id: '/api/procurement/centers',
+  path: '/api/procurement/centers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProcurementIvrRoute = ApiProcurementIvrRouteImport.update({
+  id: '/api/procurement/ivr',
+  path: '/api/procurement/ivr',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/procurement/bookings': typeof ApiProcurementBookingsRoute
+  '/api/procurement/centers': typeof ApiProcurementCentersRoute
+  '/api/procurement/ivr': typeof ApiProcurementIvrRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/procurement/bookings': typeof ApiProcurementBookingsRoute
+  '/api/procurement/centers': typeof ApiProcurementCentersRoute
+  '/api/procurement/ivr': typeof ApiProcurementIvrRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/procurement/bookings': typeof ApiProcurementBookingsRoute
+  '/api/procurement/centers': typeof ApiProcurementCentersRoute
+  '/api/procurement/ivr': typeof ApiProcurementIvrRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/chat'
+  fullPaths:
+    | '/'
+    | '/api/chat'
+    | '/api/procurement/bookings'
+    | '/api/procurement/centers'
+    | '/api/procurement/ivr'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/chat'
-  id: '__root__' | '/' | '/api/chat'
+  to:
+    | '/'
+    | '/api/chat'
+    | '/api/procurement/bookings'
+    | '/api/procurement/centers'
+    | '/api/procurement/ivr'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/chat'
+    | '/api/procurement/bookings'
+    | '/api/procurement/centers'
+    | '/api/procurement/ivr'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiProcurementBookingsRoute: typeof ApiProcurementBookingsRoute
+  ApiProcurementCentersRoute: typeof ApiProcurementCentersRoute
+  ApiProcurementIvrRoute: typeof ApiProcurementIvrRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +111,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/procurement/bookings': {
+      id: '/api/procurement/bookings'
+      path: '/api/procurement/bookings'
+      fullPath: '/api/procurement/bookings'
+      preLoaderRoute: typeof ApiProcurementBookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/procurement/centers': {
+      id: '/api/procurement/centers'
+      path: '/api/procurement/centers'
+      fullPath: '/api/procurement/centers'
+      preLoaderRoute: typeof ApiProcurementCentersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/procurement/ivr': {
+      id: '/api/procurement/ivr'
+      path: '/api/procurement/ivr'
+      fullPath: '/api/procurement/ivr'
+      preLoaderRoute: typeof ApiProcurementIvrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiProcurementBookingsRoute: ApiProcurementBookingsRoute,
+  ApiProcurementCentersRoute: ApiProcurementCentersRoute,
+  ApiProcurementIvrRoute: ApiProcurementIvrRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
