@@ -1,7 +1,7 @@
 # 🌾 KisanSetu (किसानसेतु)
 ### *Offline-Resilient Agricultural Procurement, Mandi E-Gate Pass & Fair MSP Orchestration Backend*
 
-[![Live Demo](https://img.shields.io/badge/Live%20Portal-Online-138808?style=for-the-badge&logo=cloudflare&logoColor=white)](https://exemption-recruitment-sagem-carnival.trycloudflare.com)
+[![Live Demo](https://img.shields.io/badge/Live%20Portal-Vercel%20Production-138808?style=for-the-badge&logo=vercel&logoColor=white)](https://kisan-setu-senti67s-projects.vercel.app)
 [![React 19](https://img.shields.io/badge/Frontend-React_19_%2B_Vite_8-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Express.js](https://img.shields.io/badge/Backend-Express.js_REST_API-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![Prisma 7](https://img.shields.io/badge/ORM-Prisma_7-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
