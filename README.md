@@ -215,8 +215,8 @@ kisansetu/ (Root Workspace)
 
 ### 2. Clone & Install
 ```bash
-git clone https://github.com/soroshimukherjee/soil-sidekick-ai.git kisansetu
-cd kisansetu
+git clone https://github.com/senti67/KisanSetu.git
+cd KisanSetu
 
 # Install frontend dependencies
 npm install
