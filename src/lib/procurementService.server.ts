@@ -182,6 +182,19 @@ class ProcurementStore {
     const date = input.date || "2026-08-27";
     const slot = input.slot || "08:00 AM - 10:00 AM";
 
+    // Enforce 1 active gate pass per farmer rule (anti-hoarding / anti-duplicate)
+    const existingActive = Array.from(this.bookings.values()).find(
+      (b) =>
+        (b.mobile === mobile || (aadhaar4 && aadhaar4 !== "1234" && b.aadhaar4 === aadhaar4)) &&
+        b.status !== "Completed" &&
+        b.status !== "Cancelled"
+    );
+    if (existingActive) {
+      throw new Error(
+        `Active gate pass already exists: Farmer ${existingActive.farmerName} (Mobile: ${mobile}) already holds active token ${existingActive.tokenId} for ${existingActive.centreName} on ${existingActive.date} (${existingActive.slot}). Please cancel your existing pass before booking a new one.`
+      );
+    }
+
     // Generate unique Token ID (e.g. KS-5124)
     let tokenId = `KS-${Math.floor(1000 + Math.random() * 9000)}`;
     while (this.bookings.has(tokenId)) {
@@ -243,25 +256,51 @@ class ProcurementStore {
   }
 
   public handleIvrBooking(input: IvrBookingInput) {
+    const rawMobile = (input.mobile || "").replace(/\D/g, "");
+    const mobile = rawMobile.length >= 10 ? rawMobile.slice(-10) : rawMobile || "9876543210";
     const aadhaar4 = input.aadhaar4 || input.farmerIdentifier?.slice(-4) || "1234";
-    const farmerName = input.farmerName || `Farmer (${input.mobile.slice(-4)})`;
+
+    // If IVR caller already holds an active pass, announce it instead of creating duplicates
+    const existingActive = Array.from(this.bookings.values()).find(
+      (b) =>
+        b.mobile === mobile &&
+        b.status !== "Completed" &&
+        b.status !== "Cancelled"
+    );
+    if (existingActive) {
+      return {
+        success: true,
+        message: `Active pass already exists: ${existingActive.tokenId}`,
+        data: existingActive,
+        booking: existingActive,
+        voiceResponse: {
+          textHi: `Aapka gate pass pehle se active hai. Token number ${existingActive.tokenId} hai, mandi ${existingActive.centreName}, slot ${existingActive.slot}. Dobara book karne ki zaroorat nahi hai.`,
+          textEn: `You already have an active gate pass ${existingActive.tokenId} for ${existingActive.centreName} on ${existingActive.date} at ${existingActive.slot}.`,
+        },
+      };
+    }
+
+    const farmerName = input.farmerName || `Farmer (${mobile.slice(-4)})`;
     const booking = this.createBooking({
       farmerName,
-      mobile: input.mobile,
+      mobile,
       aadhaar4,
-      centreId: input.centreId,
-      centreName: input.preferredCentre,
       crop: input.crop,
       quantity: input.quantity,
+      centreId: input.centreId,
+      centreName: input.preferredCentre,
       date: input.preferredDate,
       slot: input.preferredSlot,
     });
 
     return {
+      success: true,
+      message: "Pass generated successfully via IVR telephony",
+      data: booking,
       booking,
       voiceResponse: {
-        textHi: `आपका गेट पास टोकन नंबर ${booking.tokenId} सफलतापूर्वक बन गया है। आपकी मंडी ${booking.centreName} है। रिपोर्टिंग समय ${booking.slot}, तारीख ${booking.date} है। अनुमानित भुगतान ₹${booking.estimatedPayout} है।`,
-        textEn: `Your mandi gate pass token ${booking.tokenId} has been confirmed for ${booking.centreName} on ${booking.date} (${booking.slot}). Estimated payout is ₹${booking.estimatedPayout}.`,
+        textHi: `Aapka pass book ho gaya hai. Token number ${booking.tokenId} hai, mandi ${booking.centreName}, slot ${booking.slot}. SMS bhej diya gaya hai.`,
+        textEn: `Your pass is confirmed. Token ID ${booking.tokenId}, center ${booking.centreName}, slot ${booking.slot}. SMS receipt sent.`,
       },
     };
   }

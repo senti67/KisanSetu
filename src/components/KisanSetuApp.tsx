@@ -540,16 +540,23 @@ export default function KisanSetuApp() {
   };
 
   const handleOpenBooking = (centre: ProcurementCenter | null = null) => {
+    if (activeToken && activeToken.status !== "Cancelled" && activeToken.status !== "Completed") {
+      const confirmView = window.confirm(
+        lang === "hi"
+          ? `आपके पास पहले से सक्रिय टोकन ${activeToken.tokenId} (${activeToken.centreName}) मौजूद है। नया पास बुक करने के लिए कृपया पहले मौजूदा पास रद्द करें। क्या आप अपना पास देखना चाहते हैं?`
+          : `You already hold active Gate Pass ${activeToken.tokenId} for ${activeToken.centreName}. Please cancel your existing pass before booking a new one. View your active pass now?`
+      );
+      if (confirmView) {
+        setActiveTab("my-booking");
+        return;
+      }
+    }
+
     const targetCentre = centre || centresData[0] || INITIAL_CENTRES[0];
     setSelectedCentreForBooking(targetCentre);
     setBookingStep(1);
+    setModalMandiSearch("");
     setBookingError(null);
-
-    if (activeToken) {
-      setFormName(activeToken.farmerName);
-      setFormMobile(activeToken.mobile);
-      setFormAadhaar(activeToken.aadhaar4);
-    }
     setBookingModalOpen(true);
   };
 
