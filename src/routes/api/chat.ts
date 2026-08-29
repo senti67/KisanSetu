@@ -47,10 +47,15 @@ function extractLastUserQuery(messages: unknown): string {
   return "";
 }
 
-function detectLanguage(query: string, preferredLang?: string): "en" | "pa" | "mr" | "hi" {
-  if (preferredLang === "en" || preferredLang === "pa" || preferredLang === "mr" || preferredLang === "hi") {
+function detectLanguage(query: string, preferredLang?: string): "en" | "or" | "mr" | "hi" | "pa" {
+  if (preferredLang === "en" || preferredLang === "or" || preferredLang === "mr" || preferredLang === "hi" || preferredLang === "pa") {
     // If explicitly provided via header or body
     return preferredLang;
+  }
+
+  // Check for Odia script
+  if (/[\u0B00-\u0B7F]/.test(query)) {
+    return "or";
   }
 
   // Check for Gurmukhi script (Punjabi)
@@ -96,7 +101,7 @@ function detectLanguage(query: string, preferredLang?: string): "en" | "pa" | "m
   return "hi";
 }
 
-function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "mr" | "hi"): string {
+function generateLocalKisanResponse(userQuery: string, language: "en" | "or" | "mr" | "hi" | "pa"): string {
   const q = userQuery.toLowerCase().trim();
 
   // 1. GATE PASS BOOKING
@@ -108,6 +113,11 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
     q.includes("book") ||
     q.includes("ਟੋਕਨ") ||
     q.includes("ਪਾਸ") ||
+    q.includes("ଟୋକନ") ||
+    q.includes("ପାସ") ||
+    q.includes("ଟୋକନ୍") ||
+    q.includes("ପାସ୍") ||
+    q.includes("ବୁକ") ||
     q.includes("टोकन") ||
     q.includes("gate")
   ) {
@@ -119,6 +129,16 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
 3. Select your **Crop** and enter the **Quantity (Quintals)**.
 4. Choose your preferred **Date and Time Slot**, then click **"Issue Pass"**.
 5. Your digital token (e.g. **KS-8942**) and barcode will be generated immediately for fast, queue-free gate entry!`;
+    }
+
+    if (language === "or") {
+      return `🌾 **ମଣ୍ଡି ଗେଟ୍ ପାସ୍ ବୁକ୍ କରିବାର ସହଜ ଉପାୟ:**
+
+1. ପୋର୍ଟାଲରେ **"ଗେଟ୍ ପାସ୍ ବୁକ୍ କରନ୍ତୁ / Book Gate Pass"** ବଟନ୍ ଉପରେ କ୍ଲିକ୍ କରନ୍ତୁ।
+2. ଆପଣଙ୍କ **ଚାଷୀଙ୍କ ନାମ**, **୧୦ ଅଙ୍କର ମୋବାଇଲ୍ ନମ୍ବର** ଏବଂ **ଆଧାରର ଶେଷ ୪ ଅଙ୍କ** ଲେଖନ୍ତୁ।
+3. ଆପଣଙ୍କ **ଫସଲ** ଏବଂ **ପରିମାଣ (କ୍ୱିଣ୍ଟାଲରେ)** ବାଛନ୍ତୁ।
+4. ଆପଣଙ୍କ ପସନ୍ଦର **ତାରିଖ ଏବଂ ସମୟ ସ୍ଲଟ୍** ବାଛି **"ପାସ୍ ତିଆରି କରନ୍ତୁ"** କ୍ଲିକ୍ କରନ୍ତୁ।
+5. ଆପଣଙ୍କ ଡିଜିଟାଲ୍ ଟୋକନ୍ (ଯେପରି KS-8942) ଏବଂ ବାରକୋଡ୍ ତୁରନ୍ତ ସ୍କ୍ରିନରେ ଆସିଯିବ। ମଣ୍ଡି ଗେଟ୍ ୨ ରେ ଏହା ଦେଖାଇ ବିନା ଧାଡ଼ିରେ ସିଧା ପ୍ରବେଶ କରନ୍ତୁ!`;
     }
 
     if (language === "pa") {
@@ -179,6 +199,19 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
 👉 *Payment is credited directly to your DBT bank account within 48 to 72 hours after weighing.*`;
     }
 
+    if (language === "or") {
+      return `💰 **ସରକାରୀ ସର୍ବନିମ୍ନ ସହାୟକ ମୂଲ୍ୟ (MSP ଦର ୨୦୨୫-୨୬):**
+
+• **ଧାନ ଗ୍ରେଡ୍-ଏ (Paddy Grade A):** ₹୨,୩୦୦ / କ୍ୱିଣ୍ଟାଲ (+₹୧୧୭ ବୃଦ୍ଧି)
+• **ଧାନ ସାଧାରଣ (Paddy Common):** ₹୨,୩୦୦ / କ୍ୱିଣ୍ଟାଲ
+• **ଗହମ (Wheat / Gehu):** ₹୨,୪୨୫ / କ୍ୱିଣ୍ଟାଲ (+₹୧୫୦ ବୃଦ୍ଧି)
+• **ସୋରିଷ (Mustard / Sarson):** ₹୫,୯୫୦ / କ୍ୱିଣ୍ଟାଲ (+₹୩୦୦)
+• **ବୁଟ / ଚଣା (Gram):** ₹୫,୬୫୦ / କ୍ୱିଣ୍ଟାଲ (+₹୨୧୦)
+• **କପା (Cotton Long Staple):** ₹୭,୫୨୧ / କ୍ୱିଣ୍ଟାଲ (+₹୫୦୧)
+
+👉 *ଓଜନ ହେବାର ୪୮ ରୁ ୭୨ ଘଣ୍ଟା ମଧ୍ୟରେ ସିଧାସଳଖ ଆପଣଙ୍କ DBT ବ୍ୟାଙ୍କ ଖାତାକୁ ଟଙ୍କା ଜମା ହେବ।*`;
+    }
+
     if (language === "pa") {
       return `💰 **ਸਰਕਾਰੀ ਘੱਟੋ-ਘੱਟ ਸਮਰਥਨ ਮੁੱਲ (MSP ਰੇਟ 2025-26):**
 
@@ -224,6 +257,8 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
     q.includes("17") ||
     q.includes("कटौती") ||
     q.includes("ਸੁਕਾ") ||
+    q.includes("ଆର୍ଦ୍ରତା") ||
+    q.includes("ଶୁଖା") ||
     q.includes("सुखा") ||
     q.includes("ओलावा")
   ) {
@@ -236,6 +271,17 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
 • **Above 19%:** Entry rejected at mandi gate.
 
 ☀️ **Tip:** Dry your grain in the sun for **2 to 3 hours** on the mandi drying yards to ensure maximum price without cuts.`;
+    }
+
+    if (language === "or") {
+      return `💧 **ଆର୍ଦ୍ରତା (Moisture) ସମ୍ପର୍କିତ ନିୟମ ଓ ପରାମର୍ଶ:**
+
+• ସରକାରୀ କ୍ରୟ ପାଇଁ ଶସ୍ୟରେ **ସର୍ବାଧିକ ଆର୍ଦ୍ରତା ୧୭%** ରହିବା ଆବଶ୍ୟକ।
+• **୧୪% ରୁ ୧୭% ପର୍ଯ୍ୟନ୍ତ:** ୧୦୦% ପୂରା MSP ମୂଲ୍ୟ ମିଳିବ (୦% କଟା)।
+• **୧୭% ରୁ ୧୯%:** ଆର୍ଦ୍ରତା ଅନୁଯାୟୀ ପ୍ରାୟ ୧.୫% ମୂଲ୍ୟ କଟାଯାଇପାରେ।
+• **୧୯% ରୁ ଅଧିକ:** ମଣ୍ଡି ଗେଟରେ ପ୍ରବେଶ ବାରଣ।
+
+☀️ **ପରାମର୍ଶ:** ମଣ୍ଡି ଆଣିବା ପୂର୍ବରୁ କିମ୍ବା ମଣ୍ଡି ଶୁଖାଇବା ୟାର୍ଡରେ ଫସଲକୁ **୨ ରୁ ୩ ଘଣ୍ଟା ଖରାରେ ଶୁଖାନ୍ତୁ** ଯାହାଦ୍ୱାରା ପୂରା ଦର ମିଳିପାରିବ।`;
     }
 
     if (language === "pa") {
@@ -279,6 +325,8 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
     q.includes("आधार") ||
     q.includes("कागजात") ||
     q.includes("ਕਾਗਜ਼") ||
+    q.includes("କାଗଜ") ||
+    q.includes("ପଟ୍ଟା") ||
     q.includes("कागद") ||
     q.includes("aadhaar")
   ) {
@@ -289,6 +337,15 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
 2. **Bank Passbook:** For Direct Bank Transfer (DBT) payment credit.
 3. **Land Record / Khasra Document:** Land ownership / Meri Fasal Mera Byora verification.
 4. **Digital Gate Pass Token:** Generated from the KisanSetu portal.`;
+    }
+
+    if (language === "or") {
+      return `📋 **ମଣ୍ଡି ଗେଟ୍ ପ୍ରବେଶ ପାଇଁ ୪ଟି ଆବଶ୍ୟକୀୟ ଦଲିଲ:**
+
+1. **ମୂଳ ଆଧାର କାର୍ଡ (Original Aadhaar Card):** ପରିଚୟ ପ୍ରମାଣ ପାଇଁ।
+2. **ବ୍ୟାଙ୍କ ପାସବୁକ୍ (DBT Bank Passbook):** ସିଧାସଳଖ ଖାତାକୁ ଟଙ୍କା ଜମା ପାଇଁ।
+3. **ଜମି ପଟ୍ଟା / ଖତିୟାନ (Land Record):** ଜମି ମାଲିକାନା ପ୍ରମାଣ ପାଇଁ।
+4. **ଡିଜିଟାଲ୍ ଗେଟ୍ ପାସ୍ ଟୋକନ୍ (Gate Pass Token):** କିଷାନସେତୁ ପୋର୍ଟାଲରୁ ମିଳିଥିବା ପାସ୍।`;
     }
 
     if (language === "pa") {
@@ -326,6 +383,9 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
     q.includes("खाता") ||
     q.includes("dbt") ||
     q.includes("पैसे") ||
+    q.includes("ଟଙ୍କା") ||
+    q.includes("କ୍ରେଡିଟ") ||
+    q.includes("କ୍ରେଡିଟ୍") ||
     q.includes("क्रेडिट") ||
     q.includes("money") ||
     q.includes("bank")
@@ -335,6 +395,13 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
 
 • Full MSP payment is transferred directly into your **DBT-linked bank account** within **48 to 72 hours** after weighing at the mandi.
 • For payment status inquiries, call the Kisan toll-free helpline **1800-180-1551**.`;
+    }
+
+    if (language === "or") {
+      return `🏦 **ପ୍ରାପ୍ୟ ଓ DBT ସିଧାସଳଖ ଜମା ସମୟସୀମା:**
+
+• ମଣ୍ଡିରେ ଓଜନ ଶେଷ ହେବାର **୪୮ ରୁ ୭୨ ଘଣ୍ଟା ମଧ୍ୟରେ** ସମ୍ପୂର୍ଣ୍ଣ MSP ରାଶି ଆପଣଙ୍କ **DBT ସଂଯୁକ୍ତ ବ୍ୟାଙ୍କ ଖାତାକୁ** ପଠାଯାଏ।
+• ଅଧିକ ସହାୟତା ପାଇଁ ଟୋଲ୍-ଫ୍ରି ନମ୍ବର **1800-180-1551** ରେ କଲ୍ କରନ୍ତୁ।`;
     }
 
     if (language === "pa") {
@@ -364,6 +431,8 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
     q.includes("नंबर") ||
     q.includes("फोन") ||
     q.includes("call") ||
+    q.includes("ସହାୟତା") ||
+    q.includes("ନମ୍ବର") ||
     q.includes("contact") ||
     q.includes("toll") ||
     q.includes("phone")
@@ -375,6 +444,15 @@ function generateLocalKisanResponse(userQuery: string, language: "en" | "pa" | "
 • **Kisan Call Center:** 1551
 • **WhatsApp Support:** +91 94160 00000
 • 24x7 assistance provided by the Dept. of Agriculture, Govt. of India.`;
+    }
+
+    if (language === "or") {
+      return `📞 **ସରକାରୀ କୃଷକ ସହାୟତା ନମ୍ବର (Toll-Free):**
+
+• **କିଷାନ ଟୋଲ୍-ଫ୍ରି ହେଲ୍ପଲାଇନ୍:** 1800-180-1551
+• **କିଷାନ କଲ୍ ସେଣ୍ଟର୍:** 1551
+• **ହ୍ୱାଟ୍ସଆପ୍ ସହାୟତା:** +91 94160 00000
+• କୃଷି ମନ୍ତ୍ରଣାଳୟ, ଭାରତ ସରକାର ଦ୍ୱାରା ୨୪x୭ ଉପଲବ୍ଧ।`;
     }
 
     if (language === "pa") {
@@ -414,6 +492,18 @@ I can assist you with:
 4. **Required Documents:** List of 4 mandatory gate entry documents.
 
 Please ask your question or call toll-free **1800-180-1551**!`;
+  }
+
+  if (language === "or") {
+    return `🙏 **ନମସ୍କାର ଚାଷୀ ଭାଇ! ମୁଁ କିଷାନ ମିତ୍ର (Kisan Mitra)।**
+
+ମୁଁ ଆପଣଙ୍କୁ ନିମ୍ନ ବିଷୟରେ ସାହାଯ୍ୟ କରିପାରିବି:
+1. **ଗେଟ୍ ପାସ୍ ବୁକିଂ:** ଧାଡ଼ି ନ ଲଗାଇ ମଣ୍ଡି ପ୍ରବେଶ ପାଇଁ ସ୍ଲଟ୍ ବୁକ୍ କରନ୍ତୁ।
+2. **MSP ଦର ୨୦୨୫-୨୬:** ସମସ୍ତ ଫସଲର ସରକାରୀ ସହାୟକ ମୂଲ୍ୟ।
+3. **ଆର୍ଦ୍ରତା (Moisture) ନିୟମ:** ୧୭% ସୀମା ଓ ଶୁଖାଇବା ପରାମର୍ଶ।
+4. **ଆବଶ୍ୟକୀୟ କାଗଜପତ୍ର:** ଗେଟ୍ ପ୍ରବେଶ ପାଇଁ ୪ଟି ଜରୁରୀ ଦଲିଲ।
+
+ଆପଣଙ୍କ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ କିମ୍ବା ଟୋଲ୍-ଫ୍ରି **1800-180-1551** କଲ୍ କରନ୍ତୁ!`;
   }
 
   if (language === "pa") {
@@ -477,6 +567,8 @@ export const Route = createFileRoute("/api/chat")({
             const langInstruction =
               language === "en"
                 ? "You must respond strictly in English."
+                : language === "or"
+                ? "You must respond strictly in Odia (ଓଡ଼ିଆ script)."
                 : language === "pa"
                 ? "You must respond strictly in Punjabi."
                 : language === "mr"

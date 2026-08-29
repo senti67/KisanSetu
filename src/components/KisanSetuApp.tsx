@@ -279,12 +279,12 @@ export default function KisanSetuApp() {
   // Sync language with localStorage & external events
   useEffect(() => {
     const saved = localStorage.getItem("kisansetu_lang");
-    if (saved && (saved === "hi" || saved === "pa" || saved === "mr" || saved === "en")) {
+    if (saved && (saved === "hi" || saved === "or" || saved === "mr" || saved === "en" || saved === "pa")) {
       setLangState(saved);
     }
 
     const handleExternalLang = (e: any) => {
-      if (e.detail && (e.detail === "hi" || e.detail === "pa" || e.detail === "mr" || e.detail === "en")) {
+      if (e.detail && (e.detail === "hi" || e.detail === "or" || e.detail === "mr" || e.detail === "en" || e.detail === "pa")) {
         setLangState(e.detail);
       }
     };
@@ -644,8 +644,8 @@ export default function KisanSetuApp() {
     const confirmCancel = window.confirm(
       lang === "hi"
         ? "क्या आप वाकई अपना गेट पास रद्द करना चाहते हैं?"
-        : lang === "pa"
-        ? "ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਗੇਟ ਪਰਚੀ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+        : lang === "or"
+        ? "ଆପଣ କଣ ପ୍ରକୃତରେ ନିଜ ଗେଟ୍ ପାସ୍ ବାତିଲ କରିବାକୁ ଚାହୁଁଛନ୍ତି?"
         : lang === "mr"
         ? "तुम्हाला आपला गेट पास रद्द करायचा आहे का?"
         : "Are you sure you want to cancel this gate pass?"
@@ -880,12 +880,12 @@ export default function KisanSetuApp() {
               </button>
               <button
                 type="button"
-                onClick={() => setLang("pa")}
+                onClick={() => setLang("or")}
                 className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded cursor-pointer font-bold ${
-                  lang === "pa" ? "bg-[#4a7c59] text-white" : "text-slate-600 hover:text-slate-900"
+                  lang === "or" ? "bg-[#4a7c59] text-white" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
-                ਪੰਜਾਬੀ
+                ଓଡ଼ିଆ
               </button>
               <button
                 type="button"
