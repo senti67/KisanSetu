@@ -165,24 +165,8 @@ export default function KisanSetuApp() {
   const [isLoadingCentres, setIsLoadingCentres] = useState<boolean>(false);
   const [centresError, setCentresError] = useState<string | null>(null);
 
-  // Active Token / Booking State
-  const [activeToken, setActiveToken] = useState<BookingToken | null>({
-    tokenId: "KS-8942",
-    farmerName: "Rameshwar Singh",
-    mobile: "9876543210",
-    aadhaar4: "4821",
-    centreId: "c1",
-    centreName: "Karnal Main Grain Mandi (Gate 2)",
-    district: "Karnal",
-    date: "2026-08-27",
-    slot: "08:00 AM - 10:00 AM",
-    crop: "Paddy (Grade A)",
-    quantity: "85",
-    estimatedPayout: "1,95,500",
-    status: "Confirmed",
-    issuedAt: "26 Aug 2026, 09:15 AM",
-    queuePos: 3,
-  });
+  // Active Token / Booking State (Null until user books a pass)
+  const [activeToken, setActiveToken] = useState<BookingToken | null>(null);
 
   // Admin / Mandi Officer State
   const [isOfficerLoggedIn, setIsOfficerLoggedIn] = useState<boolean>(() => {
@@ -328,30 +312,52 @@ export default function KisanSetuApp() {
       });
 
     // Load latest active bookings dynamically from registry
+    // Load latest active bookings dynamically from registry for Admin
     getAllBookings()
       .then((bookings) => {
         if (isMounted && Array.isArray(bookings) && bookings.length > 0) {
           setAdminBookings(bookings);
-          const active = bookings.find((b) => b.status !== "Cancelled") || bookings[0];
-          setActiveToken(active);
         }
       })
       .catch(() => {});
+
+    // Restore user's personal pass only if they previously booked one
+    const savedUserTokenId = typeof window !== "undefined" ? localStorage.getItem("kisansetu_user_token_id") : null;
+    if (savedUserTokenId) {
+      getBooking(savedUserTokenId)
+        .then((b) => {
+          if (isMounted && b && b.status !== "Cancelled") {
+            setActiveToken(b);
+          } else if (isMounted) {
+            localStorage.removeItem("kisansetu_user_token_id");
+            setActiveToken(null);
+          }
+        })
+        .catch(() => {
+          if (isMounted) {
+            localStorage.removeItem("kisansetu_user_token_id");
+            setActiveToken(null);
+          }
+        });
+    }
 
     return () => {
       isMounted = false;
     };
   }, []);
 
-  // Fetch all bookings (Admin & My Pass sync)
+  // Fetch all bookings for Admin
   const refreshAdminBookings = () => {
     setIsLoadingAdminBookings(true);
     getAllBookings()
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           setAdminBookings(data);
-          const active = data.find((b) => b.status !== "Cancelled") || data[0];
-          setActiveToken(active);
+          const savedTokenId = typeof window !== "undefined" ? localStorage.getItem("kisansetu_user_token_id") : null;
+          if (savedTokenId) {
+            const userPass = data.find((b) => b.tokenId === savedTokenId && b.status !== "Cancelled");
+            if (userPass) setActiveToken(userPass);
+          }
         }
       })
       .catch((err) => console.warn("Failed to load admin bookings:", err))
@@ -568,6 +574,9 @@ export default function KisanSetuApp() {
 
       const createdToken = await createProcurementBooking(payload);
       setActiveToken(createdToken);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("kisansetu_user_token_id", createdToken.tokenId);
+      }
 
       if (selectedCentreForBooking) {
         setCentresData((prev) =>
@@ -612,6 +621,9 @@ export default function KisanSetuApp() {
       if (Array.isArray(data) && data.length > 0) setCentresData(data);
     });
 
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("kisansetu_user_token_id");
+    }
     setActiveToken(null);
   };
 
@@ -2414,6 +2426,9 @@ export default function KisanSetuApp() {
         onClose={() => setShowIvrModal(false)}
         onBookingSuccess={(newBooking) => {
           setActiveToken(newBooking);
+          if (typeof window !== "undefined") {
+            localStorage.setItem("kisansetu_user_token_id", newBooking.tokenId);
+          }
           setCentresData((prev) =>
             prev.map((c) =>
               c.name === newBooking.centreName || c.id === newBooking.centreId
