@@ -205,6 +205,7 @@ export default function KisanSetuApp() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [selectedCentreForBooking, setSelectedCentreForBooking] = useState<ProcurementCenter | null>(null);
   const [bookingStep, setBookingStep] = useState(1);
+  const [modalMandiSearch, setModalMandiSearch] = useState<string>("");
   const [isSubmittingBooking, setIsSubmittingBooking] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
 
@@ -2423,37 +2424,163 @@ export default function KisanSetuApp() {
         }}
       />
 
-      {/* 9. BOOKING MODAL */}
-      {bookingModalOpen && selectedCentreForBooking && (
+      {/* 9. 3-STEP BOOKING MODAL */}
+      {bookingModalOpen && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-3">
-          <div className="bg-white border border-slate-300 w-full max-w-md rounded-t-2xl sm:rounded-xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
-            <div className="bg-[#4a7c59] text-white px-4 py-3 flex items-center justify-between">
+          <div className="bg-white border border-slate-300 w-full max-w-lg rounded-t-2xl sm:rounded-xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+            {/* Modal Header */}
+            <div className="bg-[#4a7c59] text-white px-4 py-3 flex items-center justify-between shrink-0">
               <div>
-                <span className="text-[9px] font-bold uppercase bg-white/20 px-2 py-0.5 rounded-full">
-                  {t.stepLabel} {bookingStep} {t.ofLabel} 2
+                <span className="text-[9px] font-black uppercase bg-white/20 px-2 py-0.5 rounded-full tracking-wide">
+                  {t.stepLabel} {bookingStep} {t.ofLabel} 3: {
+                    bookingStep === 1
+                      ? (lang === "hi" ? "मंडी चुनें" : "Select Mandi")
+                      : bookingStep === 2
+                      ? (lang === "hi" ? "किसान व फसल विवरण" : "Farmer & Crop Details")
+                      : (lang === "hi" ? "तारीख व समय स्लॉट" : "Date & Time Slot")
+                  }
                 </span>
                 <h3 className="text-xs sm:text-sm font-bold mt-0.5 truncate">
-                  {selectedCentreForBooking.name}
+                  {selectedCentreForBooking ? selectedCentreForBooking.name : "KisanSetu Gate Pass Booking"}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setBookingModalOpen(false)}
-                className="text-white font-bold text-base px-1 cursor-pointer"
+                className="text-white font-bold text-base px-1.5 py-0.5 hover:bg-white/10 rounded-lg cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             {bookingError && (
-              <div className="m-3 p-2.5 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg font-semibold">
+              <div className="m-3 p-2.5 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg font-semibold shrink-0">
                 {bookingError}
               </div>
             )}
 
-            <form onSubmit={handleConfirmBooking} className="p-4 space-y-3 text-xs">
-              {bookingStep === 1 ? (
+            <div className="p-4 overflow-y-auto flex-1 text-xs">
+              {/* STEP 1: CHOOSE MANDI */}
+              {bookingStep === 1 && (
                 <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="font-extrabold text-slate-900 text-xs sm:text-sm">
+                      {lang === "hi" ? "1. अपने नज़दीकी खरीद केंद्र (मंडी) का चयन करें:" : "1. Select your nearest procurement mandi:"}
+                    </label>
+                    <span className="text-[10px] text-slate-500 font-mono">
+                      {filteredCentres.length} Mandis
+                    </span>
+                  </div>
+
+                  {/* Search inside modal */}
+                  <div className="relative">
+                    <Icon name="search" className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+                    <input
+                      type="text"
+                      value={modalMandiSearch}
+                      onChange={(e) => setModalMandiSearch(e.target.value)}
+                      placeholder={lang === "hi" ? "मंडी या जिले का नाम खोजें..." : "Search mandi or district..."}
+                      className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-[#4a7c59]"
+                    />
+                  </div>
+
+                  {/* Scrollable Mandi List */}
+                  <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+                    {filteredCentres
+                      .filter((c: any) => {
+                        const q = modalMandiSearch.toLowerCase().trim();
+                        return (
+                          q === "" ||
+                          c.name.toLowerCase().includes(q) ||
+                          c.district.toLowerCase().includes(q) ||
+                          c.tehsil.toLowerCase().includes(q)
+                        );
+                      })
+                      .map((centre: any) => {
+                        const isSelected = selectedCentreForBooking?.id === centre.id;
+                        return (
+                          <div
+                            key={centre.id}
+                            onClick={() => {
+                              setSelectedCentreForBooking(centre);
+                              if (centre.crops && centre.crops.length > 0 && !centre.crops.includes(formCrop)) {
+                                setFormCrop(centre.crops[0]);
+                              }
+                            }}
+                            className={`p-3 rounded-xl border transition cursor-pointer flex items-start justify-between gap-2 ${
+                              isSelected
+                                ? "bg-[#ebf2ee] border-[#4a7c59] ring-2 ring-[#4a7c59]/30 shadow-xs"
+                                : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/70"
+                            }`}
+                          >
+                            <div className="space-y-1 flex-1">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
+                                  isSelected ? "border-[#4a7c59] bg-[#4a7c59]" : "border-slate-400"
+                                }`}>
+                                  {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
+                                </span>
+                                <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm leading-tight">
+                                  {centre.name}
+                                </h4>
+                                <span className="text-[9px] bg-slate-100 text-slate-700 font-bold px-1.5 py-0.2 rounded">
+                                  {centre.district}
+                                </span>
+                                {centre.displayDistance !== undefined && centre.displayDistance <= 15 && (
+                                  <span className="text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-1 rounded font-bold">
+                                    Nearest
+                                  </span>
+                                )}
+                              </div>
+
+                              <div className="text-[11px] text-slate-600 flex items-center gap-2 flex-wrap pl-5">
+                                <span>📍 {centre.displayDistance !== undefined ? centre.displayDistance : centre.distance} km</span>
+                                <span>•</span>
+                                <span>⏱️ Wait: <strong>{centre.waitTime}</strong></span>
+                                <span>•</span>
+                                <span>🟢 <strong>{centre.availableSlots}</strong> slots left</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!selectedCentreForBooking) {
+                        setBookingError("Please select a mandi to proceed");
+                        return;
+                      }
+                      setBookingError(null);
+                      setBookingStep(2);
+                    }}
+                    className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2.5 rounded-lg font-bold transition shadow-xs mt-2 cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
+                  >
+                    <span>{lang === "hi" ? "अगला: किसान विवरण भरें →" : "Next: Farmer Details →"}</span>
+                  </button>
+                </div>
+              )}
+
+              {/* STEP 2: FARMER & CROP DETAILS */}
+              {bookingStep === 2 && selectedCentreForBooking && (
+                <div className="space-y-3">
+                  {/* Selected Mandi Capsule with Change Option */}
+                  <div className="p-2 bg-[#ebf2ee] border border-[#4a7c59]/30 rounded-lg flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-1.5 truncate">
+                      <span>🏢</span>
+                      <strong className="text-[#2a4732] truncate">{selectedCentreForBooking.name}</strong>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setBookingStep(1)}
+                      className="text-[10px] text-[#4a7c59] font-bold underline shrink-0 cursor-pointer ml-2"
+                    >
+                      {lang === "hi" ? "मंडी बदलें" : "Change Mandi"}
+                    </button>
+                  </div>
+
                   <div>
                     <label className="block font-bold text-slate-800 mb-1">
                       {t.farmerName} *
@@ -2513,7 +2640,7 @@ export default function KisanSetuApp() {
                       onChange={(e) => setFormCrop(e.target.value)}
                       className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 font-bold text-xs"
                     >
-                      {selectedCentreForBooking.crops.map((c, i) => (
+                      {selectedCentreForBooking.crops.map((c: string, i: number) => (
                         <option key={i} value={c}>
                           {c}
                         </option>
@@ -2533,27 +2660,55 @@ export default function KisanSetuApp() {
                       max="500"
                       value={formQuantity}
                       onChange={(e) => setFormQuantity(e.target.value)}
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-bold text-slate-900 text-sm"
+                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-bold text-slate-900 text-sm font-mono"
                     />
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!formName.trim() || !formMobile.trim() || !formAadhaar.trim()) {
-                        setBookingError("Please fill all required fields");
-                        return;
-                      }
-                      setBookingError(null);
-                      setBookingStep(2);
-                    }}
-                    className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2.5 rounded-lg font-bold transition shadow-xs mt-1 cursor-pointer active:scale-95"
-                  >
-                    {t.selectSlot} →
-                  </button>
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setBookingStep(1)}
+                      className="w-1/3 bg-slate-100 border border-slate-300 text-slate-700 py-2.5 rounded-lg font-bold cursor-pointer hover:bg-slate-200"
+                    >
+                      ← {t.back}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!formName.trim() || !formMobile.trim() || !formAadhaar.trim()) {
+                          setBookingError("Please fill all required fields");
+                          return;
+                        }
+                        if (formMobile.trim().length !== 10) {
+                          setBookingError("Please enter a valid 10-digit mobile number");
+                          return;
+                        }
+                        setBookingError(null);
+                        setBookingStep(3);
+                      }}
+                      className="w-2/3 bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2.5 rounded-lg font-bold transition shadow-xs cursor-pointer active:scale-95"
+                    >
+                      {t.selectSlot} (Next) →
+                    </button>
+                  </div>
                 </div>
-              ) : (
-                <div className="space-y-3">
+              )}
+
+              {/* STEP 3: DATE & TIME SLOT SELECTION */}
+              {bookingStep === 3 && selectedCentreForBooking && (
+                <form onSubmit={handleConfirmBooking} className="space-y-3">
+                  {/* Summary Header */}
+                  <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-[#2a4732] truncate">{selectedCentreForBooking.name}</span>
+                      <span className="font-mono font-bold text-slate-700">{formQuantity} Qtl {formCrop}</span>
+                    </div>
+                    <div className="text-[10px] text-slate-500 font-mono">
+                      {formName} • {formMobile}
+                    </div>
+                  </div>
+
                   <div>
                     <label className="block font-bold text-slate-800 mb-1">
                       {t.dateLabel} *
@@ -2586,7 +2741,7 @@ export default function KisanSetuApp() {
                           onClick={() => setFormSlot(slotStr)}
                           className={`p-2 rounded-lg border text-left font-bold cursor-pointer transition ${
                             formSlot === slotStr
-                              ? "bg-[#4a7c59] text-white border-[#4a7c59]"
+                              ? "bg-[#4a7c59] text-white border-[#4a7c59] shadow-xs"
                               : "bg-slate-50 border-slate-300 text-slate-800 hover:bg-slate-100"
                           }`}
                         >
@@ -2596,8 +2751,8 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="p-2.5 bg-slate-50 rounded-lg border border-slate-300 text-xs flex justify-between font-bold">
-                    <span>{t.estPayout}:</span>
+                  <div className="p-2.5 bg-amber-50 rounded-lg border border-amber-200 text-xs flex justify-between font-bold">
+                    <span className="text-amber-900">{t.estPayout}:</span>
                     <span className="text-[#c86d12] text-sm font-mono font-black">
                       ₹
                       {(
@@ -2613,10 +2768,10 @@ export default function KisanSetuApp() {
                     <button
                       type="button"
                       disabled={isSubmittingBooking}
-                      onClick={() => setBookingStep(1)}
+                      onClick={() => setBookingStep(2)}
                       className="w-1/3 bg-slate-100 border border-slate-300 text-slate-700 py-2.5 rounded-lg font-bold cursor-pointer hover:bg-slate-200"
                     >
-                      {t.back}
+                      ← {t.back}
                     </button>
 
                     <button
@@ -2627,13 +2782,13 @@ export default function KisanSetuApp() {
                       {isSubmittingBooking ? (
                         <span>Processing...</span>
                       ) : (
-                        <span>{t.confirmBooking}</span>
+                        <span>{t.confirmBooking} ✓</span>
                       )}
                     </button>
                   </div>
-                </div>
+                </form>
               )}
-            </form>
+            </div>
           </div>
         </div>
       )}
