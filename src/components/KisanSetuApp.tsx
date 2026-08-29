@@ -230,6 +230,55 @@ export default function KisanSetuApp() {
   const [moistureLastTestedAt, setMoistureLastTestedAt] = useState<string | null>("Today, 09:30 AM");
   const [showMoistureGuide, setShowMoistureGuide] = useState<boolean>(false);
 
+  // GPS Location Finder State
+  const [userCoords, setUserCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [isLocating, setIsLocating] = useState<boolean>(false);
+  const [locationStatusMsg, setLocationStatusMsg] = useState<string | null>(null);
+
+  const calculateDistanceKm = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const R = 6371; // km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return Math.round(R * c * 10) / 10;
+  };
+
+  const handleDetectLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationStatusMsg("Geolocation is not supported by your device browser.");
+      return;
+    }
+    setIsLocating(true);
+    setLocationStatusMsg("Detecting your live GPS location...");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        setUserCoords(coords);
+        setIsLocating(false);
+        setSortBy("distance");
+        setLocationStatusMsg(
+          `📍 Live GPS Active: ${coords.lat.toFixed(3)}°N, ${coords.lng.toFixed(3)}°E (Mandis sorted by nearest distance)`
+        );
+      },
+      (err) => {
+        console.warn("Location error:", err);
+        setIsLocating(false);
+        if (err.code === 1) {
+          setLocationStatusMsg("Location permission was denied. Please allow location in your browser bar.");
+        } else {
+          setLocationStatusMsg("Could not fetch GPS location. Showing default distances.");
+        }
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+    );
+  };
+
   const setLang = (newLang: string) => {
     setLangState(newLang);
     localStorage.setItem("kisansetu_lang", newLang);
@@ -367,7 +416,18 @@ export default function KisanSetuApp() {
   };
 
   const filteredCentres = useMemo(() => {
-    const result = centresData.filter((c) => {
+    const listWithDistances = centresData.map((c) => {
+      const displayDistance =
+        userCoords && c.lat && c.lng
+          ? calculateDistanceKm(userCoords.lat, userCoords.lng, c.lat, c.lng)
+          : c.distance;
+      return {
+        ...c,
+        displayDistance,
+      };
+    });
+
+    const result = listWithDistances.filter((c) => {
       const q = searchQuery.toLowerCase().trim();
       const matchSearch =
         q === "" ||
@@ -382,12 +442,12 @@ export default function KisanSetuApp() {
     });
 
     return result.sort((a, b) => {
-      if (sortBy === "distance") return a.distance - b.distance;
+      if (sortBy === "distance") return a.displayDistance - b.displayDistance;
       if (sortBy === "slots") return b.availableSlots - a.availableSlots;
       if (sortBy === "wait") return parseInt(a.waitTime, 10) - parseInt(b.waitTime, 10);
       return 0;
     });
-  }, [centresData, searchQuery, selectedCrop, sortBy]);
+  }, [centresData, searchQuery, selectedCrop, sortBy, userCoords]);
 
   const filteredAdminBookings = useMemo(() => {
     return adminBookings.filter((b) => {
@@ -1300,6 +1360,29 @@ export default function KisanSetuApp() {
         {/* TAB: CENTRES / MANDIS */}
         {activeTab === "centres" && (
           <div className="space-y-4">
+            {/* GPS Location Finder Banner */}
+            <div className="bg-[#ebf2ee] border border-[#4a7c59]/40 p-3 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-xs shadow-xs">
+              <div className="flex items-center gap-2">
+                <span className={`w-3 h-3 rounded-full ${userCoords ? "bg-emerald-600" : "bg-[#4a7c59] animate-pulse"}`}></span>
+                <div>
+                  <span className="font-extrabold text-[#2a4732]">📍 Live GPS Mandi Finder: </span>
+                  <span className="text-slate-800 font-medium">
+                    {locationStatusMsg || (userCoords ? `Current GPS: ${userCoords.lat.toFixed(3)}°N, ${userCoords.lng.toFixed(3)}°E` : "Find and sort mandis closest to your current location")}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleDetectLocation}
+                disabled={isLocating}
+                className="w-full sm:w-auto bg-[#4a7c59] hover:bg-[#3b6447] text-white px-3.5 py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer ml-auto shrink-0"
+              >
+                <Icon name="navigation" className={`w-3.5 h-3.5 ${isLocating ? "animate-spin" : ""}`} />
+                <span>{isLocating ? "Locating..." : "📍 Detect My Location (निकटतम खोजें)"}</span>
+              </button>
+            </div>
+
             <div className="ks-card p-3 flex flex-col sm:flex-row gap-2">
               <div className="flex-1 relative">
                 <Icon name="search" className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
@@ -1347,17 +1430,22 @@ export default function KisanSetuApp() {
             </div>
 
             <div className="ks-card overflow-hidden divide-y divide-slate-100">
-              {filteredCentres.map((centre) => (
+              {filteredCentres.map((centre: any) => (
                 <div
                   key={centre.id}
                   className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#ebf2ee]/30 transition"
                 >
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="text-sm font-extrabold text-slate-900">{centre.name}</h3>
                       <span className="text-[10px] bg-[#ebf2ee] text-[#2a4732] px-2 py-0.5 rounded-full font-bold">
                         {centre.district}
                       </span>
+                      {centre.displayDistance !== undefined && centre.displayDistance <= 15 && (
+                        <span className="text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-1.5 py-0.5 rounded font-bold">
+                          Nearest Mandi
+                        </span>
+                      )}
                     </div>
 
                     <div className="text-xs text-slate-600 space-x-2 flex flex-wrap items-center">
@@ -1366,19 +1454,27 @@ export default function KisanSetuApp() {
                       </span>
                       <span>•</span>
                       <span>
-                        {t.distanceLabel}: <strong>{centre.distance} {t.distKm}</strong>
+                        {t.distanceLabel}:{" "}
+                        <strong className="text-[#2a4732] font-mono">
+                          {centre.displayDistance !== undefined ? centre.displayDistance : centre.distance} {t.distKm}
+                        </strong>
                       </span>
                       <span>•</span>
                       <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                          centre.name + " " + centre.district
-                        )}`}
+                        href={
+                          centre.lat && centre.lng
+                            ? `https://www.google.com/maps/dir/?api=1&destination=${centre.lat},${centre.lng}`
+                            : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                centre.name + " " + centre.district
+                              )}`
+                        }
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#4a7c59] font-bold underline inline-flex items-center gap-0.5"
+                        className="text-[#4a7c59] font-bold underline inline-flex items-center gap-0.5 hover:text-[#3b6447]"
+                        title="Get live GPS driving directions in Google Maps"
                       >
                         <Icon name="navigation" className="w-3 h-3" />
-                        <span>{t.mapNav}</span>
+                        <span>{t.mapNav || "Directions"}</span>
                       </a>
                     </div>
 

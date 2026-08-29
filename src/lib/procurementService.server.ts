@@ -14,6 +14,8 @@ export interface ProcurementCenter {
   availableSlots: number;
   officer: string;
   phone: string;
+  lat?: number;
+  lng?: number;
 }
 
 export interface BookingToken {
