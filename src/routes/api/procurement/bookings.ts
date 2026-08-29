@@ -37,13 +37,14 @@ export const Route = createFileRoute("/api/procurement/bookings")({
           // Handle cancellation requests sent via POST
           if (body?.action === "cancel" || body?.cancel === true) {
             const tokenId = body.tokenId || body.bookingId || body.id;
+            const reason = body.reason || body.cancellationReason;
             if (!tokenId) {
               return Response.json(
                 { success: false, message: "Token ID is required for cancellation" },
                 { status: 400 }
               );
             }
-            const cancelled = procurementService.cancelBooking(tokenId);
+            const cancelled = procurementService.cancelBooking(tokenId, reason);
             if (!cancelled) {
               return Response.json(
                 { success: false, message: `Booking ${tokenId} not found or already cancelled` },
@@ -53,12 +54,14 @@ export const Route = createFileRoute("/api/procurement/bookings")({
             return Response.json({
               success: true,
               message: `Booking ${tokenId} successfully cancelled`,
+              data: procurementService.getBooking(tokenId),
             });
           }
 
           // Handle status update via POST
           if (body?.status && body?.tokenId) {
-            const updated = procurementService.updateBookingStatus(body.tokenId, body.status);
+            const reason = body.reason || body.cancellationReason;
+            const updated = procurementService.updateBookingStatus(body.tokenId, body.status, reason);
             if (!updated) {
               return Response.json(
                 { success: false, message: `Booking ${body.tokenId} not found` },
@@ -99,6 +102,7 @@ export const Route = createFileRoute("/api/procurement/bookings")({
           const body = await request.json();
           const tokenId = body.tokenId || body.bookingId || body.id;
           const status = body.status;
+          const reason = body.reason || body.cancellationReason;
 
           if (!tokenId) {
             return Response.json(
@@ -108,7 +112,7 @@ export const Route = createFileRoute("/api/procurement/bookings")({
           }
 
           if (status) {
-            const updated = procurementService.updateBookingStatus(tokenId, status);
+            const updated = procurementService.updateBookingStatus(tokenId, status, reason);
             if (!updated) {
               return Response.json(
                 { success: false, message: `Booking ${tokenId} not found` },
@@ -122,7 +126,7 @@ export const Route = createFileRoute("/api/procurement/bookings")({
             });
           }
 
-          const cancelled = procurementService.cancelBooking(tokenId);
+          const cancelled = procurementService.cancelBooking(tokenId, reason);
           if (!cancelled) {
             return Response.json(
               { success: false, message: `Booking ${tokenId} not found` },
@@ -132,6 +136,7 @@ export const Route = createFileRoute("/api/procurement/bookings")({
           return Response.json({
             success: true,
             message: `Booking ${tokenId} cancelled`,
+            data: procurementService.getBooking(tokenId),
           });
         } catch (error: any) {
           return Response.json(

@@ -32,6 +32,7 @@ export interface BookingToken {
   status: "Confirmed" | "Gate In" | "Weighed" | "Completed" | "Cancelled";
   issuedAt: string;
   queuePos: number;
+  cancellationReason?: string;
 }
 
 export interface CreateBookingPayload {
@@ -183,7 +184,8 @@ export async function getAllBookings(): Promise<BookingToken[]> {
 
 export async function updateBookingStatus(
   tokenId: string,
-  status: BookingToken["status"]
+  status: BookingToken["status"],
+  reason?: string
 ): Promise<BookingToken> {
   const result = await safeFetchJson<{
     success: boolean;
@@ -191,7 +193,7 @@ export async function updateBookingStatus(
     booking?: BookingToken;
   }>("/api/procurement/bookings", {
     method: "PATCH",
-    body: JSON.stringify({ tokenId, status }),
+    body: JSON.stringify({ tokenId, status, reason }),
   });
 
   const booking = result.data || result.booking;
@@ -201,12 +203,16 @@ export async function updateBookingStatus(
   return booking;
 }
 
-export async function cancelBooking(bookingIdOrToken: string): Promise<{ success: boolean; message: string }> {
+export async function cancelBooking(
+  bookingIdOrToken: string,
+  reason?: string
+): Promise<{ success: boolean; message: string }> {
   return safeFetchJson<{ success: boolean; message: string }>("/api/procurement/bookings", {
     method: "POST",
     body: JSON.stringify({
       action: "cancel",
       tokenId: bookingIdOrToken,
+      reason,
     }),
   });
 }

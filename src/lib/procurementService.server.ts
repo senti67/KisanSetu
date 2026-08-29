@@ -34,6 +34,7 @@ export interface BookingToken {
   status: "Confirmed" | "Gate In" | "Weighed" | "Completed" | "Cancelled";
   issuedAt: string;
   queuePos: number;
+  cancellationReason?: string;
 }
 
 export interface CreateBookingInput {
@@ -236,23 +237,32 @@ class ProcurementStore {
     return booking;
   }
 
-  public updateBookingStatus(tokenId: string, newStatus: BookingToken["status"]): boolean {
+  public updateBookingStatus(
+    tokenId: string,
+    newStatus: BookingToken["status"],
+    reason?: string
+  ): boolean {
     const booking = this.bookings.get(tokenId);
     if (!booking) return false;
 
-    if (newStatus === "Cancelled" && booking.status !== "Cancelled") {
-      const center = this.centers.find((c) => c.id === booking.centreId || c.name === booking.centreName);
-      if (center) {
-        center.availableSlots += 1;
+    if (newStatus === "Cancelled") {
+      if (booking.status !== "Cancelled") {
+        const center = this.centers.find((c) => c.id === booking.centreId || c.name === booking.centreName);
+        if (center) {
+          center.availableSlots += 1;
+        }
       }
+      booking.cancellationReason = reason || booking.cancellationReason || "Cancelled by Mandi Officer / Farmer";
+    } else {
+      delete booking.cancellationReason;
     }
 
     booking.status = newStatus;
     return true;
   }
 
-  public cancelBooking(tokenId: string): boolean {
-    return this.updateBookingStatus(tokenId, "Cancelled");
+  public cancelBooking(tokenId: string, reason?: string): boolean {
+    return this.updateBookingStatus(tokenId, "Cancelled", reason);
   }
 
   public handleIvrBooking(input: IvrBookingInput) {

@@ -185,6 +185,12 @@ export default function KisanSetuApp() {
   const [verifyTokenInput, setVerifyTokenInput] = useState<string>("");
   const [verifiedTokenResult, setVerifiedTokenResult] = useState<BookingToken | null>(null);
 
+  // Cancellation / Rejection Reason Modal State
+  const [rejectModalOpen, setRejectModalOpen] = useState<boolean>(false);
+  const [rejectTargetTokenId, setRejectTargetTokenId] = useState<string | null>(null);
+  const [rejectSelectedReason, setRejectSelectedReason] = useState<string>("High Moisture Content (>17.0% limit)");
+  const [rejectCustomNotes, setRejectCustomNotes] = useState<string>("");
+
   // Booking Modal State
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [selectedCentreForBooking, setSelectedCentreForBooking] = useState<ProcurementCenter | null>(null);
@@ -389,21 +395,49 @@ export default function KisanSetuApp() {
     setActiveTab("home");
   };
 
-  const handleUpdateStatus = async (tokenId: string, newStatus: BookingToken["status"]) => {
+  const handleUpdateStatus = async (
+    tokenId: string,
+    newStatus: BookingToken["status"],
+    reason?: string
+  ) => {
     try {
-      await updateBookingStatus(tokenId, newStatus);
+      await updateBookingStatus(tokenId, newStatus, reason);
       setAdminBookings((prev) =>
-        prev.map((b) => (b.tokenId === tokenId ? { ...b, status: newStatus } : b))
+        prev.map((b) =>
+          b.tokenId === tokenId ? { ...b, status: newStatus, cancellationReason: reason } : b
+        )
       );
       if (verifiedTokenResult && verifiedTokenResult.tokenId === tokenId) {
-        setVerifiedTokenResult({ ...verifiedTokenResult, status: newStatus });
+        setVerifiedTokenResult({
+          ...verifiedTokenResult,
+          status: newStatus,
+          cancellationReason: reason,
+        });
       }
       if (activeToken && activeToken.tokenId === tokenId) {
-        setActiveToken({ ...activeToken, status: newStatus });
+        setActiveToken({ ...activeToken, status: newStatus, cancellationReason: reason });
       }
     } catch (err: any) {
       alert("Failed to update status: " + (err.message || "Network error"));
     }
+  };
+
+  const handlePromptReject = (tokenId: string) => {
+    setRejectTargetTokenId(tokenId);
+    setRejectSelectedReason("High Moisture Content (>17.0% limit)");
+    setRejectCustomNotes("");
+    setRejectModalOpen(true);
+  };
+
+  const handleConfirmReject = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!rejectTargetTokenId) return;
+    const finalReason = rejectCustomNotes.trim()
+      ? `${rejectSelectedReason} — ${rejectCustomNotes.trim()}`
+      : rejectSelectedReason;
+    await handleUpdateStatus(rejectTargetTokenId, "Cancelled", finalReason);
+    setRejectModalOpen(false);
+    setRejectTargetTokenId(null);
   };
 
   const handleVerifySearch = () => {
@@ -1545,22 +1579,42 @@ export default function KisanSetuApp() {
 
             {activeToken ? (
               <div className="space-y-3">
-                <div className="bg-[#ebf2ee] border border-[#4a7c59]/40 p-3 rounded-xl flex items-center justify-between text-xs shadow-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-[#4a7c59] animate-pulse"></span>
-                    <span className="font-bold text-[#2a4732]">{t.liveGateStatus}:</span>
-                    <span className="text-slate-800 font-semibold">
-                      {activeToken.queuePos} {t.trucksAhead}
+                {activeToken.status === "Cancelled" ? (
+                  <div className="bg-red-50 border-2 border-red-400 p-3.5 rounded-xl flex items-start gap-2.5 text-xs text-red-900 shadow-xs">
+                    <span className="text-xl shrink-0">❌</span>
+                    <div className="space-y-1.5 w-full">
+                      <div className="font-extrabold text-sm text-red-950">
+                        Gate Pass Rejected / Cancelled by Mandi Gate
+                      </div>
+                      <div className="bg-white border border-red-200 p-2.5 rounded-lg text-red-800 font-semibold text-xs">
+                        <strong>Official Reason:</strong>{" "}
+                        {activeToken.cancellationReason || "Cancelled by Mandi Gate Officer / Farmer Request"}
+                      </div>
+                      <p className="text-[11px] text-slate-600">
+                        If your pass was rejected due to moisture (&gt;17.0%) or dirt (&gt;2.0%), please sun-dry and clean your crop before generating a fresh pass.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-[#ebf2ee] border border-[#4a7c59]/40 p-3 rounded-xl flex items-center justify-between text-xs shadow-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-[#4a7c59] animate-pulse"></span>
+                      <span className="font-bold text-[#2a4732]">{t.liveGateStatus}:</span>
+                      <span className="text-slate-800 font-semibold">
+                        {activeToken.queuePos} {t.trucksAhead}
+                      </span>
+                    </div>
+                    <span className="font-bold text-slate-900 bg-white px-2.5 py-1 rounded-md border border-[#4a7c59]/30">
+                      {t.estGateEntry}
                     </span>
                   </div>
-                  <span className="font-bold text-slate-900 bg-white px-2.5 py-1 rounded-md border border-[#4a7c59]/30">
-                    {t.estGateEntry}
-                  </span>
-                </div>
+                )}
 
                 <div
                   id="printable-token"
-                  className="bg-white border-2 border-[#4a7c59] rounded-2xl p-5 space-y-4 shadow-sm"
+                  className={`bg-white border-2 ${
+                    activeToken.status === "Cancelled" ? "border-red-400" : "border-[#4a7c59]"
+                  } rounded-2xl p-5 space-y-4 shadow-sm`}
                 >
                   <div className="flex items-start justify-between border-b border-[#e6d8c3] pb-3 gap-2">
                     <div className="flex items-center gap-3">
@@ -1570,8 +1624,20 @@ export default function KisanSetuApp() {
                         className="w-12 h-12 object-contain shrink-0"
                       />
                       <div>
-                        <span className="text-[10px] font-bold uppercase text-white bg-[#4a7c59] px-2 py-0.5 rounded-full">
-                          {t.digitalGatePass}
+                        <span
+                          className={`text-[10px] font-bold uppercase text-white px-2 py-0.5 rounded-full ${
+                            activeToken.status === "Cancelled"
+                              ? "bg-red-700"
+                              : activeToken.status === "Gate In"
+                              ? "bg-blue-700"
+                              : activeToken.status === "Weighed"
+                              ? "bg-amber-700"
+                              : activeToken.status === "Completed"
+                              ? "bg-purple-700"
+                              : "bg-[#4a7c59]"
+                          }`}
+                        >
+                          {activeToken.status === "Cancelled" ? "CANCELLED / REJECTED" : t.digitalGatePass}
                         </span>
                         <h2 className="text-xl font-black text-slate-900 mt-1 tracking-tight font-mono">
                           {activeToken.tokenId}
@@ -1953,6 +2019,18 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
+                  {verifiedTokenResult.status === "Cancelled" && (
+                    <div className="p-2.5 bg-red-50 border border-red-300 rounded-lg text-xs flex items-start gap-2">
+                      <span className="text-red-700 font-bold text-sm">⚠️</span>
+                      <div>
+                        <div className="font-bold text-red-900">Gate Pass Rejection Reason:</div>
+                        <div className="text-[11px] text-red-700 mt-0.5 font-medium">
+                          {verifiedTokenResult.cancellationReason || "Rejected by Mandi Gate Officer"}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="pt-2 flex flex-wrap gap-2 items-center">
                     <span className="font-bold text-slate-600 text-[11px]">Update Status:</span>
                     <button
@@ -1978,7 +2056,7 @@ export default function KisanSetuApp() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleUpdateStatus(verifiedTokenResult.tokenId, "Cancelled")}
+                      onClick={() => handlePromptReject(verifiedTokenResult.tokenId)}
                       className="px-2.5 py-1 bg-red-700 hover:bg-red-800 text-white rounded-md font-bold text-[11px] cursor-pointer"
                     >
                       ✕ Reject / Cancel
@@ -2031,7 +2109,7 @@ export default function KisanSetuApp() {
                       <th className="p-2.5">Date & Slot</th>
                       <th className="p-2.5">Crop & Qtl</th>
                       <th className="p-2.5">Est. Payout</th>
-                      <th className="p-2.5">Status</th>
+                      <th className="p-2.5">Status & Reason</th>
                       <th className="p-2.5 text-right">Quick Action</th>
                     </tr>
                   </thead>
@@ -2076,25 +2154,48 @@ export default function KisanSetuApp() {
                           >
                             {b.status}
                           </span>
+                          {b.status === "Cancelled" && (
+                            <div className="text-[10px] text-red-700 font-semibold max-w-[200px] leading-tight mt-1 bg-red-50 p-1 rounded border border-red-200">
+                              Reason: {b.cancellationReason || "Rejected by Gate Officer"}
+                            </div>
+                          )}
                         </td>
                         <td className="p-2.5 text-right space-x-1 whitespace-nowrap">
                           {b.status === "Confirmed" && (
-                            <button
-                              type="button"
-                              onClick={() => handleUpdateStatus(b.tokenId, "Gate In")}
-                              className="px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white rounded text-[10px] font-bold cursor-pointer"
-                            >
-                              Gate In
-                            </button>
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateStatus(b.tokenId, "Gate In")}
+                                className="px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white rounded text-[10px] font-bold cursor-pointer"
+                              >
+                                Gate In
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handlePromptReject(b.tokenId)}
+                                className="px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 rounded text-[10px] font-bold cursor-pointer"
+                              >
+                                Reject
+                              </button>
+                            </>
                           )}
                           {b.status === "Gate In" && (
-                            <button
-                              type="button"
-                              onClick={() => handleUpdateStatus(b.tokenId, "Weighed")}
-                              className="px-2 py-1 bg-amber-700 hover:bg-amber-800 text-white rounded text-[10px] font-bold cursor-pointer"
-                            >
-                              Weigh & Pass
-                            </button>
+                            <>
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateStatus(b.tokenId, "Weighed")}
+                                className="px-2 py-1 bg-amber-700 hover:bg-amber-800 text-white rounded text-[10px] font-bold cursor-pointer"
+                              >
+                                Weigh & Pass
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handlePromptReject(b.tokenId)}
+                                className="px-2 py-1 bg-red-100 hover:bg-red-200 text-red-800 border border-red-300 rounded text-[10px] font-bold cursor-pointer"
+                              >
+                                Reject
+                              </button>
+                            </>
                           )}
                           {b.status === "Weighed" && (
                             <button
@@ -2423,6 +2524,98 @@ export default function KisanSetuApp() {
                 {t.understoodBtn}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* REJECTION / CANCELLATION REASON MODAL */}
+      {rejectModalOpen && rejectTargetTokenId && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3">
+          <div className="bg-white border border-slate-300 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-red-700 text-white p-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">⚠️</span>
+                <div>
+                  <h3 className="font-extrabold text-sm">Mandi Gate Rejection & Cancellation</h3>
+                  <p className="text-[10px] text-red-100 font-mono">Token: {rejectTargetTokenId}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setRejectModalOpen(false)}
+                className="text-white font-bold text-base px-2 cursor-pointer hover:bg-white/10 rounded-lg"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleConfirmReject} className="p-4 sm:p-5 space-y-3.5 text-xs">
+              <p className="text-slate-700 font-semibold text-xs">
+                Please specify the official reason for rejecting or cancelling this gate pass. The reason will be recorded in the registry and displayed to the farmer.
+              </p>
+
+              <div>
+                <label className="block font-bold text-slate-800 mb-1">
+                  Official Rejection Category *
+                </label>
+                <select
+                  value={rejectSelectedReason}
+                  onChange={(e) => setRejectSelectedReason(e.target.value)}
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 font-bold text-xs"
+                >
+                  <option value="High Moisture Content (>17.0% limit)">
+                    🌾 High Moisture Content (&gt;17.0% limit) (अत्यधिक नमी)
+                  </option>
+                  <option value="Excessive Foreign Matter / Impurities (>2.0%)">
+                    🍂 Excessive Impurities / Dirt (&gt;2.0%) (अशुद्धियां/कचरा)
+                  </option>
+                  <option value="Document Discrepancy (Aadhaar / Land Record mismatch)">
+                    📑 Document Discrepancy (Aadhaar/Khasra mismatch) (दस्तावेज़ में त्रुटि)
+                  </option>
+                  <option value="Late Arrival / Expired Arrival Window (>2 hours)">
+                    ⏱️ Expired / Late Arrival (&gt;2 hours) (समय समाप्त)
+                  </option>
+                  <option value="Farmer Requested Cancellation">
+                    👤 Farmer Requested Cancellation (किसान के अनुरोध पर)
+                  </option>
+                  <option value="Unregistered / Prohibited Crop Variety">
+                    🚫 Non-FAQ Crop / Unregistered Variety (अमान्य किस्म)
+                  </option>
+                  <option value="Other / Custom Reason">
+                    ✍️ Other Specific Reason (अन्य कारण)
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-bold text-slate-800 mb-1">
+                  Inspector Notes / Moisture Reading (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={rejectCustomNotes}
+                  onChange={(e) => setRejectCustomNotes(e.target.value)}
+                  placeholder="e.g. Moisture measured 18.5% at gate. Sun-drying advised."
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 text-xs font-medium"
+                />
+              </div>
+
+              <div className="flex items-center gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setRejectModalOpen(false)}
+                  className="w-1/3 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-lg font-bold cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="w-2/3 bg-red-700 hover:bg-red-800 text-white py-2.5 rounded-lg font-bold shadow-xs cursor-pointer active:scale-95 flex items-center justify-center gap-1.5"
+                >
+                  <span>Confirm Rejection ✕</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
