@@ -2305,7 +2305,7 @@ export default function KisanSetuApp() {
                 <input
                   type="text"
                   required
-                  value={officerIdInput || "MANDI-OFFICER-701"}
+                  value={officerIdInput}
                   onChange={(e) => setOfficerIdInput(e.target.value)}
                   placeholder="e.g. MANDI-701"
                   className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 font-bold font-mono"
@@ -2319,36 +2319,20 @@ export default function KisanSetuApp() {
                 <input
                   type="password"
                   required
-                  value={officerPinInput || "1234"}
+                  value={officerPinInput}
                   onChange={(e) => setOfficerPinInput(e.target.value)}
                   placeholder="Enter PIN / Password"
                   className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 font-bold"
                 />
               </div>
 
-              <div className="pt-2 space-y-2">
+              <div className="pt-2">
                 <button
                   type="submit"
                   className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2.5 rounded-lg font-bold shadow-xs cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
                 >
                   <Icon name="log-in" className="w-4 h-4" />
                   <span>Secure Login</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setOfficerIdInput("MANDI-OFFICER-701");
-                    setOfficerPinInput("1234");
-                    setIsOfficerLoggedIn(true);
-                    sessionStorage.setItem("kisansetu_officer_logged", "true");
-                    setOfficerLoginModal(false);
-                    setActiveTab("admin");
-                    refreshAdminBookings();
-                  }}
-                  className="w-full bg-purple-100 hover:bg-purple-200 text-purple-900 border border-purple-300 py-2 rounded-lg font-bold text-xs cursor-pointer flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <span>⚡ 1-Click Quick Demo Login (As Mandi Officer)</span>
                 </button>
               </div>
             </form>
