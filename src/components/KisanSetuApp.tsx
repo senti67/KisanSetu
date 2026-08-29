@@ -2636,6 +2636,11 @@ export default function KisanSetuApp() {
                 : c
             )
           );
+          setAdminBookings((prev) => [
+            newBooking,
+            ...prev.filter((b) => b.tokenId !== newBooking.tokenId),
+          ]);
+          refreshAdminBookings();
         }}
       />
 

@@ -34,35 +34,33 @@ export const Route = createFileRoute("/api/procurement/ivr")({
             rawDigits = rawDigits.replace(/^"+|"+$/g, "").trim();
           }
 
-          // Auto-create booking for 1-touch Exotel passthru calls
-          const centers = procurementService.getCenters();
-          const targetCenter = centers[0] || { id: "c1", name: "Karnal Main Grain Mandi (Gate 2)", district: "Karnal" };
+          const session = ivrServerEngine.getSession(callId);
+          if (phone) session.phone = phone;
 
-          const booking = procurementService.createBooking({
-            farmerName: `Farmer (${phone.slice(-4)})`,
-            mobile: phone,
-            aadhaar4: phone.slice(-4),
-            centreId: targetCenter.id,
-            centreName: targetCenter.name,
-            district: targetCenter.district,
-            crop: "Paddy (Grade A)",
-            quantity: "85",
-            date: "2026-08-27",
-            slot: "08:00 AM - 10:00 AM",
-          });
-
-          console.log(`[IVR GET] Issued Gate Pass Token ${booking.tokenId} for phone ${phone}`);
+          let stepResult;
+          if (rawDigits !== null && rawDigits !== undefined && rawDigits !== "") {
+            stepResult = await ivrServerEngine.processStep(session, rawDigits);
+          } else {
+            stepResult = {
+              session,
+              promptText:
+                "किसानसेतु राष्ट्रीय खरीद हेल्पलाइन 1800-180-1551 में आपका स्वागत है। \nहिन्दी के लिए 1 दबाएं। For English press 2.",
+              expectDigits: 1,
+            };
+          }
 
           return Response.json({
             success: true,
             status: "ready",
             service: "KisanSetu IVR Interactive Telephony Engine",
             callId,
-            phone,
-            tokenId: booking.tokenId,
-            booking,
-            data: booking,
-            message: `Mandi Gate Pass ${booking.tokenId} generated successfully`,
+            phone: session.phone,
+            stage: session.stage,
+            promptText: stepResult.promptText,
+            expectDigits: stepResult.expectDigits,
+            session,
+            booking: (stepResult as any).booking || null,
+            data: (stepResult as any).booking || null,
           });
         } catch (err: any) {
           console.error("IVR GET Error:", err);
@@ -108,28 +106,20 @@ export const Route = createFileRoute("/api/procurement/ivr")({
             rawDigits = rawDigits.replace(/^"+|"+$/g, "").trim();
           }
 
-          // Auto-create confirmed booking for the caller
-          const centers = procurementService.getCenters();
-          const targetCenter = centers[0] || { id: "c1", name: "Karnal Main Grain Mandi (Gate 2)", district: "Karnal" };
-
-          const booking = procurementService.createBooking({
-            farmerName: `Farmer (${phone.slice(-4)})`,
-            mobile: phone,
-            aadhaar4: phone.slice(-4),
-            centreId: targetCenter.id,
-            centreName: targetCenter.name,
-            district: targetCenter.district,
-            crop: body.crop || "Paddy (Grade A)",
-            quantity: body.quantity || "85",
-            date: "2026-08-27",
-            slot: "08:00 AM - 10:00 AM",
-          });
-
-          console.log(`[IVR POST] Issued Gate Pass Token ${booking.tokenId} for phone ${phone}`);
-
           const session = ivrServerEngine.getSession(callId);
-          session.phone = phone;
-          session.stage = "MAIN_MENU";
+          if (phone) session.phone = phone;
+
+          let stepResult;
+          if (rawDigits !== null && rawDigits !== undefined && rawDigits !== "") {
+            stepResult = await ivrServerEngine.processStep(session, rawDigits);
+          } else {
+            stepResult = {
+              session,
+              promptText:
+                "किसानसेतु राष्ट्रीय खरीद हेल्पलाइन 1800-180-1551 में आपका स्वागत है। \nहिन्दी के लिए 1 दबाएं। For English press 2.",
+              expectDigits: 1,
+            };
+          }
 
           const isXml =
             request.headers.get("accept")?.includes("xml") ||
@@ -137,10 +127,13 @@ export const Route = createFileRoute("/api/procurement/ivr")({
             body.format === "xml";
 
           if (isXml) {
+            const xmlVoice = session.language === "en" ? "Polly.Raveena" : "Polly.Aditi";
+            const xmlLang = session.language === "en" ? "en-IN" : "hi-IN";
             const twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say language="hi-IN" voice="Polly.Aditi">बधाई हो! आपकी मंडी खरीद बुकिंग सफल हो गई है। आपका टोकन नंबर है ${booking.tokenId}।</Say>
-  <Hangup/>
+  <Gather numDigits="${stepResult.expectDigits || 1}" timeout="10">
+    <Say language="${xmlLang}" voice="${xmlVoice}">${stepResult.promptText}</Say>
+  </Gather>
 </Response>`;
             return new Response(twiml, {
               headers: { "Content-Type": "text/xml; charset=utf-8" },
@@ -151,12 +144,13 @@ export const Route = createFileRoute("/api/procurement/ivr")({
             {
               success: true,
               callId,
-              phone,
-              tokenId: booking.tokenId,
-              booking,
-              data: booking,
-              promptText: `बधाई हो! आपकी मंडी खरीद बुकिंग सफल हो गई है। आपका गेट पास टोकन नंबर है: ${booking.tokenId}।`,
-              message: "Mandi Gate Pass generated successfully",
+              phone: session.phone,
+              stage: session.stage,
+              promptText: stepResult.promptText,
+              expectDigits: stepResult.expectDigits,
+              session,
+              booking: (stepResult as any).booking || null,
+              data: (stepResult as any).booking || null,
             },
             { status: 200 }
           );
