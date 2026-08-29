@@ -924,29 +924,26 @@ export default function KisanSetuApp() {
               <span>{t.mspRates}</span>
             </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                if (isOfficerLoggedIn) {
-                  setActiveTab("admin");
-                } else {
-                  setOfficerLoginModal(true);
-                }
-              }}
-              className={`py-2.5 px-3 border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-                activeTab === "admin"
-                  ? "border-purple-700 text-purple-800 font-bold bg-white"
-                  : "border-transparent text-purple-700 hover:text-purple-900"
-              }`}
-            >
-              <Icon name="shield" className="w-4 h-4 text-purple-700" />
-              <span>Mandi Officer / Admin</span>
-              {adminBookings.length > 0 && (
-                <span className="px-1.5 py-0.2 bg-purple-100 text-purple-800 text-[10px] rounded-full font-bold">
-                  {adminBookings.length}
-                </span>
-              )}
-            </button>
+            {/* Officer Tab: Visible ONLY after officer logs in */}
+            {isOfficerLoggedIn && (
+              <button
+                type="button"
+                onClick={() => setActiveTab("admin")}
+                className={`py-2.5 px-3 border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                  activeTab === "admin"
+                    ? "border-purple-700 text-purple-800 font-bold bg-white"
+                    : "border-transparent text-purple-700 hover:text-purple-900"
+                }`}
+              >
+                <Icon name="shield" className="w-4 h-4 text-purple-700" />
+                <span>Mandi Officer</span>
+                {adminBookings.length > 0 && (
+                  <span className="px-1.5 py-0.2 bg-purple-100 text-purple-800 text-[10px] rounded-full font-bold">
+                    {adminBookings.length}
+                  </span>
+                )}
+              </button>
+            )}
 
             <button
               type="button"
