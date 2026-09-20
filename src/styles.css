@@ -189,6 +189,12 @@ h6,
   z-index: 3;
 }
 
+.ks-service-card > svg.absolute,
+.ks-service-card > svg {
+  position: absolute !important;
+  z-index: 1;
+}
+
 /* =========================================================
    COMMON DECORATIVE LAYER
    ========================================================= */

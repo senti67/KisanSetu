@@ -1132,6 +1132,49 @@ export default function KisanSetuApp() {
                   onClick={() => setActiveTab("msp-rates")}
                   className="ks-service-card ks-card-msp p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
+                  <svg
+                    className="absolute bottom-0 right-0 w-48 h-48 opacity-[0.16] pointer-events-none"
+                    viewBox="0 0 200 200"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M145 205 C145 160 142 120 130 80"
+                      stroke="#B98232"
+                      strokeWidth="2"
+                    />
+
+                    <path
+                      d="M130 100 C110 85 105 70 108 55"
+                      stroke="#B98232"
+                      strokeWidth="2"
+                    />
+
+                    <path
+                      d="M132 118 C153 100 160 83 158 68"
+                      stroke="#B98232"
+                      strokeWidth="2"
+                    />
+
+                    <ellipse
+                      cx="108"
+                      cy="53"
+                      rx="5"
+                      ry="14"
+                      transform="rotate(-25 108 53)"
+                      fill="#B98232"
+                    />
+
+                    <ellipse
+                      cx="158"
+                      cy="67"
+                      rx="5"
+                      ry="14"
+                      transform="rotate(25 158 67)"
+                      fill="#B98232"
+                    />
+                  </svg>
+
                   <div className="space-y-2 sm:space-y-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#faeacf] text-[#c66a13] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="calculator" className="w-5 h-5 sm:w-6 sm:h-6 text-[#c66a13]" />
