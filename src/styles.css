@@ -161,73 +161,339 @@ h6,
 }
 
 /* =========================================================
-   KISANSETU SERVICE CARDS
-   Borderless pastel cards
+   KISANSETU - SERVICE CARDS
+   Soft pastel surfaces + botanical textures
    ========================================================= */
 
 .ks-service-card {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
 
-  /* Remove the hard card border */
   border: none !important;
   outline: none !important;
-
   border-radius: 24px;
 
-  /* Softer depth instead of a border */
   box-shadow:
-    0 4px 18px rgba(35, 65, 45, 0.045),
-    0 1px 4px rgba(35, 65, 45, 0.025);
+    0 6px 22px rgba(31, 61, 43, 0.055),
+    0 2px 6px rgba(31, 61, 43, 0.025);
 
   transition:
-    transform 220ms ease,
-    box-shadow 220ms ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-/* Keep all actual content above the decoration */
+/* Keep actual content above artwork */
 .ks-service-card > * {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
-/* Hover elevation */
+/* =========================================================
+   COMMON DECORATIVE LAYER
+   ========================================================= */
+
+.ks-service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  pointer-events: none;
+
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: auto 100%;
+
+  opacity: 0.8;
+}
+
+/* Soft fade over the artwork so it blends into the card */
+.ks-service-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.10) 0%,
+      rgba(255,255,255,0.00) 45%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.08) 0%,
+      rgba(255,255,255,0.00) 50%
+    );
+}
+
+/* =========================================================
+   MANDI GATE PASS
+   ========================================================= */
+
+.ks-card-gate {
+  background:
+    linear-gradient(
+      135deg,
+      #edf8ef 0%,
+      #e5f3e8 55%,
+      #dff0e3 100%
+    );
+}
+
+/* Soft agricultural field texture */
+.ks-card-gate::before {
+  opacity: 0.55;
+
+  background-image:
+
+    /* distant field lines */
+    repeating-radial-gradient(
+      ellipse at 85% 115%,
+      transparent 0px,
+      transparent 25px,
+      rgba(50, 112, 72, 0.075) 26px,
+      rgba(50, 112, 72, 0.075) 27px,
+      transparent 28px,
+      transparent 48px
+    ),
+
+    /* large wheat stalk */
+    linear-gradient(
+      72deg,
+      transparent 0%,
+      transparent 75%,
+      rgba(55, 115, 75, 0.10) 75.5%,
+      transparent 76%
+    );
+
+  background-position:
+    right bottom,
+    right bottom;
+
+  background-size:
+    70% 100%,
+    35% 100%;
+}
+
+/* =========================================================
+   MSP RATES
+   ========================================================= */
+
+.ks-card-msp {
+  background:
+    linear-gradient(
+      135deg,
+      #fffaf0 0%,
+      #fff4dd 55%,
+      #ffefd0 100%
+    );
+}
+
+.ks-card-msp::before {
+  opacity: 0.62;
+
+  background-image:
+
+    /* soft field curves */
+    repeating-radial-gradient(
+      ellipse at 100% 115%,
+      transparent 0px,
+      transparent 22px,
+      rgba(194, 133, 35, 0.09) 23px,
+      rgba(194, 133, 35, 0.09) 24px,
+      transparent 25px,
+      transparent 46px
+    ),
+
+    /* subtle rising bars */
+    linear-gradient(
+      to top,
+      rgba(194, 133, 35, 0.11) 0%,
+      rgba(194, 133, 35, 0.11) 45%,
+      transparent 45%
+    ),
+
+    linear-gradient(
+      to top,
+      rgba(194, 133, 35, 0.09) 0%,
+      rgba(194, 133, 35, 0.09) 62%,
+      transparent 62%
+    ),
+
+    linear-gradient(
+      to top,
+      rgba(194, 133, 35, 0.07) 0%,
+      rgba(194, 133, 35, 0.07) 78%,
+      transparent 78%
+    );
+
+  background-position:
+    right bottom,
+    78% 100%,
+    84% 100%,
+    90% 100%;
+
+  background-size:
+    75% 100%,
+    18px 70%,
+    18px 70%,
+    18px 70%;
+
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   MOISTURE PRE-CHECK
+   ========================================================= */
+
+.ks-card-moisture {
+  background:
+    linear-gradient(
+      135deg,
+      #f0f8ff 0%,
+      #e8f4ff 55%,
+      #e1f0fc 100%
+    );
+}
+
+.ks-card-moisture::before {
+  opacity: 0.62;
+
+  background-image:
+
+    /* water ripples */
+    repeating-radial-gradient(
+      ellipse at 100% 110%,
+      transparent 0px,
+      transparent 23px,
+      rgba(55, 133, 207, 0.10) 24px,
+      rgba(55, 133, 207, 0.10) 25px,
+      transparent 26px,
+      transparent 48px
+    ),
+
+    /* soft water droplets */
+    radial-gradient(
+      ellipse at 82% 30%,
+      rgba(71, 151, 224, 0.12) 0px,
+      rgba(71, 151, 224, 0.12) 8px,
+      transparent 9px
+    ),
+
+    radial-gradient(
+      ellipse at 91% 43%,
+      rgba(71, 151, 224, 0.10) 0px,
+      rgba(71, 151, 224, 0.10) 6px,
+      transparent 7px
+    ),
+
+    radial-gradient(
+      ellipse at 75% 20%,
+      rgba(71, 151, 224, 0.08) 0px,
+      rgba(71, 151, 224, 0.08) 5px,
+      transparent 6px
+    );
+
+  background-position:
+    right bottom,
+    80% 30%,
+    90% 43%,
+    75% 20%;
+
+  background-size:
+    75% 100%,
+    25px 35px,
+    20px 30px,
+    16px 24px;
+
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   HELP & ASSISTANCE
+   ========================================================= */
+
+.ks-card-help {
+  background:
+    linear-gradient(
+      135deg,
+      #fff3f4 0%,
+      #fcebed 55%,
+      #fae4e8 100%
+    );
+}
+
+.ks-card-help::before {
+  opacity: 0.58;
+
+  background-image:
+
+    /* soft organic curves */
+    repeating-radial-gradient(
+      ellipse at 105% 110%,
+      transparent 0px,
+      transparent 25px,
+      rgba(181, 73, 98, 0.075) 26px,
+      rgba(181, 73, 98, 0.075) 27px,
+      transparent 28px,
+      transparent 52px
+    ),
+
+    /* document watermark */
+    linear-gradient(
+      rgba(181, 73, 98, 0.06),
+      rgba(181, 73, 98, 0.06)
+    );
+
+  background-position:
+    right bottom,
+    84% 28%;
+
+  background-size:
+    75% 100%,
+    75px 100px;
+
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
 .ks-service-card:hover {
   transform: translateY(-3px);
 
   box-shadow:
-    0 12px 30px rgba(35, 65, 45, 0.08),
-    0 3px 8px rgba(35, 65, 45, 0.035);
+    0 14px 30px rgba(31, 61, 43, 0.085),
+    0 4px 8px rgba(31, 61, 43, 0.035);
 }
 
+.ks-service-card:hover::before {
+  opacity: 0.72;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 768px) {
+
   .ks-service-card {
     border-radius: 20px;
+  }
+
+  .ks-service-card::before {
+    opacity: 0.45;
+    background-size: 65% 100%;
   }
 
   .ks-service-card:hover {
     transform: none;
   }
-}
-
-/* ---------------------------------------------------------
-   CARD BACKGROUNDS (Pastel gradients preserved)
-   --------------------------------------------------------- */
-
-.ks-card-gate {
-  background: linear-gradient(135deg, #eef8ef 0%, #e5f3e8 100%);
-}
-
-.ks-card-msp {
-  background: linear-gradient(135deg, #fff9ec 0%, #fff3d9 100%);
-}
-
-.ks-card-moisture {
-  background: linear-gradient(135deg, #eef7ff 0%, #e5f2fc 100%);
-}
-
-.ks-card-help {
-  background: linear-gradient(135deg, #fff2f3 0%, #fce8eb 100%);
 }
 
 @media print {

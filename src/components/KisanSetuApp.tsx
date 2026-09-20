@@ -1092,103 +1092,8 @@ export default function KisanSetuApp() {
                   onClick={() => handleOpenBooking()}
                   className="ks-service-card ks-card-gate md:col-span-3 p-4 sm:p-6 md:p-7 cursor-pointer flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 group active:scale-[0.99]"
                 >
-                  {/* Decorative botanical agricultural artwork: Wheat stalks, grain heads, rolling field contours */}
-                  <svg
-                    className="absolute right-0 bottom-0 w-[48%] sm:w-[42%] md:w-[38%] h-full pointer-events-none select-none z-0"
-                    viewBox="0 0 500 200"
-                    preserveAspectRatio="xMaxYMax slice"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    style={{
-                      maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 20%, black 65%)",
-                      WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 20%, black 65%)",
-                    }}
-                  >
-                    {/* Rising Sun Glow */}
-                    <circle cx="370" cy="75" r="42" fill="#3d6849" opacity="0.06" />
-
-                    {/* Distant Birds */}
-                    <g stroke="#3d6849" strokeWidth="1.2" strokeLinecap="round" opacity="0.14">
-                      <path d="M300 68 Q305 62 310 68 Q315 62 320 68" />
-                      <path d="M322 78 Q326 73 330 78 Q334 73 338 78" />
-                    </g>
-
-                    {/* Rolling Field Contours & Terraces */}
-                    <path d="M0 200 C140 180 260 152 400 158 C440 160 470 164 500 166 L500 200 Z" fill="#3d6849" opacity="0.06" />
-                    <path d="M120 200 C240 182 350 164 500 172 L500 200 Z" fill="#3d6849" opacity="0.08" />
-
-                    {/* Terraced Furrow Lines */}
-                    <g stroke="#3d6849" strokeWidth="1.2" opacity="0.12">
-                      <path d="M60 200 C180 182 300 170 500 178" strokeDasharray="6 4" />
-                      <path d="M150 200 C260 188 380 178 500 186" />
-                      <path d="M240 200 C340 192 420 186 500 192" strokeDasharray="5 3" />
-                    </g>
-
-                    {/* Wheat Stalk 1 (Tall primary stalk) */}
-                    <path d="M430 200 C428 145 416 95 396 28" stroke="#2a4a34" strokeWidth="2.2" strokeLinecap="round" opacity="0.17" />
-                    <g fill="#2a4a34" stroke="#2a4a34" strokeWidth="1" opacity="0.15">
-                      {/* Top Tip */}
-                      <path d="M396 28 C390 20 385 10 392 2 C398 10 402 20 396 28 Z" />
-                      <path d="M392 2 L384 -12" strokeLinecap="round" />
-                      <path d="M397 26 C404 18 410 9 404 2 C397 9 392 18 397 26 Z" />
-                      <path d="M404 2 L414 -10" strokeLinecap="round" />
-
-                      {/* Kernel Pair 1 */}
-                      <path d="M398 46 C388 38 382 28 390 19 C396 28 403 38 398 46 Z" />
-                      <path d="M390 19 L376 3" strokeLinecap="round" />
-                      <path d="M400 44 C410 36 418 26 411 18 C404 26 397 36 400 44 Z" />
-                      <path d="M411 18 L426 3" strokeLinecap="round" />
-
-                      {/* Kernel Pair 2 */}
-                      <path d="M402 65 C390 57 383 46 392 37 C398 46 406 56 402 65 Z" />
-                      <path d="M392 37 L375 20" strokeLinecap="round" />
-                      <path d="M404 63 C415 54 424 44 416 35 C408 44 400 54 404 63 Z" />
-                      <path d="M416 35 L433 19" strokeLinecap="round" />
-
-                      {/* Kernel Pair 3 */}
-                      <path d="M406 85 C393 76 385 64 394 55 C401 64 409 75 406 85 Z" />
-                      <path d="M394 55 L376 37" strokeLinecap="round" />
-                      <path d="M408 82 C420 72 430 61 421 52 C412 62 404 73 408 82 Z" />
-                      <path d="M421 52 L440 35" strokeLinecap="round" />
-
-                      {/* Kernel Pair 4 */}
-                      <path d="M410 106 C396 97 388 84 397 74 C404 84 413 95 410 106 Z" />
-                      <path d="M397 74 L378 55" strokeLinecap="round" />
-                      <path d="M412 103 C425 93 435 81 426 71 C416 82 407 94 412 103 Z" />
-                      <path d="M426 71 L446 53" strokeLinecap="round" />
-
-                      {/* Kernel Pair 5 */}
-                      <path d="M414 128 C399 118 390 104 400 94 C407 104 417 116 414 128 Z" />
-                      <path d="M400 94 L380 74" strokeLinecap="round" />
-                      <path d="M416 125 C430 114 441 101 431 90 C420 102 411 115 416 125 Z" />
-                      <path d="M431 90 L452 71" strokeLinecap="round" />
-                    </g>
-
-                    {/* Wheat Stalk 2 (Secondary stalk curving right) */}
-                    <path d="M465 200 C460 148 440 98 408 50" stroke="#3d6849" strokeWidth="2" strokeLinecap="round" opacity="0.15" />
-                    <g fill="#3d6849" stroke="#3d6849" strokeWidth="1" opacity="0.13">
-                      <path d="M408 50 C402 42 396 32 403 24 C409 32 414 42 408 50 Z" />
-                      <path d="M403 24 L394 10" strokeLinecap="round" />
-                      <path d="M410 48 C417 40 424 31 418 23 C411 31 405 40 410 48 Z" />
-                      <path d="M418 23 L428 9" strokeLinecap="round" />
-                      <path d="M411 67 C401 59 394 48 403 40 C410 48 417 58 411 67 Z" />
-                      <path d="M403 40 L388 24" strokeLinecap="round" />
-                      <path d="M414 64 C424 56 432 46 425 38 C417 46 410 56 414 64 Z" />
-                      <path d="M425 38 L440 23" strokeLinecap="round" />
-                      <path d="M417 87 C405 78 397 66 407 57 C414 66 422 77 417 87 Z" />
-                      <path d="M407 57 L390 40" strokeLinecap="round" />
-                      <path d="M420 83 C431 74 440 63 432 54 C423 64 415 75 420 83 Z" />
-                      <path d="M432 54 L448 38" strokeLinecap="round" />
-                    </g>
-
-                    {/* Graceful Arching Leaves */}
-                    <path d="M428 175 C395 145 355 138 315 146" stroke="#2a4a34" strokeWidth="1.8" strokeLinecap="round" opacity="0.14" />
-                    <path d="M440 188 C465 162 485 135 480 105" stroke="#3d6849" strokeWidth="1.6" strokeLinecap="round" opacity="0.13" />
-                  </svg>
-
                   {/* Card Content */}
-                  <div className="relative z-10 flex items-start gap-3 sm:gap-4 max-w-xl">
+                  <div className="flex items-start gap-3 sm:gap-4 max-w-xl">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-[#284935] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                       <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
@@ -1215,7 +1120,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
+                  <div className="w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
                     <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#244632] group-hover:bg-[#1a3424] text-white py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl font-bold text-sm sm:text-base shadow-sm transition active:scale-[0.98]">
                       <span>{t.card1Cta || "Book Slot →"}</span>
                     </span>
@@ -1227,82 +1132,7 @@ export default function KisanSetuApp() {
                   onClick={() => setActiveTab("msp-rates")}
                   className="ks-service-card ks-card-msp p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
-                  {/* Decorative botanical artwork: Wheat stalk, subtle integrated bar chart, faint Rupee seal */}
-                  <svg
-                    className="absolute right-0 bottom-0 w-[44%] sm:w-[40%] md:w-[44%] h-[92%] pointer-events-none select-none z-0"
-                    viewBox="0 0 180 200"
-                    preserveAspectRatio="xMaxYMax meet"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    style={{
-                      maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 25%, black 70%)",
-                      WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 25%, black 70%)",
-                    }}
-                  >
-                    {/* Faint Rupee Watermark Seal */}
-                    <circle cx="125" cy="55" r="30" fill="#c86d12" opacity="0.06" />
-                    <path
-                      d="M117 43 H133 M117 49 H130 M117 43 C127 43 131 53 122 59 L131 70"
-                      stroke="#a4590b"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      opacity="0.13"
-                    />
-
-                    {/* Subtle Rising Bar Chart Shapes in Ground */}
-                    <rect x="80" y="142" width="13" height="42" rx="3.5" fill="#c86d12" opacity="0.07" />
-                    <rect x="98" y="122" width="13" height="62" rx="3.5" fill="#c86d12" opacity="0.09" />
-                    <rect x="116" y="98" width="13" height="86" rx="3.5" fill="#c86d12" opacity="0.11" />
-                    <rect x="134" y="72" width="13" height="112" rx="3.5" fill="#c86d12" opacity="0.13" />
-
-                    {/* Soft Curved Field Lines */}
-                    <g stroke="#a4590b" opacity="0.12" fill="none">
-                      <path d="M15 195 C60 185 105 170 160 168 C170 167 175 168 180 170" strokeWidth="1.3" />
-                      <path d="M0 182 C45 174 90 156 145 154 C162 153 172 156 180 158" strokeWidth="1" strokeDasharray="4 3" />
-                      <path d="M35 200 C80 192 125 182 175 180" strokeWidth="0.8" />
-                    </g>
-
-                    {/* Botanical Wheat Stalk (Main Visual Element) */}
-                    <path d="M160 200 C157 155 150 110 140 38" stroke="#8c4b08" strokeWidth="2" strokeLinecap="round" opacity="0.17" />
-                    <g fill="#a4590b" stroke="#8c4b08" strokeWidth="1" opacity="0.15">
-                      {/* Tip */}
-                      <path d="M140 38 C134 30 130 20 136 12 C142 20 146 30 140 38 Z" />
-                      <path d="M136 12 L128 0" strokeLinecap="round" />
-                      <path d="M141 36 C148 28 154 19 148 11 C142 19 137 28 141 36 Z" />
-                      <path d="M148 11 L158 -2" strokeLinecap="round" />
-
-                      {/* Kernel Pair 1 */}
-                      <path d="M142 56 C132 48 126 38 134 30 C140 38 147 48 142 56 Z" />
-                      <path d="M134 30 L122 16" strokeLinecap="round" />
-                      <path d="M144 54 C154 46 161 36 154 28 C147 36 141 46 144 54 Z" />
-                      <path d="M154 28 L167 15" strokeLinecap="round" />
-
-                      {/* Kernel Pair 2 */}
-                      <path d="M145 76 C134 67 127 56 136 47 C143 56 150 67 145 76 Z" />
-                      <path d="M136 47 L122 32" strokeLinecap="round" />
-                      <path d="M148 73 C159 64 167 53 159 44 C151 54 144 64 148 73 Z" />
-                      <path d="M159 44 L174 30" strokeLinecap="round" />
-
-                      {/* Kernel Pair 3 */}
-                      <path d="M148 98 C136 88 128 76 138 66 C145 76 153 88 148 98 Z" />
-                      <path d="M138 66 L123 50" strokeLinecap="round" />
-                      <path d="M151 95 C163 84 172 72 163 62 C154 73 146 85 151 95 Z" />
-                      <path d="M163 62 L180 47" strokeLinecap="round" />
-
-                      {/* Kernel Pair 4 */}
-                      <path d="M152 120 C139 110 131 97 141 86 C148 97 157 109 152 120 Z" />
-                      <path d="M141 86 L124 69" strokeLinecap="round" />
-                      <path d="M154 116 C167 105 177 92 167 81 C157 93 149 106 154 116 Z" />
-                      <path d="M167 81 L186 65" strokeLinecap="round" />
-                    </g>
-
-                    {/* Soft leaf arching left */}
-                    <path d="M156 165 C132 146 108 144 92 150" stroke="#8c4b08" strokeWidth="1.5" strokeLinecap="round" opacity="0.14" />
-                  </svg>
-
-                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[65%] sm:max-w-[70%]">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#faeacf] text-[#c66a13] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="calculator" className="w-5 h-5 sm:w-6 sm:h-6 text-[#c66a13]" />
                     </div>
@@ -1316,7 +1146,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
+                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
                     <span>{t.card2Cta || "Check Rates →"}</span>
                   </div>
                 </div>
@@ -1326,91 +1156,7 @@ export default function KisanSetuApp() {
                   onClick={() => setActiveTab("moisture")}
                   className="ks-service-card ks-card-moisture p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
-                  {/* Decorative botanical artwork: Water droplets, flowing ripple waves, elegant grain stalk */}
-                  <svg
-                    className="absolute right-0 bottom-0 w-[44%] sm:w-[40%] md:w-[44%] h-[92%] pointer-events-none select-none z-0"
-                    viewBox="0 0 180 200"
-                    preserveAspectRatio="xMaxYMax meet"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    style={{
-                      maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 25%, black 70%)",
-                      WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 25%, black 70%)",
-                    }}
-                  >
-                    {/* Large Soft Translucent Water Droplets */}
-                    <path
-                      d="M102 36 C96 48 92 56 92 62 C92 70 97 76 102 76 C107 76 112 70 112 62 C112 56 108 48 102 36 Z"
-                      fill="#2563eb"
-                      opacity="0.12"
-                      stroke="#1d4ed8"
-                      strokeWidth="1.2"
-                      strokeOpacity="0.16"
-                    />
-                    <path
-                      d="M132 60 C124 74 119 83 119 91 C119 100 125 107 132 107 C139 107 145 100 145 91 C145 83 140 74 132 60 Z"
-                      fill="#2563eb"
-                      opacity="0.14"
-                      stroke="#1d4ed8"
-                      strokeWidth="1.2"
-                      strokeOpacity="0.18"
-                    />
-                    <path
-                      d="M82 92 C78 100 75 105 75 109 C75 114 78 118 82 118 C86 118 89 114 89 109 C89 105 86 100 82 92 Z"
-                      fill="#2563eb"
-                      opacity="0.09"
-                      stroke="#1d4ed8"
-                      strokeWidth="1"
-                      strokeOpacity="0.13"
-                    />
-
-                    {/* Flowing Water Lines & Ripple Curves */}
-                    <g stroke="#1d4ed8" strokeLinecap="round" fill="none">
-                      <path d="M20 166 C55 150 85 170 118 158 C144 146 164 154 180 148" strokeWidth="1.8" opacity="0.14" />
-                      <path d="M42 180 C72 166 100 184 130 172 C154 162 168 168 180 164" strokeWidth="1.4" opacity="0.11" />
-                      <path d="M68 192 C94 182 118 195 142 186 C162 178 172 182 180 180" strokeWidth="1" opacity="0.08" />
-                    </g>
-
-                    {/* Elegant Grain Stalk Rising from Lower-Right Corner */}
-                    <path d="M162 200 C158 150 148 102 134 32" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" opacity="0.17" />
-                    <g fill="#2563eb" stroke="#1e40af" strokeWidth="1" opacity="0.15">
-                      {/* Tip */}
-                      <path d="M134 32 C128 24 124 14 130 6 C136 14 140 24 134 32 Z" />
-                      <path d="M130 6 L122 -6" strokeLinecap="round" />
-                      <path d="M135 30 C142 22 148 13 142 5 C136 13 131 22 135 30 Z" />
-                      <path d="M142 5 L152 -6" strokeLinecap="round" />
-
-                      {/* Kernel Pair 1 */}
-                      <path d="M136 50 C126 42 120 32 128 24 C134 32 141 42 136 50 Z" />
-                      <path d="M128 24 L115 10" strokeLinecap="round" />
-                      <path d="M138 48 C148 40 155 30 148 22 C141 30 135 40 138 48 Z" />
-                      <path d="M148 22 L160 9" strokeLinecap="round" />
-
-                      {/* Kernel Pair 2 */}
-                      <path d="M139 70 C128 61 121 50 130 41 C137 50 144 61 139 70 Z" />
-                      <path d="M130 41 L116 26" strokeLinecap="round" />
-                      <path d="M142 67 C153 58 161 47 153 38 C145 48 138 58 142 67 Z" />
-                      <path d="M153 38 L168 24" strokeLinecap="round" />
-
-                      {/* Kernel Pair 3 */}
-                      <path d="M142 92 C130 82 122 70 132 60 C139 70 147 82 142 92 Z" />
-                      <path d="M132 60 L117 44" strokeLinecap="round" />
-                      <path d="M145 89 C157 78 166 66 157 56 C148 67 140 79 145 89 Z" />
-                      <path d="M157 56 L174 41" strokeLinecap="round" />
-
-                      {/* Kernel Pair 4 */}
-                      <path d="M146 114 C133 104 125 91 135 80 C142 91 151 103 146 114 Z" />
-                      <path d="M135 80 L118 63" strokeLinecap="round" />
-                      <path d="M148 110 C161 99 171 86 161 75 C151 87 143 100 148 110 Z" />
-                      <path d="M161 75 L180 59" strokeLinecap="round" />
-                    </g>
-
-                    {/* Soft leaf arching left */}
-                    <path d="M152 160 C128 142 104 140 88 146" stroke="#1e40af" strokeWidth="1.4" strokeLinecap="round" opacity="0.13" />
-                  </svg>
-
-                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[65%] sm:max-w-[70%]">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#dff0fe] text-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="droplet" className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb]" />
                     </div>
@@ -1424,7 +1170,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
+                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
                     <span>{t.card3Cta || "Check Moisture →"}</span>
                   </div>
                 </div>
@@ -1434,74 +1180,7 @@ export default function KisanSetuApp() {
                   onClick={() => setActiveTab("help")}
                   className="ks-service-card ks-card-help p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
-                  {/* Decorative botanical artwork: Leafy branch, faint document watermark, subtle support symbol */}
-                  <svg
-                    className="absolute right-0 bottom-0 w-[44%] sm:w-[40%] md:w-[44%] h-[92%] pointer-events-none select-none z-0"
-                    viewBox="0 0 180 200"
-                    preserveAspectRatio="xMaxYMax meet"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    style={{
-                      maskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 25%, black 70%)",
-                      WebkitMaskImage: "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 25%, black 70%)",
-                    }}
-                  >
-                    {/* Subtle Document Outline Watermark (Very Light) */}
-                    <rect x="85" y="44" width="44" height="60" rx="4.5" fill="#be185d" opacity="0.04" stroke="#9f1239" strokeWidth="1.2" strokeOpacity="0.09" />
-                    <path d="M94 57 H120 M94 66 H124 M94 75 H118 M94 84 H110" stroke="#9f1239" strokeWidth="1.3" strokeLinecap="round" opacity="0.09" />
-
-                    {/* Faint Communication / Support Symbol (Speech Bubble) */}
-                    <path
-                      d="M115 72 C115 65 122 60 130 60 C138 60 145 65 145 72 C145 76 142 80 137 82 L138 88 L133 84 C131 84 131 84 130 84 C122 84 115 79 115 72 Z"
-                      fill="#be185d"
-                      opacity="0.05"
-                      stroke="#9f1239"
-                      strokeWidth="1.2"
-                      strokeOpacity="0.10"
-                    />
-                    <circle cx="125" cy="72" r="1.3" fill="#9f1239" opacity="0.10" />
-                    <circle cx="130" cy="72" r="1.3" fill="#9f1239" opacity="0.10" />
-                    <circle cx="135" cy="72" r="1.3" fill="#9f1239" opacity="0.10" />
-
-                    {/* Organic Ground Curves */}
-                    <g stroke="#9f1239" opacity="0.10" fill="none">
-                      <path d="M20 190 C62 180 105 168 155 164 C168 162 175 164 180 166" strokeWidth="1.3" />
-                      <path d="M0 178 C42 170 85 156 135 154 C152 153 168 156 180 158" strokeWidth="1" strokeDasharray="3 3" />
-                    </g>
-
-                    {/* Dominant Botanical Element: Soft Leafy Plant / Laurel Branch */}
-                    <path d="M160 200 C158 148 148 100 132 26" stroke="#881337" strokeWidth="2" strokeLinecap="round" opacity="0.17" />
-                    <g fill="#9f1239" stroke="#881337" strokeWidth="1" opacity="0.16">
-                      {/* Top leaf bud */}
-                      <path d="M132 26 C127 18 123 9 129 3 C134 9 137 18 132 26 Z" />
-
-                      {/* Leaf Pair 1 */}
-                      <path d="M133 46 C122 41 114 34 122 25 C129 32 135 40 133 46 Z" />
-                      <path d="M135 44 C146 39 154 32 146 23 C139 30 133 38 135 44 Z" />
-
-                      {/* Leaf Pair 2 */}
-                      <path d="M137 70 C124 64 114 55 124 45 C132 53 139 63 137 70 Z" />
-                      <path d="M140 67 C153 61 163 52 153 42 C145 50 138 60 140 67 Z" />
-
-                      {/* Leaf Pair 3 */}
-                      <path d="M141 96 C126 89 114 78 126 66 C135 76 143 88 141 96 Z" />
-                      <path d="M144 93 C159 86 171 75 159 63 C150 73 142 85 144 93 Z" />
-
-                      {/* Leaf Pair 4 */}
-                      <path d="M146 124 C129 116 116 103 129 90 C139 101 148 114 146 124 Z" />
-                      <path d="M149 120 C166 112 179 99 166 86 C156 97 147 111 149 120 Z" />
-
-                      {/* Leaf Pair 5 */}
-                      <path d="M151 154 C132 145 118 130 132 115 C143 128 153 143 151 154 Z" />
-                      <path d="M154 150 C173 141 187 126 173 111 C162 124 152 140 154 150 Z" />
-                    </g>
-
-                    {/* Soft leafy sprout near base */}
-                    <path d="M157 175 C136 158 115 158 98 165" stroke="#881337" strokeWidth="1.5" strokeLinecap="round" opacity="0.14" />
-                  </svg>
-
-                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[65%] sm:max-w-[70%]">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#fae1e6] text-[#b91c47] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="help-circle" className="w-5 h-5 sm:w-6 sm:h-6 text-[#b91c47]" />
                     </div>
@@ -1515,7 +1194,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
+                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
                     <span>{t.card4Cta || "Get Help →"}</span>
                   </div>
                 </div>
