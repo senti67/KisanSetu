@@ -1066,43 +1066,177 @@ export default function KisanSetuApp() {
                 {/* CARD 1: MANDI GATE PASS (PRIMARY - Spans full width on tablet/desktop or featured top) */}
                 <div
                   onClick={() => handleOpenBooking()}
-                  className="md:col-span-3 ks-card p-6 sm:p-7 bg-gradient-to-br from-[#ebf2ee] via-white to-white border-2 border-[#4a7c59]/50 hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-sm hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 group"
+                  className="md:col-span-3 ks-card p-6 sm:p-7 relative overflow-hidden bg-[#f2f7f4] border-2 border-[#4a7c59]/50 hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-sm hover:shadow-md group"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-[#4a7c59] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition">
-                      <Icon name="ticket" className="w-7 h-7 text-emerald-100" />
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-[10px] font-black uppercase tracking-wider bg-[#2a4732] text-white px-2.5 py-0.5 rounded-full">
-                          Primary Service
-                        </span>
-                        <span className="text-xs text-emerald-800 font-semibold">
-                          Fast Entry • Gate #2
-                        </span>
-                      </div>
-                      <h4 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-serif">
-                        {t.card1Title || "Mandi Gate Pass"}
-                      </h4>
-                      <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-                        {t.card1Desc || "Book your mandi slot before you leave home and get your digital gate pass."}
-                      </p>
-                    </div>
+                  {/* Decorative agricultural texture: Wheat stalks and field contours */}
+                  <div
+                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                    aria-hidden="true"
+                    style={{
+                      WebkitMaskImage:
+                        "radial-gradient(ellipse 75% 85% at 85% 65%, black 25%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                      maskImage:
+                        "radial-gradient(ellipse 75% 85% at 85% 65%, black 25%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                    }}
+                  >
+                    <svg
+                      className="absolute right-0 bottom-0 w-80 sm:w-96 h-full opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-[#2a4732]"
+                      viewBox="0 0 380 180"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Field Contours */}
+                      <path
+                        d="M-20 170 C60 140 160 165 260 135 C320 115 370 140 400 135"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeDasharray="4 2"
+                      />
+                      <path
+                        d="M-40 140 C50 110 170 145 280 105 C330 85 370 105 400 95"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M-20 105 C70 80 190 115 300 75 C340 60 380 80 400 70"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeDasharray="6 3"
+                      />
+                      <path
+                        d="M20 70 C100 45 210 80 320 45 C350 35 380 50 400 42"
+                        stroke="currentColor"
+                        strokeWidth="1"
+                      />
+                      {/* Elegant Primary Wheat Ear */}
+                      <path
+                        d="M360 190 C345 130 315 75 270 25"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      />
+                      {/* Wheat grains & awns */}
+                      <path d="M270 25 C260 15 252 5 258 -5 C264 5 273 15 270 25 Z" fill="currentColor" />
+                      <path d="M258 -5 L245 -22" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M272 23 C282 13 290 3 284 -7 C278 3 269 13 272 23 Z" fill="currentColor" />
+                      <path d="M284 -7 L297 -24" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M278 45 C266 35 256 26 261 16 C268 25 280 35 278 45 Z" fill="currentColor" />
+                      <path d="M261 16 L246 2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M283 41 C295 32 305 23 300 13 C293 22 281 31 283 41 Z" fill="currentColor" />
+                      <path d="M300 13 L317 -1" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M289 67 C276 57 264 50 268 39 C276 48 290 57 289 67 Z" fill="currentColor" />
+                      <path d="M268 39 L251 27" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M296 62 C309 53 321 46 317 35 C309 44 295 52 296 62 Z" fill="currentColor" />
+                      <path d="M317 35 L336 23" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M303 91 C289 82 276 76 280 65 C288 73 304 81 303 91 Z" fill="currentColor" />
+                      <path d="M280 65 L262 55" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M312 85 C326 77 339 71 336 60 C327 68 311 75 312 85 Z" fill="currentColor" />
+                      <path d="M336 60 L356 50" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M320 117 C305 109 291 104 295 93 C303 100 321 107 320 117 Z" fill="currentColor" />
+                      <path d="M295 93 L277 84" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M331 110 C346 103 360 98 358 87 C349 94 330 100 331 110 Z" fill="currentColor" />
+                      <path d="M358 87 L379 79" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      {/* Secondary delicate stalk */}
+                      <path
+                        d="M375 200 C365 155 350 115 320 80"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="330" cy="95" r="4" fill="currentColor" />
+                      <circle cx="345" cy="115" r="4" fill="currentColor" />
+                      <circle cx="318" cy="78" r="3.5" fill="currentColor" />
+                      <circle cx="308" cy="65" r="3" fill="currentColor" />
+                    </svg>
                   </div>
 
-                  <div className="w-full sm:w-auto shrink-0 pt-2 sm:pt-0">
-                    <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#4a7c59] group-hover:bg-[#3b6447] text-white py-3 px-6 rounded-xl font-bold text-sm sm:text-base shadow-xs transition active:scale-95">
-                      <span>{t.card1Cta || "Book Slot →"}</span>
-                    </span>
+                  {/* Card Content */}
+                  <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+                    <div className="flex items-start gap-4">
+                      <div className="w-14 h-14 rounded-2xl bg-[#4a7c59] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition">
+                        <Icon name="ticket" className="w-7 h-7 text-emerald-100" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-[10px] font-black uppercase tracking-wider bg-[#2a4732] text-white px-2.5 py-0.5 rounded-full">
+                            Primary Service
+                          </span>
+                          <span className="text-xs text-emerald-800 font-semibold">
+                            Fast Entry • Gate #2
+                          </span>
+                        </div>
+                        <h4 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-serif">
+                          {t.card1Title || "Mandi Gate Pass"}
+                        </h4>
+                        <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
+                          {t.card1Desc || "Book your mandi slot before you leave home and get your digital gate pass."}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="w-full sm:w-auto shrink-0 pt-2 sm:pt-0">
+                      <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#4a7c59] group-hover:bg-[#3b6447] text-white py-3 px-6 rounded-xl font-bold text-sm sm:text-base shadow-xs transition active:scale-95">
+                        <span>{t.card1Cta || "Book Slot →"}</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
 
                 {/* CARD 2: MSP RATES */}
                 <div
                   onClick={() => setActiveTab("msp-rates")}
-                  className="ks-card p-6 bg-white border border-[#d8ccbe] hover:border-[#c86d12] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                  className="ks-card p-6 relative overflow-hidden bg-[#fdf9f0] border border-[#e8ded1] hover:border-[#c86d12] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
                 >
-                  <div className="space-y-3">
+                  {/* Decorative agricultural texture: Upward market bars, Rupee watermark & grain motifs */}
+                  <div
+                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                    aria-hidden="true"
+                    style={{
+                      WebkitMaskImage:
+                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                      maskImage:
+                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                    }}
+                  >
+                    <svg
+                      className="absolute right-0 bottom-0 w-44 h-44 opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-[#c86d12]"
+                      viewBox="0 0 180 180"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="140" cy="60" r="55" stroke="currentColor" strokeWidth="1" strokeDasharray="4 3" />
+                      <circle cx="140" cy="60" r="38" stroke="currentColor" strokeWidth="1" />
+                      <circle cx="140" cy="60" r="20" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 2" />
+                      <path
+                        d="M128 44 H154 M128 52 H150 M128 44 C142 44 146 60 134 68 L152 86"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M10 170 C45 165 75 145 105 130 C135 115 155 85 180 75"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M20 180 C55 175 90 155 120 140 C145 128 165 105 185 95"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeDasharray="4 2"
+                      />
+                      <rect x="75" y="135" width="12" height="45" rx="3" fill="currentColor" />
+                      <rect x="95" y="115" width="12" height="65" rx="3" fill="currentColor" />
+                      <rect x="115" y="90" width="12" height="90" rx="3" fill="currentColor" />
+                      <rect x="135" y="65" width="12" height="115" rx="3" fill="currentColor" />
+                      <path d="M81 125 C77 120 78 112 81 108 C84 112 85 120 81 125 Z" fill="currentColor" />
+                      <path d="M101 105 C97 100 98 92 101 88 C104 92 105 100 101 105 Z" fill="currentColor" />
+                      <path d="M121 80 C117 75 118 67 121 63 C124 67 125 75 121 80 Z" fill="currentColor" />
+                    </svg>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="relative z-10 space-y-3">
                     <div className="w-12 h-12 rounded-xl bg-amber-50 text-[#c86d12] flex items-center justify-center shrink-0 group-hover:scale-105 transition">
                       <Icon name="calculator" className="w-6 h-6 text-[#c86d12]" />
                     </div>
@@ -1116,7 +1250,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-bold text-[#c86d12] group-hover:translate-x-1 transition">
+                  <div className="relative z-10 pt-2 border-t border-[#f0e4d6] flex items-center justify-between text-xs sm:text-sm font-bold text-[#c86d12] group-hover:translate-x-1 transition">
                     <span>{t.card2Cta || "Check Rates →"}</span>
                     <span>→</span>
                   </div>
@@ -1125,9 +1259,60 @@ export default function KisanSetuApp() {
                 {/* CARD 3: MOISTURE PRE-CHECK */}
                 <div
                   onClick={() => setActiveTab("moisture")}
-                  className="ks-card p-6 bg-white border border-[#d8ccbe] hover:border-blue-500 rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                  className="ks-card p-6 relative overflow-hidden bg-[#f0f6fa] border border-[#d9e6f2] hover:border-blue-500 rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
                 >
-                  <div className="space-y-3">
+                  {/* Decorative agricultural texture: Concentric ripple rings, droplet outlines & leaf veins */}
+                  <div
+                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                    aria-hidden="true"
+                    style={{
+                      WebkitMaskImage:
+                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                      maskImage:
+                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                    }}
+                  >
+                    <svg
+                      className="absolute right-0 bottom-0 w-44 h-44 opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-blue-600"
+                      viewBox="0 0 180 180"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <ellipse cx="130" cy="125" rx="20" ry="12" stroke="currentColor" strokeWidth="1.2" />
+                      <ellipse cx="130" cy="125" rx="42" ry="24" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" />
+                      <ellipse cx="130" cy="125" rx="68" ry="38" stroke="currentColor" strokeWidth="1" />
+                      <ellipse cx="130" cy="125" rx="96" ry="54" stroke="currentColor" strokeWidth="0.8" strokeDasharray="6 3" />
+                      <ellipse cx="130" cy="125" rx="125" ry="70" stroke="currentColor" strokeWidth="0.6" />
+                      <path
+                        d="M130 55 C112 85 104 105 104 120 C104 135 116 146 130 146 C144 146 156 135 156 120 C156 105 148 85 130 55 Z"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      />
+                      <path
+                        d="M120 105 C116 112 115 119 116 126"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M162 42 C154 55 150 63 150 70 C150 77 155 82 162 82 C169 82 174 77 174 70 C174 63 170 55 162 42 Z"
+                        fill="currentColor"
+                      />
+                      <circle cx="98" cy="65" r="4" fill="currentColor" />
+                      <circle cx="85" cy="90" r="3" fill="currentColor" />
+                      <path
+                        d="M50 175 C70 140 100 110 140 90"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path d="M80 142 C92 136 100 128 102 122" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M104 121 C118 117 126 109 128 103" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                    </svg>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="relative z-10 space-y-3">
                     <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
                       <Icon name="droplet" className="w-6 h-6 text-blue-600" />
                     </div>
@@ -1141,7 +1326,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-bold text-blue-700 group-hover:translate-x-1 transition">
+                  <div className="relative z-10 pt-2 border-t border-[#dce8f5] flex items-center justify-between text-xs sm:text-sm font-bold text-blue-700 group-hover:translate-x-1 transition">
                     <span>{t.card3Cta || "Check Moisture →"}</span>
                     <span>→</span>
                   </div>
@@ -1150,9 +1335,58 @@ export default function KisanSetuApp() {
                 {/* CARD 4: HELP & ASSISTANCE */}
                 <div
                   onClick={() => setActiveTab("help")}
-                  className="ks-card p-6 bg-white border border-[#d8ccbe] hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                  className="ks-card p-6 relative overflow-hidden bg-[#fdf2f4] border border-[#fae0e4] hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
                 >
-                  <div className="space-y-3">
+                  {/* Decorative agricultural texture: Headset, communication waves, advisory document & laurel */}
+                  <div
+                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                    aria-hidden="true"
+                    style={{
+                      WebkitMaskImage:
+                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                      maskImage:
+                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
+                    }}
+                  >
+                    <svg
+                      className="absolute right-0 bottom-0 w-44 h-44 opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-rose-600"
+                      viewBox="0 0 180 180"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="130" cy="110" r="62" stroke="currentColor" strokeWidth="0.8" strokeDasharray="5 3" />
+                      <circle cx="130" cy="110" r="46" stroke="currentColor" strokeWidth="1" />
+                      <circle cx="130" cy="110" r="30" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 2" />
+                      <path
+                        d="M102 110 A28 28 0 0 1 158 110"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      />
+                      <rect x="97" y="104" width="8" height="16" rx="4" fill="currentColor" />
+                      <rect x="155" y="104" width="8" height="16" rx="4" fill="currentColor" />
+                      <path
+                        d="M101 115 C101 127 112 134 122 134"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="125" cy="134" r="3" fill="currentColor" />
+                      <path
+                        d="M50 160 L50 85 C50 80 54 76 59 76 L90 76 L108 94 L108 160 Z"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                      />
+                      <path d="M90 76 L90 94 L108 94" stroke="currentColor" strokeWidth="1.2" />
+                      <path d="M60 102 H85 M60 114 H95 M60 126 H90 M60 138 H80" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+                      <path d="M125 155 C118 150 116 142 120 138 C125 142 128 150 125 155 Z" fill="currentColor" />
+                      <path d="M140 152 C135 146 135 138 140 135 C144 140 145 148 140 152 Z" fill="currentColor" />
+                      <path d="M152 144 C148 138 150 130 155 128 C158 133 157 141 152 144 Z" fill="currentColor" />
+                    </svg>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="relative z-10 space-y-3">
                     <div className="w-12 h-12 rounded-xl bg-emerald-50 text-[#4a7c59] flex items-center justify-center shrink-0 group-hover:scale-105 transition">
                       <Icon name="help-circle" className="w-6 h-6 text-[#4a7c59]" />
                     </div>
@@ -1166,7 +1400,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-bold text-[#4a7c59] group-hover:translate-x-1 transition">
+                  <div className="relative z-10 pt-2 border-t border-[#fad4da] flex items-center justify-between text-xs sm:text-sm font-bold text-[#4a7c59] group-hover:translate-x-1 transition">
                     <span>{t.card4Cta || "Get Help →"}</span>
                     <span>→</span>
                   </div>
