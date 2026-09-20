@@ -162,20 +162,20 @@ h6,
 
 /* =========================================================
    KISANSETU SERVICE CARDS
-   Borderless pastel cards with soft depth shadows
+   Borderless pastel cards
    ========================================================= */
 
 .ks-service-card {
   position: relative;
   overflow: hidden;
 
-  /* Remove hard card borders */
+  /* Remove the hard card border */
   border: none !important;
   outline: none !important;
 
   border-radius: 24px;
 
-  /* Soft depth instead of a border */
+  /* Softer depth instead of a border */
   box-shadow:
     0 4px 18px rgba(35, 65, 45, 0.045),
     0 1px 4px rgba(35, 65, 45, 0.025);
@@ -185,56 +185,13 @@ h6,
     box-shadow 220ms ease;
 }
 
-/* Keep all interactive content above the decorative artwork */
+/* Keep all actual content above the decoration */
 .ks-service-card > * {
   position: relative;
   z-index: 2;
 }
 
-/* ---------------------------------------------------------
-   CARD PASTEL BACKGROUNDS
-   --------------------------------------------------------- */
-
-.ks-card-gate {
-  background:
-    linear-gradient(
-      135deg,
-      #eef8ef 0%,
-      #e5f3e8 100%
-    );
-}
-
-.ks-card-msp {
-  background:
-    linear-gradient(
-      135deg,
-      #fff9ec 0%,
-      #fff3d9 100%
-    );
-}
-
-.ks-card-moisture {
-  background:
-    linear-gradient(
-      135deg,
-      #eef7ff 0%,
-      #e5f2fc 100%
-    );
-}
-
-.ks-card-help {
-  background:
-    linear-gradient(
-      135deg,
-      #fff2f3 0%,
-      #fce8eb 100%
-    );
-}
-
-/* ---------------------------------------------------------
-   HOVER ELEVATION
-   --------------------------------------------------------- */
-
+/* Hover elevation */
 .ks-service-card:hover {
   transform: translateY(-3px);
 
@@ -242,10 +199,6 @@ h6,
     0 12px 30px rgba(35, 65, 45, 0.08),
     0 3px 8px rgba(35, 65, 45, 0.035);
 }
-
-/* ---------------------------------------------------------
-   MOBILE
-   --------------------------------------------------------- */
 
 @media (max-width: 768px) {
   .ks-service-card {
@@ -255,6 +208,26 @@ h6,
   .ks-service-card:hover {
     transform: none;
   }
+}
+
+/* ---------------------------------------------------------
+   CARD BACKGROUNDS (Pastel gradients preserved)
+   --------------------------------------------------------- */
+
+.ks-card-gate {
+  background: linear-gradient(135deg, #eef8ef 0%, #e5f3e8 100%);
+}
+
+.ks-card-msp {
+  background: linear-gradient(135deg, #fff9ec 0%, #fff3d9 100%);
+}
+
+.ks-card-moisture {
+  background: linear-gradient(135deg, #eef7ff 0%, #e5f2fc 100%);
+}
+
+.ks-card-help {
+  background: linear-gradient(135deg, #fff2f3 0%, #fce8eb 100%);
 }
 
 @media print {
