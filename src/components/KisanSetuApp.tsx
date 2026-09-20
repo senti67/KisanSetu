@@ -112,6 +112,26 @@ const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: strin
     "file-text": (
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8" />
     ),
+    "arrow-right": <path d="M5 12h14 M12 5l7 7-7 7" />,
+    clock: (
+      <g>
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
+      </g>
+    ),
+    "check-circle": (
+      <g>
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </g>
+    ),
+    info: (
+      <g>
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" x2="12" y1="16" y2="12" />
+        <line x1="12" x2="12.01" y1="8" y2="8" />
+      </g>
+    ),
   };
 
   return (
@@ -758,85 +778,38 @@ export default function KisanSetuApp() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f4f6f0] text-[#1f2421]">
-      {/* 1. TOP GOVT & UTILITY BAR (Warm Forest Green) */}
-      <header className="bg-[#2a4732] text-white text-xs sm:text-sm border-b border-[#1b3022] shadow-xs">
-        <div className="w-full max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1780px] mx-auto px-3 sm:px-6 py-2 flex items-center justify-between gap-3">
-          {/* Left: Official Government Tag */}
-          <div className="flex items-center gap-2 shrink-0 h-8">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
-            <span className="font-semibold text-emerald-100 text-xs sm:text-sm tracking-wide flex items-center">
-              Dept. of Agriculture <span className="text-emerald-300 mx-1.5">•</span> Govt. of India
-            </span>
-          </div>
-
-          {/* Right: Aligned White Utility Boxes */}
-          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 h-8">
-            {/* Box 1: Mandi Officer Access */}
-            {isOfficerLoggedIn ? (
-              <div className="h-8 px-2.5 sm:px-3 bg-white text-slate-800 border border-emerald-400/80 rounded-md shadow-2xs flex items-center gap-2 text-xs font-semibold whitespace-nowrap">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
-                <span className="text-[#2a4732] font-bold">Officer S. K. Verma</span>
-                <button
-                  type="button"
-                  onClick={handleOfficerLogout}
-                  className="text-red-600 hover:text-red-700 font-bold ml-1 cursor-pointer underline text-xs"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setOfficerLoginModal(true)}
-                className="h-8 px-2.5 sm:px-3 bg-white hover:bg-emerald-50 text-slate-800 hover:text-[#2a4732] border border-slate-200 rounded-md shadow-2xs flex items-center gap-1.5 text-xs font-semibold cursor-pointer transition whitespace-nowrap"
-              >
-                <Icon name="shield" className="w-3.5 h-3.5 text-[#4a7c59] shrink-0" />
-                <span>Officer Login</span>
-              </button>
-            )}
-
-            {/* Box 2: Toll-Free IVR Helpline */}
-            <button
-              type="button"
-              onClick={() => setShowIvrModal(true)}
-              className="h-8 px-2.5 sm:px-3 bg-white hover:bg-amber-50 text-slate-800 hover:text-[#92400e] border border-slate-200 rounded-md shadow-2xs flex items-center gap-1.5 text-xs font-semibold cursor-pointer transition whitespace-nowrap"
-              title="Toll-Free Kisan IVR Helpline"
-            >
-              <Icon name="phone-call" className="w-3.5 h-3.5 text-[#c86d12] shrink-0" />
-              <span>
-                <span className="hidden sm:inline">IVR Helpline: </span>
-                <span className="sm:hidden">IVR: </span>
-                <strong className="text-[#c86d12] font-bold">1800-180-1551</strong>
-              </span>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* 2. MAIN BRANDING BAR (Warm White with Clean Logo) */}
-      <section className="bg-white border-b border-[#d8ccbe] sticky top-0 z-30 shadow-xs">
+      {/* 1. CLEAN FARMER-FIRST HEADER */}
+      <header className="bg-white border-b border-[#d8ccbe] sticky top-0 z-30 shadow-xs">
         <div className="w-full max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1780px] mx-auto px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-3">
+          {/* Left: Branding & Prototype Badge */}
           <div
             onClick={() => setActiveTab("home")}
             className="flex items-center gap-2.5 sm:gap-3 cursor-pointer shrink-0"
           >
-            {/* Clean Circular Logo */}
             <img
               src={kisanSetuCircle}
               alt="KisanSetu Logo"
-              className="w-9 h-9 sm:w-11 sm:h-11 object-contain shrink-0"
+              className="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0"
             />
             <div>
-              <h1 className="text-base sm:text-lg md:text-xl font-black font-serif text-slate-900 leading-tight">
-                {t.portalName}
-              </h1>
-              <p className="text-xs text-slate-600 font-medium line-clamp-1">{t.portalSub}</p>
+              <div className="flex items-center gap-2">
+                <h1 className="text-base sm:text-lg md:text-xl font-black font-serif text-slate-900 leading-tight">
+                  {t.portalName}
+                </h1>
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-full">
+                  {t.prototypeTag || "GovTech Prototype"}
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 font-medium">
+                {t.digitalMandiAccess || "Digital Mandi Access"}
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* Single Language Selector */}
-            <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 p-0.5 text-xs sm:text-sm font-medium">
+          {/* Right: Language Selector, Help & Subtle Officer Login */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Language Selector */}
+            <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 p-0.5 text-xs font-medium">
               {[
                 { code: "hi", label: "हिन्दी" },
                 { code: "or", label: "ଓଡ଼ିଆ" },
@@ -847,7 +820,7 @@ export default function KisanSetuApp() {
                   key={item.code}
                   type="button"
                   onClick={() => setLang(item.code as any)}
-                  className={`px-2.5 py-1 rounded-md cursor-pointer font-bold transition text-xs sm:text-sm ${
+                  className={`px-2 py-1 rounded-md cursor-pointer font-bold transition text-xs ${
                     lang === item.code
                       ? "bg-[#4a7c59] text-white shadow-2xs"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
@@ -858,11 +831,46 @@ export default function KisanSetuApp() {
               ))}
             </div>
 
-            {/* Desktop / Tablet Gate Pass Button */}
+            {/* Quick Help Button */}
+            <button
+              type="button"
+              onClick={() => setActiveTab("help")}
+              className="hidden sm:flex items-center gap-1 text-xs font-bold text-slate-700 hover:text-[#4a7c59] px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-[#4a7c59]/40 bg-slate-50 hover:bg-[#ebf2ee] transition cursor-pointer"
+            >
+              <Icon name="help-circle" className="w-3.5 h-3.5 text-[#4a7c59]" />
+              <span>{t.help}</span>
+            </button>
+
+            {/* Subtle Officer Login (does not compete with farmer actions) */}
+            {isOfficerLoggedIn ? (
+              <div className="flex items-center gap-1.5 text-xs font-semibold bg-purple-50 text-purple-900 border border-purple-200 px-2.5 py-1 rounded-md">
+                <span className="w-2 h-2 rounded-full bg-purple-600 shrink-0"></span>
+                <span className="font-bold hidden sm:inline">Officer S. K. Verma</span>
+                <button
+                  type="button"
+                  onClick={handleOfficerLogout}
+                  className="text-red-600 hover:text-red-700 font-bold underline cursor-pointer text-xs ml-1"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setOfficerLoginModal(true)}
+                className="text-xs font-medium text-slate-500 hover:text-slate-800 hover:underline cursor-pointer px-2 py-1 flex items-center gap-1 whitespace-nowrap"
+                title="Mandi Officer Portal Login"
+              >
+                <Icon name="shield" className="w-3 h-3 text-slate-400" />
+                <span>{t.officerPortalSubtle || "Officer Login"}</span>
+              </button>
+            )}
+
+            {/* Desktop Gate Pass Button */}
             <button
               type="button"
               onClick={() => handleOpenBooking()}
-              className="hidden sm:flex bg-[#4a7c59] hover:bg-[#3b6447] text-white px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold items-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer whitespace-nowrap"
+              className="hidden lg:flex bg-[#4a7c59] hover:bg-[#3b6447] text-white px-3.5 py-2 rounded-lg text-xs font-bold items-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer whitespace-nowrap"
             >
               <Icon name="ticket" className="w-4 h-4 text-emerald-200" />
               <span>{t.bookSlotBtn}</span>
@@ -928,6 +936,32 @@ export default function KisanSetuApp() {
               <span>{t.mspRates}</span>
             </button>
 
+            <button
+              type="button"
+              onClick={() => setActiveTab("moisture")}
+              className={`py-2.5 px-3.5 border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                activeTab === "moisture"
+                  ? "border-blue-600 text-blue-700 font-bold bg-white"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Icon name="droplet" className="w-4 h-4 text-blue-600" />
+              <span>{t.moistureTab || "Moisture Check"}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab("help")}
+              className={`py-2.5 px-3.5 border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                activeTab === "help"
+                  ? "border-[#4a7c59] text-[#4a7c59] font-bold bg-white"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Icon name="help-circle" className="w-4 h-4" />
+              <span>{t.help}</span>
+            </button>
+
             {/* Officer Tab: Visible ONLY after officer logs in */}
             {isOfficerLoggedIn && (
               <button
@@ -948,503 +982,319 @@ export default function KisanSetuApp() {
                 )}
               </button>
             )}
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("help")}
-              className={`py-2.5 px-3.5 border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
-                activeTab === "help"
-                  ? "border-[#4a7c59] text-[#4a7c59] font-bold bg-white"
-                  : "border-transparent text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <Icon name="help-circle" className="w-4 h-4" />
-              <span>{t.help}</span>
-            </button>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* 3. MAIN CONTENT CONTAINER */}
       <main className="w-full max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1780px] mx-auto px-3 sm:px-6 py-3 sm:py-4 flex-1 space-y-3.5 sm:space-y-4 pb-16 md:pb-6">
-        {/* TAB: HOME DASHBOARD (The Beloved 4-Box Layout) */}
+        {/* TAB: HOME LAUNCHER (Farmer-First Clean Gateway) */}
         {activeTab === "home" && (
-          <div className="space-y-3.5 sm:space-y-4">
-            {/* 4 Primary Numbered Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
-              {/* CARD 1: MANDI GATE PASS */}
-              <div className="ks-card p-4 sm:p-5 flex flex-col justify-between space-y-3">
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between border-b border-[#e6d8c3] pb-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#ebf2ee] text-[#4a7c59] flex items-center justify-center font-black text-sm">
-                        1
-                      </div>
-                      <div>
-                        <h2 className="text-sm sm:text-base font-extrabold text-slate-900">
-                          {t.gatePassBranch}
-                        </h2>
-                        <p className="text-xs text-slate-500">{t.gatePassDesc}</p>
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">
-                      Fast Entry
-                    </span>
-                  </div>
-
-                  {activeToken ? (
-                    <div className="bg-[#fdf6ee] border border-[#e6d8c3] p-2.5 rounded-lg text-xs space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900">
-                          {t.activeToken}: <strong className="text-[#c86d12]">{activeToken.tokenId}</strong>
-                        </span>
-                        <span className="bg-[#4a7c59] text-white text-[9px] px-1.5 py-0.2 rounded font-bold">
-                          Gate #2
-                        </span>
-                      </div>
-                      <div className="text-slate-700 truncate text-[11px]">{activeToken.centreName}</div>
-                      <div className="text-slate-600 text-[10px]">
-                        Slot: <strong>{activeToken.slot}</strong> ({activeToken.date})
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="bg-[#ebf2ee] border border-[#4a7c59]/30 p-2.5 rounded-lg text-xs space-y-1">
-                        <div className="flex items-center justify-between font-bold text-[#2a4732]">
-                          <span className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>E-Gate Pass Token Ready</span>
-                          </span>
-                          <span className="text-[10px] bg-white text-[#4a7c59] px-1.5 py-0.5 rounded border border-[#4a7c59]/30 font-semibold">
-                            Express Entry
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-slate-600 leading-snug">
-                          Skip long physical mandi gate queues with advance digital booking & priority weighbridge lane clearance.
-                        </p>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-1.5 text-[10px] text-slate-600">
-                        <div className="bg-slate-50 border border-slate-200 p-1.5 rounded text-center">
-                          <span className="text-slate-500">Mandi Gate Wait: </span>
-                          <strong className="text-emerald-700">Under 15 Mins</strong>
-                        </div>
-                        <div className="bg-slate-50 border border-slate-200 p-1.5 rounded text-center">
-                          <span className="text-slate-500">Token Validity: </span>
-                          <strong className="text-slate-800">24 Hours</strong>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+          <div className="space-y-6 sm:space-y-8">
+            {/* 1. HERO SECTION */}
+            <section className="bg-gradient-to-b from-[#ebf2ee]/80 via-[#f4f6f0]/40 to-white border border-[#d8ccbe] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xs space-y-4">
+              <div className="max-w-3xl space-y-2">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white border border-[#4a7c59]/30 text-[#2a4732] text-xs font-bold shadow-2xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>{t.digitalMandiAccess || "Digital Mandi Access"}</span>
                 </div>
-
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f4f6f0]">
-                  <button
-                    type="button"
-                    onClick={() => handleOpenBooking()}
-                    className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95 cursor-pointer"
-                  >
-                    <Icon name="ticket" className="w-4 h-4" />
-                    <span>{t.quickBookBtn}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("my-booking")}
-                    className="w-full bg-white hover:bg-slate-50 text-slate-800 border border-[#c2a68c] py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer"
-                  >
-                    <Icon name="search" className="w-4 h-4 text-[#4a7c59]" />
-                    <span>{t.viewPassBtn}</span>
-                  </button>
-                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-serif text-slate-900 tracking-tight leading-tight">
+                  {t.heroHeadline || "Your Mandi, Made Simple"}
+                </h2>
+                <p className="text-sm sm:text-base md:text-lg text-slate-600 font-normal leading-relaxed pt-1">
+                  {t.heroSub || "Book your mandi slot, check important crop information, and prepare for procurement before you leave home."}
+                </p>
               </div>
 
-              {/* CARD 2: MSP PRICE & RATES */}
-              <div className="ks-card p-4 sm:p-5 flex flex-col justify-between space-y-3">
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between border-b border-[#e6d8c3] pb-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#fdf6ee] text-[#c86d12] flex items-center justify-center font-black text-sm">
-                        2
-                      </div>
-                      <div>
-                        <h2 className="text-sm sm:text-base font-extrabold text-slate-900">
-                          {t.mspBranch}
-                        </h2>
-                        <p className="text-xs text-slate-500">{t.mspDesc}</p>
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-bold bg-[#fdf6ee] text-[#c86d12] px-2 py-0.5 rounded-full border border-amber-200">
-                      Govt. MSP Guaranteed
-                    </span>
-                  </div>
-
-                  {/* 100 Qtl Estimate Box */}
-                  <div className="bg-slate-50 border border-slate-200 p-2 rounded-lg text-xs flex items-center justify-between">
-                    <span className="font-semibold text-slate-700">100 Qtl (Common Paddy) =</span>
-                    <span className="font-extrabold text-[#c86d12] text-sm">₹2,30,000</span>
-                  </div>
-
-                  {/* 3 Core Crop MSP Benchmarks */}
-                  <div className="grid grid-cols-3 gap-1.5 text-center text-xs">
-                    <div className="bg-[#fdf6ee] border border-[#e6d8c3] p-1.5 rounded-md">
-                      <p className="text-[10px] text-slate-500 font-medium">Paddy (Common)</p>
-                      <p className="text-xs font-black text-[#c86d12]">₹2,300/Qtl</p>
-                    </div>
-                    <div className="bg-[#fdf6ee] border border-[#e6d8c3] p-1.5 rounded-md">
-                      <p className="text-[10px] text-slate-500 font-medium">Paddy (Grade A)</p>
-                      <p className="text-xs font-black text-[#c86d12]">₹2,320/Qtl</p>
-                    </div>
-                    <div className="bg-[#fdf6ee] border border-[#e6d8c3] p-1.5 rounded-md">
-                      <p className="text-[10px] text-slate-500 font-medium">Wheat (Rabi)</p>
-                      <p className="text-xs font-black text-[#c86d12]">₹2,425/Qtl</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f4f6f0]">
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("msp-rates")}
-                    className="w-full bg-[#c86d12] hover:bg-[#a5590d] text-white py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95 cursor-pointer"
-                  >
-                    <Icon name="calculator" className="w-4 h-4" />
-                    <span>{t.calcEarningsBtn}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("msp-rates")}
-                    className="w-full bg-white hover:bg-slate-50 text-slate-800 border border-[#c2a68c] py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer"
-                  >
-                    <Icon name="file-text" className="w-4 h-4 text-[#c86d12]" />
-                    <span>{t.checkMspBtn}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* CARD 3: MOISTURE TESTER & PRE-CHECK */}
-              <div className="ks-card p-4 flex flex-col justify-between space-y-3">
-                <div>
-                  <div className="flex items-center justify-between border-b border-[#e6d8c3] pb-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-sm">
-                        3
-                      </div>
-                      <div>
-                        <h2 className="text-sm sm:text-base font-extrabold text-slate-900">
-                          {t.moistureBranch}
-                        </h2>
-                        <p className="text-xs text-slate-500">{t.moistureDesc}</p>
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200">
-                      Limit: 17.0%
-                    </span>
-                  </div>
-
-                  {/* Informational Pre-Check Disclaimer */}
-                  <div className="mt-2.5 p-2 bg-blue-50/70 border border-blue-200/80 rounded-lg text-[10px] sm:text-[11px] text-blue-900 space-y-0.5">
-                    <div className="font-bold flex items-center gap-1 text-blue-950">
-                      <span>🌾</span>
-                      <span>Farmer pre-check: enter reading from moisture meter.</span>
-                    </div>
-                    <p className="text-[10px] text-blue-700 leading-tight">
-                      Official moisture verification is performed at the procurement centre.
-                    </p>
-                  </div>
-
-                  {/* Meter Reading Input & Presets */}
-                  <div className="mt-2.5 bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-2 text-xs">
-                    <div className="flex justify-between items-center text-slate-800 text-[11px] font-bold">
-                      <label htmlFor="grain-moisture-input" className="flex items-center gap-1">
-                        <Icon name="droplet" className="w-3.5 h-3.5 text-blue-600" />
-                        <span>{t.moistureInputLabel}:</span>
-                      </label>
-                      <span className="text-[10px] text-slate-500 font-mono">Max: 17.0%</span>
-                    </div>
-
-                    {/* Direct Data Input */}
-                    <div className="space-y-1">
-                      <div className="relative">
-                        <input
-                          id="grain-moisture-input"
-                          type="number"
-                          step="0.1"
-                          min="0"
-                          max="40"
-                          value={inputMoisture}
-                          onChange={(e) => setInputMoisture(e.target.value)}
-                          placeholder="Enter moisture reading (e.g. 15.5)"
-                          className="w-full bg-white border border-slate-300 hover:border-slate-400 focus:border-[#4a7c59] rounded-lg py-2 px-3 pr-10 text-sm font-mono font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-[#4a7c59]/20 shadow-xs transition"
-                        />
-                        <span className="absolute right-3 top-2.5 text-xs font-bold text-slate-400 font-mono">%</span>
-                      </div>
-                      <p className="text-[10px] text-slate-500 font-medium">
-                        Type the percentage from your grain moisture tester (Official limit: <strong>≤ 17.0%</strong>)
-                      </p>
-                    </div>
-
-                    {/* Quick Demo Presets */}
-                    <div className="flex items-center gap-1 flex-wrap pt-0.5">
-                      <span className="text-[9px] text-slate-500 font-bold uppercase">Presets:</span>
-                      {[
-                        { l: "14%", v: "14.0" },
-                        { l: "16.5%", v: "16.5" },
-                        { l: "17% (Limit)", v: "17.0" },
-                        { l: "18.5%", v: "18.5" },
-                        { l: "20%", v: "20.0" },
-                      ].map((p) => (
-                        <button
-                          key={p.v}
-                          type="button"
-                          onClick={() => setInputMoisture(p.v)}
-                          className={`px-1.5 py-0.5 text-[10px] font-mono font-bold rounded border cursor-pointer transition ${
-                            inputMoisture === p.v
-                              ? "bg-slate-900 text-white border-slate-900"
-                              : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
-                          }`}
-                        >
-                          {p.l}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Dynamic Result Box */}
-                    <div className={`p-2 rounded-lg border text-xs space-y-0.5 transition ${moistureAnalysis.color}`}>
-                      <div className="flex items-center justify-between font-black text-xs sm:text-sm">
-                        <span>{moistureAnalysis.badge}</span>
-                        <span className="font-mono text-xs">
-                          {moistureAnalysis.isValid ? `${moistureAnalysis.reading?.toFixed(1)}%` : "--"}
-                        </span>
-                      </div>
-                      <p className="text-[10px] font-medium leading-tight">{moistureAnalysis.sub}</p>
-                      <p className="text-[10px] font-bold">{moistureAnalysis.actionHint}</p>
-                      {moistureLastTestedAt && (
-                        <div className="text-[9px] text-slate-500 pt-1 border-t border-black/10 flex justify-between">
-                          <span>Source: Digital Meter Input</span>
-                          <span>Checked: {moistureLastTestedAt}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* How It Works Collapsible */}
-                  <div className="mt-1.5">
-                    <button
-                      type="button"
-                      onClick={() => setShowMoistureGuide(!showMoistureGuide)}
-                      className="text-[10px] text-blue-700 hover:underline font-bold flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>ℹ️</span>
-                      <span>{showMoistureGuide ? "Hide testing guide ▲" : "How does moisture testing work? ▼"}</span>
-                    </button>
-                    {showMoistureGuide && (
-                      <div className="mt-1 p-2 bg-slate-50 border border-slate-200 rounded-lg text-[10px] text-slate-700 space-y-0.5 font-medium">
-                        <p className="font-bold text-slate-900">{t.howItWorksTitle}</p>
-                        <p>{t.howItWorksStep1}</p>
-                        <p>{t.howItWorksStep2}</p>
-                        <p>{t.howItWorksStep3}</p>
-                        <p>{t.howItWorksStep4}</p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f4f6f0]">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const timeStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
-                      setMoistureLastTestedAt(`Today, ${timeStr}`);
-                    }}
-                    className="w-full bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 shadow-xs transition active:scale-95 cursor-pointer"
-                  >
-                    <Icon name="droplet" className="w-3.5 h-3.5" />
-                    <span>{t.testMoistureBtn}</span>
-                  </button>
-
-                  {moistureAnalysis.isPass ? (
-                    <button
-                      type="button"
-                      onClick={() => handleOpenBooking()}
-                      className="w-full bg-[#c86d12] hover:bg-[#a5590d] text-white py-2 px-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 shadow-xs transition active:scale-95 cursor-pointer"
-                    >
-                      <span>Book Pass →</span>
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => alert("Sun-Drying Guide: Spread grain 2-3 inches thick in direct sunlight on mandi drying yard or tarpaulin for 2-4 hours to drop moisture below 17.0%.")}
-                      className="w-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 py-2 px-2 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition active:scale-95 cursor-pointer"
-                    >
-                      <span>Drying Tips ☀️</span>
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* CARD 4: HELPLINE & ASSISTANCE */}
-              <div className="ks-card p-4 sm:p-5 flex flex-col justify-between space-y-3">
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between border-b border-[#e6d8c3] pb-2.5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-pink-50 text-pink-700 flex items-center justify-center font-black text-sm">
-                        4
-                      </div>
-                      <div>
-                        <h2 className="text-sm sm:text-base font-extrabold text-slate-900">
-                          {t.supportBranch}
-                        </h2>
-                        <p className="text-xs text-slate-500">{t.supportDesc}</p>
-                      </div>
-                    </div>
-                    <span className="text-[10px] font-bold bg-pink-50 text-pink-700 px-2 py-0.5 rounded-full border border-pink-200">
-                      Toll Free • 24×7
-                    </span>
-                  </div>
-
-                  {/* 1. Required Documents Checklist */}
-                  <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-xs space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-900 flex items-center gap-1.5">
-                        <Icon name="file-text" className="w-3.5 h-3.5 text-[#4a7c59]" />
-                        <span>{t.requiredDocs}:</span>
-                      </span>
-                      <span className="text-[9px] font-bold text-emerald-800 bg-emerald-100/80 px-1.5 py-0.5 rounded">
-                        Mandatory
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1.5 text-[11px] font-medium text-slate-700">
-                      <div className="flex items-center gap-1.5 bg-white p-1.5 rounded border border-slate-200/80">
-                        <span className="text-emerald-600 font-bold">✓</span>
-                        <span className="truncate">1. {t.doc1}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 bg-white p-1.5 rounded border border-slate-200/80">
-                        <span className="text-emerald-600 font-bold">✓</span>
-                        <span className="truncate">2. {t.doc2}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 bg-white p-1.5 rounded border border-slate-200/80">
-                        <span className="text-emerald-600 font-bold">✓</span>
-                        <span className="truncate">3. {t.doc3}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 bg-white p-1.5 rounded border border-slate-200/80">
-                        <span className="text-emerald-600 font-bold">✓</span>
-                        <span className="truncate">4. {t.doc4}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 2. Kisan Call Centre Timings & Support */}
-                  <div className="bg-[#fdf6ee] border border-[#e6d8c3] p-2.5 rounded-lg text-xs space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-900 flex items-center gap-1.5">
-                        <Icon name="phone-call" className="w-3.5 h-3.5 text-[#c86d12]" />
-                        <span>Kisan Call Centre (KCC)</span>
-                      </span>
-                      <span className="font-black text-[#c86d12] text-xs">1800-180-1551</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-[10px] text-slate-600 pt-1 border-t border-[#e6d8c3]/60">
-                      <div>
-                        <span className="text-slate-500">Service Hours: </span>
-                        <strong className="text-slate-800">6 AM – 10 PM</strong>
-                      </div>
-                      <div>
-                        <span className="text-slate-500">Availability: </span>
-                        <strong className="text-slate-800">All 7 Days</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 3. Mandi Entry & Payment Guarantee Standards */}
-                  <div className="bg-emerald-50/70 border border-emerald-200/80 p-2.5 rounded-lg text-xs space-y-1">
-                    <div className="font-bold text-[#2a4732] flex items-center gap-1 text-[11px]">
-                      <span>⚖️</span>
-                      <span>Mandi Acceptance & Payment Standards</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-1 pt-0.5 text-[10px] text-slate-700">
-                      <div className="bg-white p-1.5 rounded border border-emerald-100 text-center">
-                        <p className="text-slate-500">Moisture</p>
-                        <p className="font-bold text-[#2a4732]">≤ 17.0%</p>
-                      </div>
-                      <div className="bg-white p-1.5 rounded border border-emerald-100 text-center">
-                        <p className="text-slate-500">Dirt / Refuse</p>
-                        <p className="font-bold text-[#2a4732]">≤ 2.0%</p>
-                      </div>
-                      <div className="bg-white p-1.5 rounded border border-emerald-100 text-center">
-                        <p className="text-slate-500">DBT Payout</p>
-                        <p className="font-bold text-[#2a4732]">48–72 Hrs</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#f4f6f0]">
-                  <button
-                    type="button"
-                    onClick={() => setShowIvrModal(true)}
-                    className="w-full bg-[#c86d12] hover:bg-[#a5590d] text-white py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95 cursor-pointer"
-                  >
-                    <Icon name="phone-call" className="w-4 h-4" />
-                    <span>{t.callHelplineBtn}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setShowDocsModal(true)}
-                    className="w-full bg-white hover:bg-slate-50 text-slate-800 border border-[#c2a68c] py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer"
-                  >
-                    <Icon name="file-text" className="w-4 h-4 text-[#c86d12]" />
-                    <span>{t.viewDocsBtn}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Nearest Procurement Mandis */}
-            <div className="ks-card p-4 space-y-3">
-              <div className="flex items-center justify-between border-b border-[#e6d8c3] pb-2">
-                <div>
-                  <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
-                    <Icon name="map-pin" className="w-4 h-4 text-[#4a7c59]" />
-                    <span>{t.nearestMandisTitle}</span>
-                  </h3>
-                  <p className="text-xs text-slate-500">{t.nearestMandisSub}</p>
-                </div>
+              {/* Primary & Secondary CTAs */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => handleOpenBooking()}
+                  className="bg-[#4a7c59] hover:bg-[#3b6447] text-white px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center gap-2.5 shadow-sm transition active:scale-95 cursor-pointer"
+                >
+                  <Icon name="ticket" className="w-5 h-5 text-emerald-200" />
+                  <span>{t.heroBookCta || "Book Mandi Slot"}</span>
+                  <span className="text-emerald-200 text-lg leading-none">→</span>
+                </button>
 
                 <button
                   type="button"
-                  onClick={() => setActiveTab("centres")}
-                  className="text-xs font-bold text-[#4a7c59] hover:underline cursor-pointer"
+                  onClick={() => setActiveTab("my-booking")}
+                  className="bg-white hover:bg-slate-50 text-slate-800 border-2 border-[#c2a68c] px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center gap-2 shadow-xs transition active:scale-95 cursor-pointer"
                 >
-                  {t.viewAllMandis} ({centresData.length}) →
+                  <Icon name="search" className="w-4 h-4 text-[#4a7c59]" />
+                  <span>{t.heroCheckPassCta || "Check My Pass"}</span>
+                  {activeToken && (
+                    <span className="w-2 h-2 rounded-full bg-[#c86d12] animate-ping"></span>
+                  )}
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {centresData.slice(0, 3).map((centre) => (
-                  <div
-                    key={centre.id}
-                    onClick={() => handleOpenBooking(centre)}
-                    className="p-3 bg-slate-50 hover:bg-[#ebf2ee]/50 border border-slate-200 hover:border-[#4a7c59] rounded-xl cursor-pointer transition flex flex-col justify-between space-y-2 active:scale-98"
-                  >
-                    <div>
-                      <div className="font-bold text-xs text-slate-900 truncate">{centre.name}</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">
-                        {centre.district} • {centre.distance} {t.distKm}
-                      </div>
-                    </div>
+              {/* Feature-Phone Accessibility Banner */}
+              <div className="pt-2 border-t border-[#e6d8c3]/60 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-600">
+                <span className="text-slate-700 font-medium">
+                  📱 {t.heroIvrHint || "Don't have a smartphone? Use KisanSetu IVR."}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowIvrModal(true)}
+                  className="inline-flex items-center gap-1.5 font-bold text-[#c86d12] hover:text-[#a5590d] cursor-pointer bg-amber-50 hover:bg-amber-100/80 px-3 py-1 rounded-lg border border-amber-200 transition"
+                >
+                  <span>📞</span>
+                  <span>{t.heroIvrBtn || "Prototype IVR"}</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </section>
 
-                    <div className="flex items-center justify-between text-[11px] pt-1.5 border-t border-slate-200">
-                      <span className="text-[#2a4732] font-bold bg-[#ebf2ee] px-2 py-0.5 rounded-md border border-[#4a7c59]/30 text-[10px]">
-                        {t.waitingTime}: {centre.waitTime}
-                      </span>
-                      <span className="font-bold text-[#4a7c59] text-xs">{t.bookSlotArrow}</span>
+            {/* 2. THE FOUR FEATURE CARDS (Doors into Workflows) */}
+            <section className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg sm:text-xl font-extrabold font-serif text-slate-900">
+                    What would you like to do?
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500">
+                    Select a service below to start your mandi workflow.
+                  </p>
+                </div>
+              </div>
+
+              {/* Grid: Mandi Gate Pass is Primary & Prominent */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* CARD 1: MANDI GATE PASS (PRIMARY - Spans full width on tablet/desktop or featured top) */}
+                <div
+                  onClick={() => handleOpenBooking()}
+                  className="md:col-span-3 ks-card p-6 sm:p-7 bg-gradient-to-br from-[#ebf2ee] via-white to-white border-2 border-[#4a7c59]/50 hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-sm hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 group"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-[#4a7c59] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition">
+                      <Icon name="ticket" className="w-7 h-7 text-emerald-100" />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[10px] font-black uppercase tracking-wider bg-[#2a4732] text-white px-2.5 py-0.5 rounded-full">
+                          Primary Service
+                        </span>
+                        <span className="text-xs text-emerald-800 font-semibold">
+                          Fast Entry • Gate #2
+                        </span>
+                      </div>
+                      <h4 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-serif">
+                        {t.card1Title || "Mandi Gate Pass"}
+                      </h4>
+                      <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
+                        {t.card1Desc || "Book your mandi slot before you leave home and get your digital gate pass."}
+                      </p>
                     </div>
                   </div>
-                ))}
+
+                  <div className="w-full sm:w-auto shrink-0 pt-2 sm:pt-0">
+                    <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#4a7c59] group-hover:bg-[#3b6447] text-white py-3 px-6 rounded-xl font-bold text-sm sm:text-base shadow-xs transition active:scale-95">
+                      <span>{t.card1Cta || "Book Slot →"}</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* CARD 2: MSP RATES */}
+                <div
+                  onClick={() => setActiveTab("msp-rates")}
+                  className="ks-card p-6 bg-white border border-[#d8ccbe] hover:border-[#c86d12] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                >
+                  <div className="space-y-3">
+                    <div className="w-12 h-12 rounded-xl bg-amber-50 text-[#c86d12] flex items-center justify-center shrink-0 group-hover:scale-105 transition">
+                      <Icon name="calculator" className="w-6 h-6 text-[#c86d12]" />
+                    </div>
+                    <div>
+                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
+                        {t.card2Title || "MSP Rates"}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        {t.card2Desc || "Check the applicable support price for your crop and estimate your procurement value."}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-bold text-[#c86d12] group-hover:translate-x-1 transition">
+                    <span>{t.card2Cta || "Check Rates →"}</span>
+                    <span>→</span>
+                  </div>
+                </div>
+
+                {/* CARD 3: MOISTURE PRE-CHECK */}
+                <div
+                  onClick={() => setActiveTab("moisture")}
+                  className="ks-card p-6 bg-white border border-[#d8ccbe] hover:border-blue-500 rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                >
+                  <div className="space-y-3">
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
+                      <Icon name="droplet" className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
+                        {t.card3Title || "Moisture Pre-Check"}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        {t.card3Desc || "Check your grain's moisture reading before travelling to the mandi."}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-bold text-blue-700 group-hover:translate-x-1 transition">
+                    <span>{t.card3Cta || "Check Moisture →"}</span>
+                    <span>→</span>
+                  </div>
+                </div>
+
+                {/* CARD 4: HELP & ASSISTANCE */}
+                <div
+                  onClick={() => setActiveTab("help")}
+                  className="ks-card p-6 bg-white border border-[#d8ccbe] hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                >
+                  <div className="space-y-3">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50 text-[#4a7c59] flex items-center justify-center shrink-0 group-hover:scale-105 transition">
+                      <Icon name="help-circle" className="w-6 h-6 text-[#4a7c59]" />
+                    </div>
+                    <div>
+                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
+                        {t.card4Title || "Help & Assistance"}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                        {t.card4Desc || "Get help with booking, required documents, mandi visits, and KisanSetu services."}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-bold text-[#4a7c59] group-hover:translate-x-1 transition">
+                    <span>{t.card4Cta || "Get Help →"}</span>
+                    <span>→</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
+
+            {/* 3. HOW KISANSETU WORKS SECTION */}
+            <section className="ks-card p-6 sm:p-8 bg-white rounded-2xl space-y-6">
+              <div className="text-center sm:text-left space-y-1">
+                <h3 className="text-lg sm:text-xl font-extrabold font-serif text-slate-900">
+                  {t.howItWorks || "How KisanSetu Works"}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500">
+                  Follow these 4 simple steps to complete your mandi visit with zero hassle.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Step 1 */}
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="w-7 h-7 rounded-full bg-[#4a7c59] text-white text-xs font-black flex items-center justify-center">
+                      1
+                    </span>
+                    <span className="text-2xl">🌾</span>
+                  </div>
+                  <h4 className="font-bold text-sm sm:text-base text-slate-900">
+                    {t.step1Title || "1. Choose your crop"}
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {t.step1Desc || "Select your crop type and harvest quantity"}
+                  </p>
+                </div>
+
+                {/* Step 2 */}
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="w-7 h-7 rounded-full bg-[#4a7c59] text-white text-xs font-black flex items-center justify-center">
+                      2
+                    </span>
+                    <span className="text-2xl">📍</span>
+                  </div>
+                  <h4 className="font-bold text-sm sm:text-base text-slate-900">
+                    {t.step2Title || "2. Select mandi & slot"}
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {t.step2Desc || "Pick nearest centre and a 2-hour arrival window"}
+                  </p>
+                </div>
+
+                {/* Step 3 */}
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="w-7 h-7 rounded-full bg-[#4a7c59] text-white text-xs font-black flex items-center justify-center">
+                      3
+                    </span>
+                    <span className="text-2xl">🎫</span>
+                  </div>
+                  <h4 className="font-bold text-sm sm:text-base text-slate-900">
+                    {t.step3Title || "3. Get your digital pass"}
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {t.step3Desc || "Receive barcode token on mobile via SMS or print"}
+                  </p>
+                </div>
+
+                {/* Step 4 */}
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="w-7 h-7 rounded-full bg-[#4a7c59] text-white text-xs font-black flex items-center justify-center">
+                      4
+                    </span>
+                    <span className="text-2xl">🚛</span>
+                  </div>
+                  <h4 className="font-bold text-sm sm:text-base text-slate-900">
+                    {t.step4Title || "4. Arrive during your slot"}
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    {t.step4Desc || "Fast entry at Gate #2 with zero line delay"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Visual Flow summary */}
+              <div className="p-3 bg-[#ebf2ee]/60 border border-[#4a7c59]/20 rounded-xl text-center text-xs sm:text-sm font-semibold text-[#2a4732] flex items-center justify-center gap-2 flex-wrap">
+                <span>🌾 Crop</span>
+                <span className="text-slate-400">→</span>
+                <span>📍 Mandi</span>
+                <span className="text-slate-400">→</span>
+                <span>⏱️ Slot</span>
+                <span className="text-slate-400">→</span>
+                <span>🎫 Gate Pass</span>
+                <span className="text-slate-400">→</span>
+                <span>🚛 Mandi Visit</span>
+              </div>
+            </section>
+
+            {/* 4. IVR / FEATURE PHONE SECTION */}
+            <section className="bg-gradient-to-r from-[#2a4732] to-[#3b6447] text-white p-6 sm:p-8 rounded-2xl shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-2xl shrink-0 border border-white/20">
+                  📞
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-lg sm:text-xl font-black font-serif">
+                    {t.ivrSectionTitle || "Don't have a smartphone?"}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-emerald-100 max-w-xl leading-relaxed">
+                    {t.ivrSectionSub || "You can access KisanSetu through the IVR service using a basic phone."}
+                  </p>
+                  <p className="text-[11px] text-emerald-200/80 pt-1">
+                    {t.ivrSectionNote || "Free prototype dial-in simulation for keypad phones. 1800-180-1551 is the Government Kisan Call Centre."}
+                  </p>
+                </div>
+              </div>
+
+              <div className="w-full md:w-auto shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setShowIvrModal(true)}
+                  className="w-full md:w-auto bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-6 py-3.5 rounded-xl text-sm flex items-center justify-center gap-2 shadow-md transition cursor-pointer active:scale-95 whitespace-nowrap"
+                >
+                  <span>📞</span>
+                  <span>{t.ivrSectionCta || "Call KisanSetu (Prototype IVR)"}</span>
+                </button>
+              </div>
+            </section>
           </div>
         )}
 
@@ -1868,6 +1718,28 @@ export default function KisanSetuApp() {
                   {t.bookSlotArrow}
                 </button>
               </div>
+
+              {/* 3 Core Crop MSP Benchmarks & 100 Qtl Estimate */}
+              <div className="bg-[#fdf6ee] border border-[#e6d8c3] p-3 rounded-xl space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-800">Quick Benchmark Estimate:</span>
+                  <span className="font-extrabold text-[#c86d12] font-mono">100 Qtl (Common Paddy) = ₹2,30,000</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="bg-white p-2 rounded-lg border border-[#e6d8c3]">
+                    <p className="text-[11px] text-slate-500 font-medium">Paddy (Common)</p>
+                    <p className="text-xs sm:text-sm font-black text-[#c86d12] font-mono">₹2,300 / Qtl</p>
+                  </div>
+                  <div className="bg-white p-2 rounded-lg border border-[#e6d8c3]">
+                    <p className="text-[11px] text-slate-500 font-medium">Paddy (Grade A)</p>
+                    <p className="text-xs sm:text-sm font-black text-[#c86d12] font-mono">₹2,320 / Qtl</p>
+                  </div>
+                  <div className="bg-white p-2 rounded-lg border border-[#e6d8c3]">
+                    <p className="text-[11px] text-slate-500 font-medium">Wheat (Rabi)</p>
+                    <p className="text-xs sm:text-sm font-black text-[#c86d12] font-mono">₹2,425 / Qtl</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="ks-card overflow-hidden">
@@ -2253,11 +2125,298 @@ export default function KisanSetuApp() {
           </div>
         )}
 
+        {/* TAB: MOISTURE PRE-CHECK & QUALITY STANDARDS */}
+        {activeTab === "moisture" && (
+          <div className="space-y-4">
+            {/* Header Banner */}
+            <div className="bg-white border border-[#d8ccbe] rounded-2xl p-5 shadow-xs space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#e6d8c3] pb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xl">
+                    💧
+                  </div>
+                  <div>
+                    <h2 className="text-base sm:text-lg font-extrabold text-slate-900 font-serif">
+                      {t.moisturePageTitle || "Grain Moisture Pre-Check & Quality Standards"}
+                    </h2>
+                    <p className="text-xs text-slate-500">
+                      {t.moisturePageSub || "Verify your grain moisture before travelling to prevent mandi rejection or distress price cuts."}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
+                    Official Limit: ≤ 17.0%
+                  </span>
+                </div>
+              </div>
+
+              {/* Informational Pre-Check Disclaimer */}
+              <div className="p-3 bg-blue-50/70 border border-blue-200/80 rounded-xl text-xs text-blue-950 flex items-start gap-2">
+                <span className="text-base leading-none">🌾</span>
+                <div>
+                  <p className="font-bold">
+                    Farmer pre-check: enter reading from your grain moisture tester meter.
+                  </p>
+                  <p className="text-[11px] text-blue-800 mt-0.5">
+                    Official moisture verification is performed at the APMC procurement centre weighbridge. Grain tested below 17.0% qualifies for 100% fair MSP without deductions.
+                  </p>
+                </div>
+              </div>
+
+              {/* Meter Reading Input & Presets */}
+              <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                <div className="flex justify-between items-center text-slate-800 font-bold text-xs sm:text-sm">
+                  <label htmlFor="grain-moisture-dedicated-input" className="flex items-center gap-1.5">
+                    <Icon name="droplet" className="w-4 h-4 text-blue-600" />
+                    <span>{t.moistureInputLabel || "Enter Moisture Reading (%)"}:</span>
+                  </label>
+                  <span className="text-xs text-slate-500 font-mono">Government Limit: ≤ 17.0%</span>
+                </div>
+
+                <div className="space-y-1.5">
+                  <div className="relative max-w-md">
+                    <input
+                      id="grain-moisture-dedicated-input"
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      max="40"
+                      value={inputMoisture}
+                      onChange={(e) => setInputMoisture(e.target.value)}
+                      placeholder="Enter moisture reading (e.g. 15.5)"
+                      className="w-full bg-white border border-slate-300 hover:border-slate-400 focus:border-[#4a7c59] rounded-xl py-2.5 px-3.5 pr-12 text-base font-mono font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-[#4a7c59]/20 shadow-xs transition"
+                    />
+                    <span className="absolute right-4 top-3 text-sm font-bold text-slate-400 font-mono">%</span>
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    Type the percentage shown on your digital grain tester. (Official MSP procurement standard: <strong>≤ 17.0%</strong>)
+                  </p>
+                </div>
+
+                {/* Quick Demo Presets */}
+                <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                  <span className="text-xs text-slate-500 font-bold uppercase">Quick Presets:</span>
+                  {[
+                    { l: "14.0% (Dry)", v: "14.0" },
+                    { l: "16.5% (Good)", v: "16.5" },
+                    { l: "17.0% (Limit)", v: "17.0" },
+                    { l: "18.5% (Drying Needed)", v: "18.5" },
+                    { l: "20.0% (High Moisture)", v: "20.0" },
+                  ].map((p) => (
+                    <button
+                      key={p.v}
+                      type="button"
+                      onClick={() => setInputMoisture(p.v)}
+                      className={`px-2.5 py-1 text-xs font-mono font-bold rounded-lg border cursor-pointer transition ${
+                        inputMoisture === p.v
+                          ? "bg-slate-900 text-white border-slate-900"
+                          : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                      }`}
+                    >
+                      {p.l}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Dynamic Result Box */}
+                <div className={`p-4 rounded-xl border space-y-1.5 transition ${moistureAnalysis.color}`}>
+                  <div className="flex items-center justify-between font-black text-sm sm:text-base">
+                    <span>{moistureAnalysis.badge}</span>
+                    <span className="font-mono text-base sm:text-lg">
+                      {moistureAnalysis.isValid ? `${moistureAnalysis.reading?.toFixed(1)}%` : "--"}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium">{moistureAnalysis.sub}</p>
+                  <p className="text-xs sm:text-sm font-bold">{moistureAnalysis.actionHint}</p>
+                  {moistureLastTestedAt && (
+                    <div className="text-[11px] text-slate-500 pt-2 border-t border-black/10 flex justify-between">
+                      <span>Source: Digital Meter Reading</span>
+                      <span>Verified: {moistureLastTestedAt}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Action CTA */}
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const timeStr = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
+                      setMoistureLastTestedAt(`Today, ${timeStr}`);
+                    }}
+                    className="bg-[#4a7c59] hover:bg-[#3b6447] text-white py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95 cursor-pointer"
+                  >
+                    <Icon name="droplet" className="w-4 h-4" />
+                    <span>{t.testMoistureBtn}</span>
+                  </button>
+
+                  {moistureAnalysis.isPass ? (
+                    <button
+                      type="button"
+                      onClick={() => handleOpenBooking()}
+                      className="bg-[#c86d12] hover:bg-[#a5590d] text-white py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95 cursor-pointer"
+                    >
+                      <span>Proceed to Book Mandi Slot →</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => alert("Sun-Drying Guide: Spread grain 2-3 inches thick in direct sunlight on mandi drying yard or tarpaulin for 2-4 hours to drop moisture below 17.0%.")}
+                      className="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer"
+                    >
+                      <span>Sun-Drying Guide ☀️</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Quality Standards & Testing Guide */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Card A: Mandi Standards */}
+              <div className="ks-card p-4 sm:p-5 space-y-3">
+                <h3 className="text-sm font-bold text-slate-900 border-b border-[#e6d8c3] pb-2 flex items-center gap-1.5">
+                  <span>⚖️</span>
+                  <span>Mandi Acceptance & Quality Standards</span>
+                </h3>
+                <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                  <div className="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl">
+                    <p className="text-[11px] text-slate-500 font-medium">Moisture</p>
+                    <p className="font-extrabold text-[#2a4732] text-sm">≤ 17.0%</p>
+                    <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">Standard</p>
+                  </div>
+                  <div className="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl">
+                    <p className="text-[11px] text-slate-500 font-medium">Refuse / Dirt</p>
+                    <p className="font-extrabold text-[#2a4732] text-sm">≤ 2.0%</p>
+                    <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">Clean Grain</p>
+                  </div>
+                  <div className="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl">
+                    <p className="text-[11px] text-slate-500 font-medium">DBT Payout</p>
+                    <p className="font-extrabold text-[#2a4732] text-sm">48–72h</p>
+                    <p className="text-[10px] text-emerald-700 mt-0.5 font-bold">Bank Credit</p>
+                  </div>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Grain meeting these three standards is eligible for instant weighbridge clearance and direct MSP credit to the farmer's linked Aadhaar bank account.
+                </p>
+              </div>
+
+              {/* Card B: How Testing Works */}
+              <div className="ks-card p-4 sm:p-5 space-y-3">
+                <h3 className="text-sm font-bold text-slate-900 border-b border-[#e6d8c3] pb-2 flex items-center gap-1.5">
+                  <span>ℹ️</span>
+                  <span>{t.howItWorksTitle || "How Moisture Testing Works:"}</span>
+                </h3>
+                <div className="space-y-1.5 text-xs text-slate-700">
+                  <div className="flex items-start gap-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+                    <span className="font-bold text-[#4a7c59]">1.</span>
+                    <span>{t.howItWorksStep1 || "Take a representative grain sample from multiple sacks."}</span>
+                  </div>
+                  <div className="flex items-start gap-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+                    <span className="font-bold text-[#4a7c59]">2.</span>
+                    <span>{t.howItWorksStep2 || "Measure with a calibrated digital grain moisture tester."}</span>
+                  </div>
+                  <div className="flex items-start gap-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+                    <span className="font-bold text-[#4a7c59]">3.</span>
+                    <span>{t.howItWorksStep3 || "Enter reading in KisanSetu before visiting the mandi."}</span>
+                  </div>
+                  <div className="flex items-start gap-2 bg-slate-50 p-2 rounded-lg border border-slate-200">
+                    <span className="font-bold text-[#4a7c59]">4.</span>
+                    <span>{t.howItWorksStep4 || "If ≤ 17.0%, proceed to book gate pass for immediate entry."}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* TAB: HELP & CITIZEN CHARTER */}
         {activeTab === "help" && (
           <div className="space-y-4">
-            {/* IVR Voice Phone Feature Banner */}
-            <div className="bg-gradient-to-r from-[#2a4732] to-[#4a7c59] text-white p-4 sm:p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* 1. Required Documents Checklist */}
+            <div className="ks-card p-5 space-y-3 bg-white">
+              <div className="flex items-center justify-between border-b border-[#e6d8c3] pb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#4a7c59] flex items-center justify-center font-bold">
+                    <Icon name="file-text" className="w-5 h-5 text-[#4a7c59]" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-slate-900 text-base font-serif">
+                      {t.requiredDocs || "Documents Required at Gate Entry"}
+                    </h3>
+                    <p className="text-xs text-slate-500">
+                      Keep these 4 items ready when arriving at the mandi gate.
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                  Mandatory Checklist
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                  <div className="flex items-center gap-2 font-bold text-slate-900">
+                    <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-black">✓</span>
+                    <span>1. {t.doc1}</span>
+                  </div>
+                  <p className="text-slate-600 pl-7">{t.doc1Sub || "Original Aadhaar Card for identity verification"}</p>
+                </div>
+
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                  <div className="flex items-center gap-2 font-bold text-slate-900">
+                    <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-black">✓</span>
+                    <span>2. {t.doc2}</span>
+                  </div>
+                  <p className="text-slate-600 pl-7">{t.doc2Sub || "Passbook for Direct Bank Transfer (DBT)"}</p>
+                </div>
+
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                  <div className="flex items-center gap-2 font-bold text-slate-900">
+                    <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-black">✓</span>
+                    <span>3. {t.doc3}</span>
+                  </div>
+                  <p className="text-slate-600 pl-7">{t.doc3Sub || "Land Registration / Khasra document"}</p>
+                </div>
+
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                  <div className="flex items-center gap-2 font-bold text-slate-900">
+                    <span className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-black">✓</span>
+                    <span>4. {t.doc4}</span>
+                  </div>
+                  <p className="text-slate-600 pl-7">{t.doc4Sub || "Token generated from KisanSetu portal"}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Mandi Standards & Payment Rules */}
+            <div className="ks-card p-5 space-y-3 bg-white">
+              <h3 className="font-extrabold text-slate-900 text-base font-serif border-b border-[#e6d8c3] pb-2 flex items-center gap-2">
+                <span>⚖️</span>
+                <span>Mandi Acceptance & Payment Standards</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs">
+                <div className="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-0.5">
+                  <p className="text-slate-500 font-medium">Grain Moisture</p>
+                  <p className="text-base font-black text-[#2a4732]">≤ 17.0%</p>
+                  <p className="text-[10px] text-emerald-800 font-semibold">100% MSP Payout</p>
+                </div>
+                <div className="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-0.5">
+                  <p className="text-slate-500 font-medium">Dirt / Foreign Matter</p>
+                  <p className="text-base font-black text-[#2a4732]">≤ 2.0%</p>
+                  <p className="text-[10px] text-emerald-800 font-semibold">Permissible Refuse</p>
+                </div>
+                <div className="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-0.5">
+                  <p className="text-slate-500 font-medium">DBT Direct Transfer</p>
+                  <p className="text-base font-black text-[#2a4732]">48–72 Hours</p>
+                  <p className="text-[10px] text-emerald-800 font-semibold">To Aadhaar Linked A/C</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Prototype IVR Voice Phone Feature Banner */}
+            <div className="bg-gradient-to-r from-[#2a4732] to-[#4a7c59] text-white p-5 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
                 <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center text-2xl shrink-0 border border-white/20">
                   📞
@@ -2265,13 +2424,13 @@ export default function KisanSetuApp() {
                 <div>
                   <h3 className="font-black text-sm sm:text-base leading-snug">
                     {lang === "hi"
-                      ? "किसानसेतु 24x7 IVR फोन बुकिंग सेवा (1800-180-1551)"
-                      : "KisanSetu 24x7 IVR Voice Booking Service (1800-180-1551)"}
+                      ? "किसानसेतु 24x7 IVR फोन बुकिंग सिम्युलेटर"
+                      : "KisanSetu 24x7 IVR Voice Booking Simulator"}
                   </h3>
                   <p className="text-xs text-emerald-100 mt-0.5">
                     {lang === "hi"
                       ? "बिना स्मार्टफोन व बिना इंटरनेट, साधारण कीपैड फोन से स्लॉट बुक करें व टोकन पाएं।"
-                      : "Book procurement slots and receive gate pass tokens via phone call without internet."}
+                      : "Simulate booking procurement slots via feature-phone keypad telephony without internet."}
                   </p>
                 </div>
               </div>
@@ -2285,28 +2444,36 @@ export default function KisanSetuApp() {
               </button>
             </div>
 
-            <div className="ks-card p-4 space-y-3">
-              <h3 className="text-sm font-bold text-slate-900 border-b border-[#e6d8c3] pb-2">
-                {t.tollFreeTitle}
-              </h3>
+            {/* 4. Toll-Free Helplines with Clear Attribution */}
+            <div className="ks-card p-5 space-y-3">
+              <div className="border-b border-[#e6d8c3] pb-2">
+                <h3 className="text-sm font-bold text-slate-900">
+                  {t.tollFreeTitle || "Official Helplines & Support"}
+                </h3>
+                <p className="text-[11px] text-slate-500">
+                  1800-180-1551 is the Government of India Kisan Call Centre helpline.
+                </p>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div className="p-3.5 bg-[#fdf6ee] border border-amber-200 rounded-xl">
                   <span className="text-[10px] text-slate-500 font-bold uppercase block">
-                    {t.kisanHelpline}
+                    Govt. Kisan Call Centre (KCC)
                   </span>
                   <a href="tel:18001801551" className="text-base font-black text-[#c86d12] block mt-1 font-mono">
                     1800-180-1551
                   </a>
+                  <span className="text-[10px] text-slate-500 block mt-0.5">6 AM – 10 PM • All 7 Days</span>
                 </div>
 
                 <div className="p-3.5 bg-[#ebf2ee] border border-[#4a7c59]/30 rounded-xl">
                   <span className="text-[10px] text-slate-500 font-bold uppercase block">
-                    {t.kisanCallCenter}
+                    KCC Short Code
                   </span>
                   <a href="tel:1551" className="text-base font-black text-[#4a7c59] block mt-1 font-mono">
                     1551
                   </a>
+                  <span className="text-[10px] text-slate-500 block mt-0.5">Toll-Free from any mobile</span>
                 </div>
 
                 <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
@@ -2321,11 +2488,13 @@ export default function KisanSetuApp() {
                   >
                     +91 94160 00000
                   </a>
+                  <span className="text-[10px] text-slate-500 block mt-0.5">Digital Assistance</span>
                 </div>
               </div>
             </div>
 
-            <div className="ks-card p-4 space-y-3 text-xs">
+            {/* 5. FAQs */}
+            <div className="ks-card p-5 space-y-3 text-xs">
               <h3 className="text-sm font-bold text-slate-900 border-b border-[#e6d8c3] pb-2">
                 {t.faqTitle}
               </h3>
@@ -2396,6 +2565,17 @@ export default function KisanSetuApp() {
         >
           <Icon name="calculator" className={`w-5 h-5 ${activeTab === "msp-rates" ? "text-[#4a7c59]" : "text-slate-500"}`} />
           <span className="text-[10px] mt-0.5">{t.mspRates}</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab("moisture")}
+          className={`flex flex-col items-center justify-center p-1 rounded-lg cursor-pointer transition flex-1 ${
+            activeTab === "moisture" ? "text-blue-700 font-black" : "text-slate-500 font-semibold"
+          }`}
+        >
+          <Icon name="droplet" className={`w-5 h-5 ${activeTab === "moisture" ? "text-blue-700" : "text-slate-500"}`} />
+          <span className="text-[10px] mt-0.5">{t.moistureTab || "Moisture"}</span>
         </button>
 
         {isOfficerLoggedIn && (
@@ -3050,38 +3230,90 @@ export default function KisanSetuApp() {
         </div>
       )}
 
-      {/* 9. WARM FOOTER */}
-      <footer className="bg-[#1f2421] text-slate-300 pt-6 pb-28 md:pb-6 px-4 text-xs border-t border-slate-800">
-        <div className="w-full max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1780px] mx-auto px-3 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div className="flex items-center gap-3">
-            <img
-              src={kisanSetuCircle}
-              alt="KisanSetu Logo"
-              className="w-10 h-10 object-contain shrink-0"
-            />
-            <div>
-              <p className="font-bold text-white text-sm">
-                {t.portalName} <span className="text-emerald-400 font-normal">•</span> {t.footerGovt}
-              </p>
-              <p className="text-[11px] text-slate-400 mt-0.5">{t.footerTagline}</p>
+      {/* 9. WARM FARMER-FIRST FOOTER */}
+      <footer className="bg-[#1f2421] text-slate-300 pt-8 pb-28 md:pb-8 px-4 text-xs border-t border-slate-800">
+        <div className="w-full max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1780px] mx-auto px-3 sm:px-6 space-y-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-800">
+            {/* Branding & Prototype Notice */}
+            <div className="flex items-center gap-3.5">
+              <img
+                src={kisanSetuCircle}
+                alt="KisanSetu Logo"
+                className="w-11 h-11 object-contain shrink-0"
+              />
+              <div>
+                <div className="flex items-center gap-2">
+                  <p className="font-extrabold text-white text-base">
+                    {t.portalName}
+                  </p>
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded-full">
+                    {t.prototypeTag || "GovTech Prototype"}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  {t.digitalMandiAccess || "Digital Mandi Access"} • Designed for Indian Farmers & APMC Mandis
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-400">
+              <button
+                type="button"
+                onClick={() => setActiveTab("home")}
+                className="hover:text-white transition cursor-pointer"
+              >
+                {t.home}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("centres")}
+                className="hover:text-white transition cursor-pointer"
+              >
+                {t.centres}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("msp-rates")}
+                className="hover:text-white transition cursor-pointer"
+              >
+                {t.mspRates}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("moisture")}
+                className="hover:text-white transition cursor-pointer"
+              >
+                {t.moistureTab || "Moisture Check"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("help")}
+                className="hover:text-white transition cursor-pointer"
+              >
+                {t.help}
+              </button>
+              <button
+                type="button"
+                onClick={() => setOfficerLoginModal(true)}
+                className="text-slate-300 hover:text-white underline cursor-pointer font-semibold ml-2"
+              >
+                Mandi Officer Login
+              </button>
             </div>
           </div>
 
-          <div className="flex items-center gap-5 text-xs">
-            <button
-              type="button"
-              onClick={() => setOfficerLoginModal(true)}
-              className="text-slate-300 hover:text-white underline cursor-pointer font-semibold"
-            >
-              Mandi Officer Portal
-            </button>
-            <a
-              href="tel:18001801551"
-              className="text-amber-400 hover:text-amber-300 transition font-bold flex items-center gap-1.5"
-            >
-              <Icon name="phone-call" className="w-3.5 h-3.5" />
-              <span>1800-180-1551 (Toll-Free)</span>
-            </a>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400 text-center sm:text-left">
+            <p>
+              GovTech Innovation Prototype • Not an official Government of India production deployment.
+            </p>
+            <p className="flex items-center gap-1.5 justify-center sm:justify-start">
+              <span>📞 Govt. Kisan Call Centre:</span>
+              <a href="tel:18001801551" className="text-amber-400 hover:text-amber-300 font-bold font-mono">
+                1800-180-1551
+              </a>
+              <span className="text-slate-500">(Toll-Free, 6 AM – 10 PM)</span>
+            </p>
           </div>
         </div>
       </footer>
