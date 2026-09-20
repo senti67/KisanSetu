@@ -1090,10 +1090,102 @@ export default function KisanSetuApp() {
                 {/* CARD 1: MANDI GATE PASS (PRIMARY - Spans full width on tablet/desktop or featured top) */}
                 <div
                   onClick={() => handleOpenBooking()}
-                  className="ks-service-card ks-card-gate md:col-span-3 p-4 sm:p-6 md:p-7 cursor-pointer flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 group active:scale-[0.99]"
+                  className="ks-service-card ks-card-gate md:col-span-3 p-4 sm:p-6 md:p-7 cursor-pointer flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 group active:scale-[0.99] relative overflow-hidden"
                 >
+                  {/* Subtle Botanical Agricultural Artwork (Muted Sage & Delicate Field Contours) */}
+                  <svg
+                    className="absolute right-0 bottom-0 w-full sm:w-[460px] md:w-[540px] h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 540 200"
+                    preserveAspectRatio="xMaxYMax meet"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient id="gate-art-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#fff" stopOpacity="0" />
+                        <stop offset="35%" stopColor="#fff" stopOpacity="0.2" />
+                        <stop offset="70%" stopColor="#fff" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="#fff" stopOpacity="1" />
+                      </linearGradient>
+                      <mask id="gate-fade-mask">
+                        <rect x="0" y="0" width="540" height="200" fill="url(#gate-art-fade)" />
+                      </mask>
+                    </defs>
+
+                    <g mask="url(#gate-fade-mask)" opacity="0.14">
+                      {/* Soft Agricultural Field Contours / Furrows */}
+                      <path d="M120 200 C210 185 320 168 460 170 C490 170 520 173 540 175" stroke="#2d6a42" strokeWidth="1.6" strokeLinecap="round" />
+                      <path d="M180 200 C260 188 360 178 480 180 C510 181 530 183 540 184" stroke="#2d6a42" strokeWidth="1.2" strokeDasharray="6 4" strokeLinecap="round" />
+                      <path d="M260 200 C330 193 420 187 510 190 C525 191 535 192 540 192" stroke="#2d6a42" strokeWidth="1.2" strokeLinecap="round" />
+
+                      {/* Primary Wheat Stalk (Botanical Line Art rising from bottom right) */}
+                      <path d="M495 200 C490 150 472 95 440 35" stroke="#235c36" strokeWidth="2.2" strokeLinecap="round" />
+                      {/* Alternating grain spikelets & awns */}
+                      <g fill="#3d7a52" fillOpacity="0.15" stroke="#235c36" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                        {/* Spikelet 1 (Top) */}
+                        <path d="M440 35 C434 27 428 17 435 9 C441 17 447 26 440 35 Z" />
+                        <path d="M435 9 L424 -6" strokeWidth="1" />
+                        {/* Spikelet 2 */}
+                        <path d="M442 34 C449 26 456 16 450 8 C443 16 437 25 442 34 Z" />
+                        <path d="M450 8 L462 -6" strokeWidth="1" />
+                        {/* Spikelet 3 */}
+                        <path d="M444 50 C436 42 429 32 437 23 C443 32 449 41 444 50 Z" />
+                        <path d="M437 23 L422 6" strokeWidth="1" />
+                        {/* Spikelet 4 */}
+                        <path d="M448 48 C456 40 464 30 458 21 C451 30 444 39 448 48 Z" />
+                        <path d="M458 21 L474 4" strokeWidth="1" />
+                        {/* Spikelet 5 */}
+                        <path d="M450 67 C440 59 433 49 441 40 C448 49 455 58 450 67 Z" />
+                        <path d="M441 40 L424 22" strokeWidth="1" />
+                        {/* Spikelet 6 */}
+                        <path d="M455 65 C465 57 473 47 466 38 C458 47 451 56 455 65 Z" />
+                        <path d="M466 38 L484 20" strokeWidth="1" />
+                        {/* Spikelet 7 */}
+                        <path d="M457 85 C446 77 438 67 447 58 C454 67 462 76 457 85 Z" />
+                        <path d="M447 58 L428 39" strokeWidth="1" />
+                        {/* Spikelet 8 */}
+                        <path d="M463 83 C474 75 483 65 475 56 C467 65 459 74 463 83 Z" />
+                        <path d="M475 56 L495 38" strokeWidth="1" />
+                        {/* Spikelet 9 */}
+                        <path d="M466 104 C454 96 446 86 455 77 C462 86 470 95 466 104 Z" />
+                        <path d="M455 77 L434 58" strokeWidth="1" />
+                        {/* Spikelet 10 */}
+                        <path d="M472 101 C484 93 493 83 485 74 C477 83 469 92 472 101 Z" />
+                        <path d="M485 74 L506 56" strokeWidth="1" />
+                        {/* Spikelet 11 */}
+                        <path d="M476 124 C463 116 455 106 464 97 C472 106 480 115 476 124 Z" />
+                        <path d="M464 97 L442 77" strokeWidth="1" />
+                        {/* Spikelet 12 */}
+                        <path d="M482 121 C495 113 504 103 496 94 C487 103 479 112 482 121 Z" />
+                        <path d="M496 94 L518 76" strokeWidth="1" />
+                      </g>
+
+                      {/* Secondary Arching Grain Stalk */}
+                      <path d="M525 200 C520 145 500 85 460 25" stroke="#316d44" strokeWidth="1.8" strokeLinecap="round" />
+                      <g fill="#4a7c59" fillOpacity="0.12" stroke="#316d44" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M460 25 C454 18 448 10 454 3 C460 10 466 18 460 25 Z" />
+                        <path d="M454 3 L445 -10" strokeWidth="0.9" />
+                        <path d="M463 24 C469 17 476 9 470 2 C464 9 458 17 463 24 Z" />
+                        <path d="M470 2 L481 -10" strokeWidth="0.9" />
+                        <path d="M467 42 C459 35 452 26 459 18 C465 26 471 34 467 42 Z" />
+                        <path d="M459 18 L446 4" strokeWidth="0.9" />
+                        <path d="M472 40 C480 33 487 24 481 16 C474 24 467 32 472 40 Z" />
+                        <path d="M481 16 L495 2" strokeWidth="0.9" />
+                        <path d="M476 60 C467 53 459 44 467 36 C474 44 481 52 476 60 Z" />
+                        <path d="M467 36 L452 21" strokeWidth="0.9" />
+                        <path d="M482 58 C491 51 499 42 492 33 C485 42 477 50 482 58 Z" />
+                        <path d="M492 33 L508 18" strokeWidth="0.9" />
+                      </g>
+
+                      {/* Gentle Leaf Ribbon Fronds */}
+                      <path d="M490 160 C465 140 435 138 410 145" stroke="#3d7a52" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                      <path d="M500 175 C520 150 535 125 528 100" stroke="#3d7a52" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    </g>
+                  </svg>
+
                   {/* Card Content */}
-                  <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="relative z-10 flex items-start gap-3 sm:gap-4">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-[#284935] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                       <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
@@ -1120,7 +1212,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
+                  <div className="relative z-10 w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
                     <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#244632] group-hover:bg-[#1a3424] text-white py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl font-bold text-sm sm:text-base shadow-sm transition active:scale-[0.98]">
                       <span>{t.card1Cta || "Book Slot →"}</span>
                     </span>
@@ -1130,9 +1222,88 @@ export default function KisanSetuApp() {
                 {/* CARD 2: MSP RATES */}
                 <div
                   onClick={() => setActiveTab("msp-rates")}
-                  className="ks-service-card ks-card-msp p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
+                  className="ks-service-card ks-card-msp p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99] relative overflow-hidden"
                 >
-                  <div className="space-y-2 sm:space-y-3">
+                  {/* Subtle Botanical Agricultural Artwork (Warm Ochre Wheat Stalk + Integrated Micro-Market Contours) */}
+                  <svg
+                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-52 h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 220 220"
+                    preserveAspectRatio="xMaxYMax meet"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient id="msp-art-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#fff" stopOpacity="0" />
+                        <stop offset="35%" stopColor="#fff" stopOpacity="0.25" />
+                        <stop offset="75%" stopColor="#fff" stopOpacity="0.85" />
+                        <stop offset="100%" stopColor="#fff" stopOpacity="1" />
+                      </linearGradient>
+                      <mask id="msp-fade-mask">
+                        <rect x="0" y="0" width="220" height="220" fill="url(#msp-art-fade)" />
+                      </mask>
+                    </defs>
+
+                    <g mask="url(#msp-fade-mask)" opacity="0.14">
+                      {/* Subtle Market Pillars (Soft, translucent stepped crop-stack columns integrated into agricultural contour) */}
+                      <rect x="118" y="156" width="11" height="42" rx="3" fill="#b87b22" fillOpacity="0.18" />
+                      <rect x="134" y="136" width="11" height="62" rx="3" fill="#b87b22" fillOpacity="0.22" />
+                      <rect x="150" y="112" width="11" height="86" rx="3" fill="#b87b22" fillOpacity="0.26" />
+                      <rect x="166" y="86" width="11" height="112" rx="3" fill="#b87b22" fillOpacity="0.30" />
+
+                      {/* Soft Curved Field Lines */}
+                      <path d="M25 215 C75 205 125 188 185 186 C200 185 210 187 220 188" stroke="#a66a18" strokeWidth="1.4" strokeLinecap="round" />
+                      <path d="M55 220 C100 212 145 200 195 198" stroke="#a66a18" strokeWidth="1.1" strokeDasharray="4 3" strokeLinecap="round" />
+
+                      {/* Main Botanical Wheat Stalk (Dominant Visual Element) */}
+                      <path d="M198 220 C195 175 185 125 170 45" stroke="#945c10" strokeWidth="2" strokeLinecap="round" />
+                      <g fill="#c8872b" fillOpacity="0.18" stroke="#945c10" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
+                        {/* Spikelet 1 */}
+                        <path d="M170 45 C164 38 159 30 165 23 C170 30 176 38 170 45 Z" />
+                        <path d="M165 23 L156 10" strokeWidth="0.9" />
+                        {/* Spikelet 2 */}
+                        <path d="M172 44 C178 37 184 29 179 22 C173 29 168 37 172 44 Z" />
+                        <path d="M179 22 L189 9" strokeWidth="0.9" />
+                        {/* Spikelet 3 */}
+                        <path d="M174 60 C166 53 160 44 167 36 C173 44 179 52 174 60 Z" />
+                        <path d="M167 36 L155 22" strokeWidth="0.9" />
+                        {/* Spikelet 4 */}
+                        <path d="M177 58 C185 51 192 42 186 34 C180 42 173 50 177 58 Z" />
+                        <path d="M186 34 L199 21" strokeWidth="0.9" />
+                        {/* Spikelet 5 */}
+                        <path d="M178 77 C169 70 162 60 170 51 C176 60 183 69 178 77 Z" />
+                        <path d="M170 51 L156 36" strokeWidth="0.9" />
+                        {/* Spikelet 6 */}
+                        <path d="M183 74 C192 66 200 56 193 48 C186 56 179 65 183 74 Z" />
+                        <path d="M193 48 L208 34" strokeWidth="0.9" />
+                        {/* Spikelet 7 */}
+                        <path d="M183 95 C173 87 165 76 174 67 C180 76 188 86 183 95 Z" />
+                        <path d="M174 67 L158 51" strokeWidth="0.9" />
+                        {/* Spikelet 8 */}
+                        <path d="M189 92 C199 84 207 74 200 64 C192 73 185 83 189 92 Z" />
+                        <path d="M200 64 L216 49" strokeWidth="0.9" />
+                        {/* Spikelet 9 */}
+                        <path d="M188 114 C177 106 168 95 178 85 C184 95 193 105 188 114 Z" />
+                        <path d="M178 85 L161 68" strokeWidth="0.9" />
+                        {/* Spikelet 10 */}
+                        <path d="M195 110 C206 102 214 91 206 81 C198 90 190 101 195 110 Z" />
+                        <path d="M206 81 L222 66" strokeWidth="0.9" />
+                        {/* Spikelet 11 */}
+                        <path d="M193 134 C181 126 172 114 182 104 C189 114 198 125 193 134 Z" />
+                        <path d="M182 104 L164 87" strokeWidth="0.9" />
+                        {/* Spikelet 12 */}
+                        <path d="M201 129 C213 121 221 109 213 99 C204 109 196 120 201 129 Z" />
+                        <path d="M213 99 L230 84" strokeWidth="0.9" />
+                      </g>
+
+                      {/* Leaf Frond */}
+                      <path d="M195 170 C178 152 160 148 145 152" stroke="#a66a18" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+                    </g>
+                  </svg>
+
+                  {/* Card Content */}
+                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[65%] sm:max-w-[70%]">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#faeacf] text-[#c66a13] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="calculator" className="w-5 h-5 sm:w-6 sm:h-6 text-[#c66a13]" />
                     </div>
@@ -1146,7 +1317,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
+                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
                     <span>{t.card2Cta || "Check Rates →"}</span>
                   </div>
                 </div>
@@ -1154,9 +1325,99 @@ export default function KisanSetuApp() {
                 {/* CARD 3: MOISTURE PRE-CHECK */}
                 <div
                   onClick={() => setActiveTab("moisture")}
-                  className="ks-service-card ks-card-moisture p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
+                  className="ks-service-card ks-card-moisture p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99] relative overflow-hidden"
                 >
-                  <div className="space-y-2 sm:space-y-3">
+                  {/* Subtle Botanical Agricultural Artwork (Muted Blue Wheat Stalk + Soft Translucent Water Droplets & Ripples) */}
+                  <svg
+                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-52 h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 220 220"
+                    preserveAspectRatio="xMaxYMax meet"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient id="moisture-art-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#fff" stopOpacity="0" />
+                        <stop offset="35%" stopColor="#fff" stopOpacity="0.25" />
+                        <stop offset="75%" stopColor="#fff" stopOpacity="0.85" />
+                        <stop offset="100%" stopColor="#fff" stopOpacity="1" />
+                      </linearGradient>
+                      <mask id="moisture-fade-mask">
+                        <rect x="0" y="0" width="220" height="220" fill="url(#moisture-art-fade)" />
+                      </mask>
+                    </defs>
+
+                    <g mask="url(#moisture-fade-mask)" opacity="0.14">
+                      {/* Large Soft Translucent Water Droplet (Primary) */}
+                      <path
+                        d="M142 42 C134 56 128 66 128 75 C128 86 135 94 144 94 C153 94 160 86 160 75 C160 66 154 56 146 42 C145 40 143 40 142 42 Z"
+                        fill="#2563eb"
+                        fillOpacity="0.18"
+                        stroke="#1d4ed8"
+                        strokeWidth="1.3"
+                        strokeLinejoin="round"
+                      />
+                      {/* Droplet Highlight Reflection Arc */}
+                      <path d="M135 70 C134 74 135 80 139 84" stroke="#60a5fa" strokeWidth="1.2" strokeLinecap="round" />
+
+                      {/* Secondary Translucent Dew Droplets */}
+                      <path
+                        d="M172 75 C166 84 162 90 162 96 C162 103 167 108 173 108 C179 108 184 103 184 96 C184 90 180 84 174 75 C173 74 172 74 172 75 Z"
+                        fill="#3b82f6"
+                        fillOpacity="0.16"
+                        stroke="#1d4ed8"
+                        strokeWidth="1.1"
+                      />
+                      <circle cx="120" cy="115" r="5" fill="#3b82f6" fillOpacity="0.15" stroke="#2563eb" strokeWidth="0.9" />
+
+                      {/* Gentle Ripple Curves & Flowing Water Lines */}
+                      <path d="M35 205 C75 190 120 210 165 198 C185 192 205 195 220 192" stroke="#1d4ed8" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+                      <path d="M60 215 C95 202 135 218 178 208 C198 202 212 205 220 203" stroke="#2563eb" strokeWidth="1.1" strokeLinecap="round" fill="none" />
+                      <path d="M90 222 C120 214 150 224 185 218" stroke="#3b82f6" strokeWidth="0.9" strokeDasharray="4 3" strokeLinecap="round" fill="none" />
+
+                      {/* Botanical Grain / Rice Stalk rising from bottom-right */}
+                      <path d="M200 220 C196 175 186 125 174 48" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" />
+                      <g fill="#3b82f6" fillOpacity="0.16" stroke="#1e40af" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
+                        {/* Spikelet 1 */}
+                        <path d="M174 48 C168 41 163 33 169 26 C174 33 180 41 174 48 Z" />
+                        <path d="M169 26 L160 13" strokeWidth="0.9" />
+                        {/* Spikelet 2 */}
+                        <path d="M176 47 C182 40 188 32 183 25 C177 32 171 40 176 47 Z" />
+                        <path d="M183 25 L193 12" strokeWidth="0.9" />
+                        {/* Spikelet 3 */}
+                        <path d="M177 64 C169 57 163 48 171 40 C177 48 183 56 177 64 Z" />
+                        <path d="M171 40 L159 26" strokeWidth="0.9" />
+                        {/* Spikelet 4 */}
+                        <path d="M181 62 C189 55 196 46 190 38 C184 46 177 54 181 62 Z" />
+                        <path d="M190 38 L203 25" strokeWidth="0.9" />
+                        {/* Spikelet 5 */}
+                        <path d="M181 82 C172 75 165 65 173 56 C179 65 186 74 181 82 Z" />
+                        <path d="M173 56 L159 41" strokeWidth="0.9" />
+                        {/* Spikelet 6 */}
+                        <path d="M187 79 C196 71 204 61 197 53 C190 61 183 70 187 79 Z" />
+                        <path d="M197 53 L212 39" strokeWidth="0.9" />
+                        {/* Spikelet 7 */}
+                        <path d="M186 100 C176 92 168 81 177 72 C183 81 191 91 186 100 Z" />
+                        <path d="M177 72 L161 56" strokeWidth="0.9" />
+                        {/* Spikelet 8 */}
+                        <path d="M192 97 C202 89 210 79 203 69 C195 78 188 88 192 97 Z" />
+                        <path d="M203 69 L219 54" strokeWidth="0.9" />
+                        {/* Spikelet 9 */}
+                        <path d="M190 120 C179 112 170 101 180 91 C186 101 195 111 190 120 Z" />
+                        <path d="M180 91 L163 74" strokeWidth="0.9" />
+                        {/* Spikelet 10 */}
+                        <path d="M197 116 C208 108 216 97 208 87 C200 96 192 107 197 116 Z" />
+                        <path d="M208 87 L224 72" strokeWidth="0.9" />
+                      </g>
+
+                      {/* Leaf Frond */}
+                      <path d="M196 168 C176 148 155 145 140 150" stroke="#1d4ed8" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+                    </g>
+                  </svg>
+
+                  {/* Card Content */}
+                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[65%] sm:max-w-[70%]">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#dff0fe] text-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="droplet" className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb]" />
                     </div>
@@ -1170,7 +1431,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
+                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
                     <span>{t.card3Cta || "Check Moisture →"}</span>
                   </div>
                 </div>
@@ -1178,9 +1439,81 @@ export default function KisanSetuApp() {
                 {/* CARD 4: HELP & ASSISTANCE */}
                 <div
                   onClick={() => setActiveTab("help")}
-                  className="ks-service-card ks-card-help p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
+                  className="ks-service-card ks-card-help p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99] relative overflow-hidden"
                 >
-                  <div className="space-y-2 sm:space-y-3">
+                  {/* Subtle Botanical Agricultural Artwork (Muted Rose Leafy Plant + Subtle Document & Communication Arcs) */}
+                  <svg
+                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-52 h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 220 220"
+                    preserveAspectRatio="xMaxYMax meet"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <linearGradient id="help-art-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#fff" stopOpacity="0" />
+                        <stop offset="35%" stopColor="#fff" stopOpacity="0.25" />
+                        <stop offset="75%" stopColor="#fff" stopOpacity="0.85" />
+                        <stop offset="100%" stopColor="#fff" stopOpacity="1" />
+                      </linearGradient>
+                      <mask id="help-fade-mask">
+                        <rect x="0" y="0" width="220" height="220" fill="url(#help-art-fade)" />
+                      </mask>
+                    </defs>
+
+                    <g mask="url(#help-fade-mask)" opacity="0.14">
+                      {/* Subtle Document Outline (Lighter than plant, sitting softly behind) */}
+                      <g opacity="0.75">
+                        <rect x="115" y="45" width="46" height="62" rx="4" fill="#f43f5e" fillOpacity="0.12" stroke="#be185d" strokeWidth="1" strokeDasharray="3 2" />
+                        {/* Folded corner */}
+                        <path d="M149 45 L161 57 L149 57 Z" fill="#f43f5e" fillOpacity="0.2" stroke="#be185d" strokeWidth="0.8" />
+                        {/* Text hint lines */}
+                        <line x1="123" y1="62" x2="145" y2="62" stroke="#be185d" strokeWidth="1.2" strokeLinecap="round" />
+                        <line x1="123" y1="72" x2="153" y2="72" stroke="#be185d" strokeWidth="1.2" strokeLinecap="round" />
+                        <line x1="123" y1="82" x2="148" y2="82" stroke="#be185d" strokeWidth="1.2" strokeLinecap="round" />
+                        <line x1="123" y1="92" x2="138" y2="92" stroke="#be185d" strokeWidth="1.2" strokeLinecap="round" />
+                      </g>
+
+                      {/* Faint Communication / Support Symbol (Subtle pulse waves) */}
+                      <g opacity="0.65" stroke="#9d174d" strokeWidth="1" strokeLinecap="round" fill="none">
+                        <path d="M165 65 C172 68 176 74 176 82 C176 90 172 96 165 99" />
+                        <path d="M171 58 C182 63 187 72 187 82 C187 92 182 101 171 106" />
+                      </g>
+
+                      {/* Curved Organic Ground Lines */}
+                      <path d="M30 215 C80 205 130 192 185 190 C200 189 210 191 220 192" stroke="#9d174d" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+                      <path d="M60 220 C105 212 150 202 200 202" stroke="#be185d" strokeWidth="1" strokeDasharray="4 3" strokeLinecap="round" fill="none" />
+
+                      {/* Dominant Element: Soft Leafy Botanical Branch */}
+                      <path d="M198 220 C194 175 182 120 162 40" stroke="#831843" strokeWidth="2" strokeLinecap="round" />
+                      <g fill="#be185d" fillOpacity="0.18" stroke="#831843" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                        {/* Leaf pair 1 (Top bud) */}
+                        <path d="M162 40 C156 32 154 22 161 14 C167 22 168 32 162 40 Z" />
+                        {/* Leaf pair 2 */}
+                        <path d="M164 56 C152 50 144 42 148 32 C157 37 163 46 164 56 Z" />
+                        <path d="M167 52 C178 46 186 38 184 28 C174 33 168 42 167 52 Z" />
+                        {/* Leaf pair 3 */}
+                        <path d="M170 76 C157 70 148 60 153 49 C162 55 169 65 170 76 Z" />
+                        <path d="M173 71 C186 64 195 54 192 43 C182 50 174 60 173 71 Z" />
+                        {/* Leaf pair 4 */}
+                        <path d="M176 100 C162 94 152 82 158 70 C168 77 175 88 176 100 Z" />
+                        <path d="M180 94 C194 86 204 74 200 62 C189 70 181 82 180 94 Z" />
+                        {/* Leaf pair 5 */}
+                        <path d="M182 126 C167 119 157 106 163 93 C174 101 181 113 182 126 Z" />
+                        <path d="M188 119 C203 111 213 98 208 85 C197 94 189 106 188 119 Z" />
+                        {/* Leaf pair 6 */}
+                        <path d="M189 154 C173 147 162 133 169 119 C180 128 188 141 189 154 Z" />
+                        <path d="M195 146 C211 138 222 124 216 110 C204 120 196 133 195 146 Z" />
+                      </g>
+
+                      {/* Gentle Ribbon Stem */}
+                      <path d="M195 175 C178 160 158 158 144 162" stroke="#be185d" strokeWidth="1.3" strokeLinecap="round" fill="none" />
+                    </g>
+                  </svg>
+
+                  {/* Card Content */}
+                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[65%] sm:max-w-[70%]">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#fae1e6] text-[#b91c47] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="help-circle" className="w-5 h-5 sm:w-6 sm:h-6 text-[#b91c47]" />
                     </div>
@@ -1194,7 +1527,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
+                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
                     <span>{t.card4Cta || "Get Help →"}</span>
                   </div>
                 </div>

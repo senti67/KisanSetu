@@ -162,20 +162,20 @@ h6,
 
 /* =========================================================
    KISANSETU SERVICE CARDS
-   Borderless pastel + embedded agricultural texture
+   Borderless pastel cards with soft depth shadows
    ========================================================= */
 
 .ks-service-card {
   position: relative;
   overflow: hidden;
 
-  /* Remove the hard card border */
+  /* Remove hard card borders */
   border: none !important;
   outline: none !important;
 
   border-radius: 24px;
 
-  /* Softer depth instead of a border */
+  /* Soft depth instead of a border */
   box-shadow:
     0 4px 18px rgba(35, 65, 45, 0.045),
     0 1px 4px rgba(35, 65, 45, 0.025);
@@ -185,49 +185,14 @@ h6,
     box-shadow 220ms ease;
 }
 
-/* Keep all actual content above the decoration */
+/* Keep all interactive content above the decorative artwork */
 .ks-service-card > * {
   position: relative;
   z-index: 2;
 }
 
 /* ---------------------------------------------------------
-   SOFT TEXTURE LAYER
-   --------------------------------------------------------- */
-
-.ks-service-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  opacity: 0.55;
-
-  background-repeat: no-repeat;
-  background-position: right bottom;
-  background-size: 55% 100%;
-}
-
-/* Soft fade that makes the texture disappear toward the
-   content area instead of looking pasted on */
-.ks-service-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.20) 0%,
-      rgba(255,255,255,0.00) 55%
-    );
-}
-
-/* ---------------------------------------------------------
-   CARD 1 - GATE PASS
+   CARD PASTEL BACKGROUNDS
    --------------------------------------------------------- */
 
 .ks-card-gate {
@@ -239,30 +204,6 @@ h6,
     );
 }
 
-.ks-card-gate::before {
-  opacity: 0.28;
-
-  background:
-    /* soft field curves */
-    repeating-radial-gradient(
-      ellipse at 100% 100%,
-      transparent 0 22px,
-      rgba(61, 125, 82, 0.09) 23px 24px,
-      transparent 25px 45px
-    ),
-    /* wheat-like vertical forms */
-    linear-gradient(
-      75deg,
-      transparent 0 70%,
-      rgba(61, 125, 82, 0.07) 70% 71%,
-      transparent 71% 100%
-    );
-}
-
-/* ---------------------------------------------------------
-   CARD 2 - MSP
-   --------------------------------------------------------- */
-
 .ks-card-msp {
   background:
     linear-gradient(
@@ -271,42 +212,6 @@ h6,
       #fff3d9 100%
     );
 }
-
-.ks-card-msp::before {
-  opacity: 0.30;
-
-  background:
-    /* subtle bar chart */
-    linear-gradient(
-      to top,
-      rgba(190, 125, 20, 0.12) 0 18%,
-      transparent 18% 100%
-    ) 72% 100% / 18px 60% no-repeat,
-
-    linear-gradient(
-      to top,
-      rgba(190, 125, 20, 0.10) 0 35%,
-      transparent 35% 100%
-    ) 78% 100% / 18px 60% no-repeat,
-
-    linear-gradient(
-      to top,
-      rgba(190, 125, 20, 0.08) 0 52%,
-      transparent 52% 100%
-    ) 84% 100% / 18px 60% no-repeat,
-
-    /* soft market curves */
-    repeating-radial-gradient(
-      ellipse at 100% 100%,
-      transparent 0 25px,
-      rgba(190, 125, 20, 0.07) 26px 27px,
-      transparent 28px 50px
-    );
-}
-
-/* ---------------------------------------------------------
-   CARD 3 - MOISTURE
-   --------------------------------------------------------- */
 
 .ks-card-moisture {
   background:
@@ -317,36 +222,6 @@ h6,
     );
 }
 
-.ks-card-moisture::before {
-  opacity: 0.27;
-
-  background:
-    /* water ripples */
-    repeating-radial-gradient(
-      ellipse at 90% 100%,
-      transparent 0 20px,
-      rgba(65, 139, 210, 0.10) 21px 22px,
-      transparent 23px 42px
-    ),
-
-    /* faint droplets */
-    radial-gradient(
-      circle at 82% 28%,
-      rgba(65, 139, 210, 0.12) 0 8px,
-      transparent 9px
-    ),
-
-    radial-gradient(
-      circle at 90% 42%,
-      rgba(65, 139, 210, 0.09) 0 5px,
-      transparent 6px
-    );
-}
-
-/* ---------------------------------------------------------
-   CARD 4 - HELP
-   --------------------------------------------------------- */
-
 .ks-card-help {
   background:
     linear-gradient(
@@ -356,35 +231,8 @@ h6,
     );
 }
 
-.ks-card-help::before {
-  opacity: 0.25;
-
-  background:
-    /* document-like geometric watermark */
-    linear-gradient(
-      rgba(170, 65, 90, 0.08),
-      rgba(170, 65, 90, 0.08)
-    ) 82% 30% / 70px 90px no-repeat,
-
-    /* communication circles */
-    radial-gradient(
-      circle at 88% 60%,
-      transparent 0 20px,
-      rgba(170, 65, 90, 0.09) 21px 22px,
-      transparent 23px 38px
-    ),
-
-    /* soft organic pattern */
-    repeating-radial-gradient(
-      ellipse at 100% 100%,
-      transparent 0 25px,
-      rgba(170, 65, 90, 0.06) 26px 27px,
-      transparent 28px 50px
-    );
-}
-
 /* ---------------------------------------------------------
-   HOVER
+   HOVER ELEVATION
    --------------------------------------------------------- */
 
 .ks-service-card:hover {
@@ -395,10 +243,6 @@ h6,
     0 3px 8px rgba(35, 65, 45, 0.035);
 }
 
-.ks-service-card:hover::before {
-  opacity: 0.38;
-}
-
 /* ---------------------------------------------------------
    MOBILE
    --------------------------------------------------------- */
@@ -406,11 +250,6 @@ h6,
 @media (max-width: 768px) {
   .ks-service-card {
     border-radius: 20px;
-  }
-
-  .ks-service-card::before {
-    background-size: 65% 100%;
-    opacity: 0.22;
   }
 
   .ks-service-card:hover {
