@@ -1090,127 +1090,10 @@ export default function KisanSetuApp() {
                 {/* CARD 1: MANDI GATE PASS (PRIMARY - Spans full width on tablet/desktop or featured top) */}
                 <div
                   onClick={() => handleOpenBooking()}
-                  className="md:col-span-3 p-4 sm:p-6 md:p-7 relative overflow-hidden bg-[#eef6f0] border border-[#d2e7d7] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 group active:scale-[0.99]"
+                  className="ks-service-card ks-card-gate md:col-span-3 p-4 sm:p-6 md:p-7 cursor-pointer flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 group active:scale-[0.99]"
                 >
-                  {/* Panoramic agricultural landscape illustration matching reference */}
-                  <svg
-                    className="absolute inset-0 w-full h-full pointer-events-none select-none z-0"
-                    viewBox="0 0 900 200"
-                    preserveAspectRatio="xMaxYMid slice"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <defs>
-                      <radialGradient id="sun-glow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#fef3d6" stopOpacity="0.9" />
-                        <stop offset="60%" stopColor="#faeccb" stopOpacity="0.5" />
-                        <stop offset="100%" stopColor="#faeccb" stopOpacity="0" />
-                      </radialGradient>
-                    </defs>
-
-                    {/* Soft Rising Sun */}
-                    <circle cx="700" cy="80" r="42" fill="#faeccb" opacity="0.85" />
-                    <circle cx="700" cy="80" r="65" fill="url(#sun-glow)" />
-
-                    {/* Tiny flying birds in distance */}
-                    <g stroke="#7b9e84" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6">
-                      <path d="M625 76 Q630 70 635 76 Q640 70 645 76" />
-                      <path d="M648 88 Q652 83 656 88 Q660 83 664 88" />
-                    </g>
-
-                    {/* Back rolling hills / distant fields */}
-                    <path
-                      d="M250 200 C380 180 480 150 620 150 C710 150 790 168 900 155 L900 200 Z"
-                      fill="#d9ecdd"
-                      opacity="0.75"
-                    />
-
-                    {/* Middle rolling fields / terrace contours with furrow lines */}
-                    <path
-                      d="M100 200 C240 180 390 145 540 155 C660 162 760 140 900 162 L900 200 Z"
-                      fill="#ccdec0"
-                      opacity="0.65"
-                    />
-
-                    {/* Terraced field furrow lines */}
-                    <g stroke="#abc5b0" strokeWidth="1.2" opacity="0.65" fill="none">
-                      <path d="M420 200 C500 178 600 162 710 165 C780 167 840 155 900 168" />
-                      <path d="M480 200 C560 183 650 172 750 172 C810 172 860 164 900 176" strokeDasharray="6 3" />
-                      <path d="M560 200 C640 188 720 180 810 180 C860 180 890 175 900 182" />
-                      <path d="M650 166 L640 178" />
-                      <path d="M675 165 L668 180" />
-                      <path d="M700 166 L695 182" />
-                      <path d="M725 168 L723 184" />
-                      <path d="M750 168 L751 185" />
-                      <path d="M775 166 L779 184" />
-                      <path d="M800 163 L808 182" />
-                    </g>
-
-                    {/* Foreground gentle slope */}
-                    <path
-                      d="M0 200 C200 195 420 185 640 188 C760 190 830 182 900 190 L900 200 Z"
-                      fill="#e1efe4"
-                      opacity="0.8"
-                    />
-
-                    {/* Wheat Stalks on Right (Rich Botanical Silhouettes) */}
-                    <g opacity="0.75">
-                      <path d="M850 200 C850 160 842 120 832 75" stroke="#7aa384" strokeWidth="2.5" strokeLinecap="round" />
-                      <g fill="#88b292" stroke="#7aa384" strokeWidth="1">
-                        <path d="M832 75 C824 68 818 58 824 50 C830 58 836 67 832 75 Z" />
-                        <path d="M824 50 L812 32" strokeLinecap="round" />
-                        <path d="M834 73 C842 66 848 56 842 48 C836 56 830 65 834 73 Z" />
-                        <path d="M842 48 L854 30" strokeLinecap="round" />
-                        <path d="M834 90 C824 83 818 73 824 65 C830 73 836 82 834 90 Z" />
-                        <path d="M824 65 L810 48" strokeLinecap="round" />
-                        <path d="M836 88 C846 81 852 71 846 63 C840 71 834 80 836 88 Z" />
-                        <path d="M846 63 L860 46" strokeLinecap="round" />
-                        <path d="M837 106 C826 99 820 89 826 81 C832 89 838 98 837 106 Z" />
-                        <path d="M826 81 L810 65" strokeLinecap="round" />
-                        <path d="M839 104 C850 97 856 87 850 79 C844 87 837 96 839 104 Z" />
-                        <path d="M850 79 L866 63" strokeLinecap="round" />
-                        <path d="M840 122 C828 115 822 105 828 97 C834 105 841 114 840 122 Z" />
-                        <path d="M828 97 L810 82" strokeLinecap="round" />
-                        <path d="M842 120 C854 113 860 103 854 95 C847 103 840 112 842 120 Z" />
-                        <path d="M854 95 L872 80" strokeLinecap="round" />
-                        <path d="M843 138 C830 131 824 121 830 113 C836 121 844 130 843 138 Z" />
-                        <path d="M830 113 L812 100" strokeLinecap="round" />
-                        <path d="M845 136 C858 129 864 119 858 111 C851 119 843 128 845 136 Z" />
-                        <path d="M858 111 L876 98" strokeLinecap="round" />
-                      </g>
-                      <path d="M880 200 C875 145 855 90 820 40" stroke="#6f9879" strokeWidth="2.5" strokeLinecap="round" />
-                      <g fill="#7ea787" stroke="#6f9879" strokeWidth="1">
-                        <path d="M820 40 C814 33 808 24 815 16 C821 24 826 32 820 40 Z" />
-                        <path d="M815 16 L806 0" strokeLinecap="round" />
-                        <path d="M822 39 C829 32 836 23 831 15 C824 23 818 31 822 39 Z" />
-                        <path d="M831 15 L842 0" strokeLinecap="round" />
-                        <path d="M823 54 C815 47 808 38 816 30 C822 38 828 46 823 54 Z" />
-                        <path d="M816 30 L804 14" strokeLinecap="round" />
-                        <path d="M827 52 C835 45 843 36 837 28 C830 36 823 44 827 52 Z" />
-                        <path d="M837 28 L850 13" strokeLinecap="round" />
-                        <path d="M829 70 C819 63 812 54 820 46 C827 54 834 62 829 70 Z" />
-                        <path d="M820 46 L806 31" strokeLinecap="round" />
-                        <path d="M834 67 C843 60 851 51 845 43 C837 51 830 59 834 67 Z" />
-                        <path d="M845 43 L860 29" strokeLinecap="round" />
-                        <path d="M836 86 C825 79 817 70 826 62 C833 70 841 78 836 86 Z" />
-                        <path d="M826 62 L810 49" strokeLinecap="round" />
-                        <path d="M841 83 C851 76 860 67 853 59 C845 67 837 75 841 83 Z" />
-                        <path d="M853 59 L870 46" strokeLinecap="round" />
-                      </g>
-                      <path d="M860 180 C840 160 815 155 790 160" stroke="#7aa384" strokeWidth="2" strokeLinecap="round" fill="none" />
-                      <path d="M870 190 C890 170 895 145 885 125" stroke="#7aa384" strokeWidth="2" strokeLinecap="round" fill="none" />
-                    </g>
-                  </svg>
-
-                  {/* Soft text protection mask for mobile screens to guarantee crisp contrast */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-r from-[#eef6f0] via-[#eef6f0]/85 to-transparent sm:hidden pointer-events-none z-0"
-                    aria-hidden="true"
-                  />
-
                   {/* Card Content */}
-                  <div className="relative z-10 flex items-start gap-3 sm:gap-4">
+                  <div className="flex items-start gap-3 sm:gap-4">
                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-[#284935] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                       <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
@@ -1237,7 +1120,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
+                  <div className="w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
                     <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#244632] group-hover:bg-[#1a3424] text-white py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl font-bold text-sm sm:text-base shadow-sm transition active:scale-[0.98]">
                       <span>{t.card1Cta || "Book Slot →"}</span>
                     </span>
@@ -1247,64 +1130,9 @@ export default function KisanSetuApp() {
                 {/* CARD 2: MSP RATES */}
                 <div
                   onClick={() => setActiveTab("msp-rates")}
-                  className="p-4 sm:p-5 md:p-6 relative overflow-hidden bg-[#fdfbf3] border border-[#f3e5d0] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
+                  className="ks-service-card ks-card-msp p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
-                  {/* Decorative agricultural illustration matching reference */}
-                  <svg
-                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-56 h-full pointer-events-none select-none z-0"
-                    viewBox="0 0 240 220"
-                    preserveAspectRatio="xMaxYMax meet"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <g opacity="0.85">
-                      <circle cx="165" cy="65" r="32" fill="#faeed6" />
-                      <path
-                        d="M157 52 H173 M157 58 H170 M157 52 C167 52 171 63 162 69 L172 82"
-                        stroke="#d4ac75"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </g>
-                    <g stroke="#ecd2ac" strokeWidth="1.5" opacity="0.8" fill="none">
-                      <path d="M30 215 C80 205 130 185 190 180 C210 178 230 180 250 182" />
-                      <path d="M10 200 C60 190 110 172 170 168 C200 166 225 170 245 172" strokeDasharray="5 3" />
-                      <path d="M50 225 C100 215 150 200 210 196" />
-                    </g>
-                    <g opacity="0.9">
-                      <rect x="132" y="152" width="13" height="42" rx="4" fill="#fae2be" />
-                      <rect x="151" y="132" width="13" height="62" rx="4" fill="#f6d5a8" />
-                      <rect x="170" y="108" width="13" height="86" rx="4" fill="#f0c690" />
-                      <rect x="189" y="82" width="13" height="112" rx="4" fill="#e9b474" />
-                    </g>
-                    <g opacity="0.85">
-                      <path d="M222 220 C220 180 214 140 204 100" stroke="#bfa170" strokeWidth="2" strokeLinecap="round" />
-                      <g fill="#cca976" stroke="#bfa170" strokeWidth="0.8">
-                        <path d="M204 100 C198 94 193 86 198 79 C203 86 208 93 204 100 Z" />
-                        <path d="M198 79 L189 65" strokeLinecap="round" />
-                        <path d="M205 99 C211 93 216 85 212 78 C206 85 201 92 205 99 Z" />
-                        <path d="M212 78 L221 64" strokeLinecap="round" />
-                        <path d="M206 114 C199 108 193 99 200 92 C205 100 210 108 206 114 Z" />
-                        <path d="M200 92 L190 79" strokeLinecap="round" />
-                        <path d="M208 112 C215 106 220 97 215 90 C209 97 203 105 208 112 Z" />
-                        <path d="M215 90 L226 77" strokeLinecap="round" />
-                        <path d="M209 130 C201 123 194 114 202 107 C207 115 213 123 209 130 Z" />
-                        <path d="M202 107 L191 95" strokeLinecap="round" />
-                        <path d="M212 128 C219 121 225 112 219 105 C213 112 206 120 212 128 Z" />
-                        <path d="M219 105 L231 93" strokeLinecap="round" />
-                        <path d="M212 148 C203 141 196 131 204 124 C210 132 216 141 212 148 Z" />
-                        <path d="M204 124 L192 112" strokeLinecap="round" />
-                        <path d="M215 145 C223 138 230 129 223 122 C216 129 209 138 215 145 Z" />
-                        <path d="M223 122 L236 110" strokeLinecap="round" />
-                      </g>
-                      <path d="M220 185 C208 175 198 172 188 176" stroke="#bfa170" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    </g>
-                  </svg>
-
-                  {/* Card Content */}
-                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[66%] sm:max-w-[70%] md:max-w-none">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#faeacf] text-[#c66a13] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="calculator" className="w-5 h-5 sm:w-6 sm:h-6 text-[#c66a13]" />
                     </div>
@@ -1318,7 +1146,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
+                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
                     <span>{t.card2Cta || "Check Rates →"}</span>
                   </div>
                 </div>
@@ -1326,77 +1154,9 @@ export default function KisanSetuApp() {
                 {/* CARD 3: MOISTURE PRE-CHECK */}
                 <div
                   onClick={() => setActiveTab("moisture")}
-                  className="p-4 sm:p-5 md:p-6 relative overflow-hidden bg-[#f2f8fd] border border-[#d6e8f7] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
+                  className="ks-service-card ks-card-moisture p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
-                  {/* Decorative agricultural illustration matching reference */}
-                  <svg
-                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-56 h-full pointer-events-none select-none z-0"
-                    viewBox="0 0 240 220"
-                    preserveAspectRatio="xMaxYMax meet"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <g opacity="0.85">
-                      <path
-                        d="M148 40 C143 50 140 56 140 61 C140 67 144 72 148 72 C152 72 156 67 156 61 C156 56 153 50 148 40 Z"
-                        fill="#cfe4fb"
-                      />
-                      <path
-                        d="M178 65 C171 78 167 86 167 93 C167 101 172 107 178 107 C184 107 189 101 189 93 C189 86 185 78 178 65 Z"
-                        fill="#b8dbf9"
-                      />
-                    </g>
-                    <g opacity="0.8" fill="none">
-                      <path
-                        d="M70 190 C105 175 135 195 168 182 C195 170 215 178 240 172"
-                        stroke="#bcdcfa"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M95 205 C125 190 155 210 185 198 C210 187 228 193 245 188"
-                        stroke="#cfe4fb"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M120 220 C145 208 175 224 200 215 C220 206 235 210 245 206"
-                        stroke="#dbeafd"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                    <g opacity="0.85">
-                      <path d="M225 220 C222 175 212 130 194 85" stroke="#90bce7" strokeWidth="2" strokeLinecap="round" />
-                      <g fill="#a5ccf2" stroke="#90bce7" strokeWidth="0.8">
-                        <path d="M194 85 C188 79 183 71 188 64 C193 71 198 78 194 85 Z" />
-                        <path d="M188 64 L180 50" strokeLinecap="round" />
-                        <path d="M195 84 C201 78 206 70 202 63 C196 70 191 77 195 84 Z" />
-                        <path d="M202 63 L211 49" strokeLinecap="round" />
-                        <path d="M196 100 C189 94 183 85 190 78 C195 86 200 94 196 100 Z" />
-                        <path d="M190 78 L180 65" strokeLinecap="round" />
-                        <path d="M198 98 C205 92 210 83 205 76 C199 83 193 91 198 98 Z" />
-                        <path d="M205 76 L216 63" strokeLinecap="round" />
-                        <path d="M199 116 C191 109 184 100 192 93 C197 101 203 109 199 116 Z" />
-                        <path d="M192 93 L181 81" strokeLinecap="round" />
-                        <path d="M202 114 C209 107 215 98 209 91 C203 98 196 106 202 114 Z" />
-                        <path d="M209 91 L221 79" strokeLinecap="round" />
-                        <path d="M203 134 C194 127 187 117 195 110 C201 118 207 127 203 134 Z" />
-                        <path d="M195 110 L183 98" strokeLinecap="round" />
-                        <path d="M206 131 C214 124 221 115 214 108 C207 115 200 124 206 131 Z" />
-                        <path d="M214 108 L227 96" strokeLinecap="round" />
-                        <path d="M208 154 C198 147 190 137 199 130 C205 138 212 147 208 154 Z" />
-                        <path d="M199 130 L186 118" strokeLinecap="round" />
-                        <path d="M211 150 C220 143 227 134 220 127 C213 134 205 143 211 150 Z" />
-                        <path d="M220 127 L234 115" strokeLinecap="round" />
-                      </g>
-                      <path d="M220 185 C205 172 190 170 178 175" stroke="#90bce7" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    </g>
-                  </svg>
-
-                  {/* Card Content */}
-                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[66%] sm:max-w-[70%] md:max-w-none">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#dff0fe] text-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="droplet" className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb]" />
                     </div>
@@ -1410,7 +1170,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
+                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
                     <span>{t.card3Cta || "Check Moisture →"}</span>
                   </div>
                 </div>
@@ -1418,69 +1178,9 @@ export default function KisanSetuApp() {
                 {/* CARD 4: HELP & ASSISTANCE */}
                 <div
                   onClick={() => setActiveTab("help")}
-                  className="p-4 sm:p-5 md:p-6 relative overflow-hidden bg-[#fdf5f6] border border-[#f8dfe4] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
+                  className="ks-service-card ks-card-help p-4 sm:p-5 md:p-6 cursor-pointer flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
-                  {/* Decorative agricultural illustration matching reference */}
-                  <svg
-                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-56 h-full pointer-events-none select-none z-0"
-                    viewBox="0 0 240 220"
-                    preserveAspectRatio="xMaxYMax meet"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <g opacity="0.85">
-                      <rect
-                        x="135"
-                        y="38"
-                        width="54"
-                        height="72"
-                        rx="6"
-                        fill="#fbe9ed"
-                        stroke="#f2c4cd"
-                        strokeWidth="1.5"
-                      />
-                      <path
-                        d="M145 52 H175 M145 62 H179 M145 72 H173 M145 82 H165"
-                        stroke="#ebb3bd"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                    <g opacity="0.9">
-                      <path
-                        d="M172 74 C172 66 180 60 190 60 C200 60 208 66 208 74 C208 79 205 84 199 86 L201 93 L194 88 C192 88 191 88 190 88 C180 88 172 82 172 74 Z"
-                        fill="#fbe0e6"
-                        stroke="#f0b6c2"
-                        strokeWidth="1.5"
-                        strokeLinejoin="round"
-                      />
-                      <circle cx="184" cy="74" r="1.5" fill="#dda2ad" />
-                      <circle cx="190" cy="74" r="1.5" fill="#dda2ad" />
-                      <circle cx="196" cy="74" r="1.5" fill="#dda2ad" />
-                    </g>
-                    <g opacity="0.75" stroke="#f6d3d9" strokeWidth="1.5" fill="none">
-                      <path d="M40 215 C90 205 140 192 195 188 C215 186 235 188 250 190" />
-                      <path d="M20 200 C70 190 120 176 175 174 C205 172 230 176 245 178" strokeDasharray="4 3" />
-                    </g>
-                    <g opacity="0.85">
-                      <path d="M225 220 C222 175 210 135 192 90" stroke="#dca3af" strokeWidth="2" strokeLinecap="round" />
-                      <g fill="#e9b6c1" stroke="#dca3af" strokeWidth="0.8">
-                        <path d="M192 90 C186 80 183 70 191 62 C196 71 199 81 192 90 Z" />
-                        <path d="M195 106 C186 100 176 96 182 85 C190 92 198 99 195 106 Z" />
-                        <path d="M200 102 C209 95 219 92 216 80 C207 87 200 95 200 102 Z" />
-                        <path d="M199 126 C188 120 177 116 185 103 C194 111 202 119 199 126 Z" />
-                        <path d="M206 120 C216 113 227 109 223 96 C213 103 205 112 206 120 Z" />
-                        <path d="M204 148 C192 142 179 137 188 123 C198 132 207 141 204 148 Z" />
-                        <path d="M213 140 C224 133 236 128 231 114 C220 122 211 132 213 140 Z" />
-                        <path d="M211 172 C197 165 183 160 193 144 C204 154 214 164 211 172 Z" />
-                        <path d="M219 164 C231 156 244 150 238 134 C226 143 216 154 219 164 Z" />
-                      </g>
-                    </g>
-                  </svg>
-
-                  {/* Card Content */}
-                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[66%] sm:max-w-[70%] md:max-w-none">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#fae1e6] text-[#b91c47] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Icon name="help-circle" className="w-5 h-5 sm:w-6 sm:h-6 text-[#b91c47]" />
                     </div>
@@ -1494,7 +1194,7 @@ export default function KisanSetuApp() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
+                  <div className="pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
                     <span>{t.card4Cta || "Get Help →"}</span>
                   </div>
                 </div>
