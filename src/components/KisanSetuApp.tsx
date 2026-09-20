@@ -780,36 +780,58 @@ export default function KisanSetuApp() {
     <div className="min-h-screen flex flex-col bg-[#f4f6f0] text-[#1f2421]">
       {/* 1. CLEAN FARMER-FIRST HEADER */}
       <header className="bg-white border-b border-[#d8ccbe] sticky top-0 z-30 shadow-xs">
-        <div className="w-full max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1780px] mx-auto px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-3">
+        <div className="w-full max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1780px] mx-auto px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-3">
           {/* Left: Branding & Prototype Badge */}
           <div
             onClick={() => setActiveTab("home")}
-            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer shrink-0"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer shrink-0 min-w-0"
           >
             <img
               src={kisanSetuCircle}
               alt="KisanSetu Logo"
-              className="w-10 h-10 sm:w-11 sm:h-11 object-contain shrink-0"
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain shrink-0"
             />
-            <div>
-              <div className="flex items-center gap-2">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <h1 className="text-base sm:text-lg md:text-xl font-black font-serif text-slate-900 leading-tight">
                   {t.portalName}
                 </h1>
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-full">
-                  {t.prototypeTag || "GovTech Prototype"}
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 sm:px-2 py-0.5 rounded-full whitespace-nowrap">
+                  <span className="hidden sm:inline">GovTech </span>Prototype
                 </span>
               </div>
-              <p className="text-xs text-slate-500 font-medium">
+              <p className="hidden sm:block text-xs text-slate-500 font-medium">
                 {t.digitalMandiAccess || "Digital Mandi Access"}
               </p>
             </div>
           </div>
 
           {/* Right: Language Selector, Help & Subtle Officer Login */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Language Selector */}
-            <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 p-0.5 text-xs font-medium">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            {/* Mobile Language Selector: Native OS Select Overlay Pattern */}
+            <div className="relative flex sm:hidden items-center shrink-0">
+              <div className="flex items-center gap-1 bg-slate-100 active:bg-slate-200 border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-slate-800 transition shadow-2xs">
+                <span className="text-xs select-none">🌐</span>
+                <span className="text-xs font-bold text-slate-800">
+                  {lang === "hi" ? "हिन्दी" : lang === "or" ? "ଓଡ଼ିଆ" : lang === "mr" ? "मराठी" : "EN"}
+                </span>
+                <span className="text-[9px] text-slate-500 pointer-events-none ml-0.5">▼</span>
+                <select
+                  value={lang}
+                  onChange={(e) => setLang(e.target.value as any)}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer text-base"
+                  aria-label="Select Language"
+                >
+                  <option value="hi">हिन्दी (Hindi)</option>
+                  <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                  <option value="mr">मराठी (Marathi)</option>
+                  <option value="en">English (EN)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Desktop Language Selector: Segmented Pill Group */}
+            <div className="hidden sm:flex items-center bg-slate-100 rounded-lg border border-slate-200 p-0.5 text-xs font-medium">
               {[
                 { code: "hi", label: "हिन्दी" },
                 { code: "or", label: "ଓଡ଼ିଆ" },
@@ -820,7 +842,7 @@ export default function KisanSetuApp() {
                   key={item.code}
                   type="button"
                   onClick={() => setLang(item.code as any)}
-                  className={`px-2 py-1 rounded-md cursor-pointer font-bold transition text-xs ${
+                  className={`px-2.5 py-1 rounded-md cursor-pointer font-bold transition text-xs ${
                     lang === item.code
                       ? "bg-[#4a7c59] text-white shadow-2xs"
                       : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
@@ -843,13 +865,14 @@ export default function KisanSetuApp() {
 
             {/* Subtle Officer Login (does not compete with farmer actions) */}
             {isOfficerLoggedIn ? (
-              <div className="flex items-center gap-1.5 text-xs font-semibold bg-purple-50 text-purple-900 border border-purple-200 px-2.5 py-1 rounded-md">
-                <span className="w-2 h-2 rounded-full bg-purple-600 shrink-0"></span>
+              <div className="flex items-center gap-1 text-[11px] sm:text-xs font-semibold bg-purple-50 text-purple-900 border border-purple-200 px-2 py-1 rounded-md shrink-0">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-600 shrink-0"></span>
                 <span className="font-bold hidden sm:inline">Officer S. K. Verma</span>
+                <span className="font-bold sm:hidden">Officer</span>
                 <button
                   type="button"
                   onClick={handleOfficerLogout}
-                  className="text-red-600 hover:text-red-700 font-bold underline cursor-pointer text-xs ml-1"
+                  className="text-red-600 hover:text-red-700 font-bold underline cursor-pointer text-[11px] sm:text-xs ml-0.5"
                 >
                   Logout
                 </button>
@@ -858,11 +881,12 @@ export default function KisanSetuApp() {
               <button
                 type="button"
                 onClick={() => setOfficerLoginModal(true)}
-                className="text-xs font-medium text-slate-500 hover:text-slate-800 hover:underline cursor-pointer px-2 py-1 flex items-center gap-1 whitespace-nowrap"
+                className="text-xs font-medium text-slate-500 hover:text-slate-800 active:text-slate-900 cursor-pointer p-1.5 sm:px-2 sm:py-1 flex items-center gap-1 whitespace-nowrap rounded-md hover:bg-slate-100 transition shrink-0"
                 title="Mandi Officer Portal Login"
+                aria-label="Officer Login"
               >
-                <Icon name="shield" className="w-3 h-3 text-slate-400" />
-                <span>{t.officerPortalSubtle || "Officer Login"}</span>
+                <Icon name="shield" className="w-3.5 h-3.5 text-slate-400" />
+                <span className="hidden sm:inline">{t.officerPortalSubtle || "Officer Login"}</span>
               </button>
             )}
 
@@ -992,7 +1016,7 @@ export default function KisanSetuApp() {
         {activeTab === "home" && (
           <div className="space-y-6 sm:space-y-8">
             {/* 1. HERO SECTION */}
-            <section className="bg-gradient-to-b from-[#ebf2ee]/80 via-[#f4f6f0]/40 to-white border border-[#d8ccbe] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xs space-y-4">
+            <section className="bg-gradient-to-b from-[#ebf2ee]/80 via-[#f4f6f0]/40 to-white border border-[#d8ccbe] rounded-2xl p-4 sm:p-8 md:p-10 shadow-xs space-y-4">
               <div className="max-w-3xl space-y-2">
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white border border-[#4a7c59]/30 text-[#2a4732] text-xs font-bold shadow-2xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -1007,11 +1031,11 @@ export default function KisanSetuApp() {
               </div>
 
               {/* Primary & Secondary CTAs */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => handleOpenBooking()}
-                  className="bg-[#4a7c59] hover:bg-[#3b6447] text-white px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center gap-2.5 shadow-sm transition active:scale-95 cursor-pointer"
+                  className="w-full sm:w-auto justify-center bg-[#4a7c59] hover:bg-[#3b6447] text-white px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center gap-2.5 shadow-sm transition active:scale-95 cursor-pointer"
                 >
                   <Icon name="ticket" className="w-5 h-5 text-emerald-200" />
                   <span>{t.heroBookCta || "Book Mandi Slot"}</span>
@@ -1021,7 +1045,7 @@ export default function KisanSetuApp() {
                 <button
                   type="button"
                   onClick={() => setActiveTab("my-booking")}
-                  className="bg-white hover:bg-slate-50 text-slate-800 border-2 border-[#c2a68c] px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center gap-2 shadow-xs transition active:scale-95 cursor-pointer"
+                  className="w-full sm:w-auto justify-center bg-white hover:bg-slate-50 text-slate-800 border-2 border-[#c2a68c] px-6 py-3.5 rounded-xl text-sm sm:text-base font-bold flex items-center gap-2 shadow-xs transition active:scale-95 cursor-pointer"
                 >
                   <Icon name="search" className="w-4 h-4 text-[#4a7c59]" />
                   <span>{t.heroCheckPassCta || "Check My Pass"}</span>
@@ -1032,14 +1056,14 @@ export default function KisanSetuApp() {
               </div>
 
               {/* Feature-Phone Accessibility Banner */}
-              <div className="pt-2 border-t border-[#e6d8c3]/60 flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-600">
+              <div className="pt-2 border-t border-[#e6d8c3]/60 flex flex-col sm:flex-row sm:items-center gap-2 text-xs sm:text-sm text-slate-600">
                 <span className="text-slate-700 font-medium">
                   📱 {t.heroIvrHint || "Don't have a smartphone? Use KisanSetu IVR."}
                 </span>
                 <button
                   type="button"
                   onClick={() => setShowIvrModal(true)}
-                  className="inline-flex items-center gap-1.5 font-bold text-[#c86d12] hover:text-[#a5590d] cursor-pointer bg-amber-50 hover:bg-amber-100/80 px-3 py-1 rounded-lg border border-amber-200 transition"
+                  className="inline-flex items-center justify-center gap-1.5 font-bold text-[#c86d12] hover:text-[#a5590d] cursor-pointer bg-amber-50 hover:bg-amber-100/80 px-3 py-1.5 rounded-lg border border-amber-200 transition w-fit"
                 >
                   <span>📞</span>
                   <span>{t.heroIvrBtn || "Prototype IVR"}</span>
