@@ -1062,11 +1062,11 @@ export default function KisanSetuApp() {
               </div>
 
               {/* Grid: Mandi Gate Pass is Primary & Prominent */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 md:gap-5">
                 {/* CARD 1: MANDI GATE PASS (PRIMARY - Spans full width on tablet/desktop or featured top) */}
                 <div
                   onClick={() => handleOpenBooking()}
-                  className="md:col-span-3 p-6 sm:p-7 relative overflow-hidden bg-[#eef6f0] border border-[#d2e7d7] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 group"
+                  className="md:col-span-3 p-4 sm:p-6 md:p-7 relative overflow-hidden bg-[#eef6f0] border border-[#d2e7d7] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 group active:scale-[0.99]"
                 >
                   {/* Panoramic agricultural landscape illustration matching reference */}
                   <svg
@@ -1086,13 +1086,13 @@ export default function KisanSetuApp() {
                     </defs>
 
                     {/* Soft Rising Sun */}
-                    <circle cx="680" cy="80" r="42" fill="#faeccb" opacity="0.85" />
-                    <circle cx="680" cy="80" r="65" fill="url(#sun-glow)" />
+                    <circle cx="700" cy="80" r="42" fill="#faeccb" opacity="0.85" />
+                    <circle cx="700" cy="80" r="65" fill="url(#sun-glow)" />
 
                     {/* Tiny flying birds in distance */}
                     <g stroke="#7b9e84" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6">
-                      <path d="M605 76 Q610 70 615 76 Q620 70 625 76" />
-                      <path d="M628 88 Q632 83 636 88 Q640 83 644 88" />
+                      <path d="M625 76 Q630 70 635 76 Q640 70 645 76" />
+                      <path d="M648 88 Q652 83 656 88 Q660 83 664 88" />
                     </g>
 
                     {/* Back rolling hills / distant fields */}
@@ -1179,10 +1179,16 @@ export default function KisanSetuApp() {
                     </g>
                   </svg>
 
+                  {/* Soft text protection mask for mobile screens to guarantee crisp contrast */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-r from-[#eef6f0] via-[#eef6f0]/85 to-transparent sm:hidden pointer-events-none z-0"
+                    aria-hidden="true"
+                  />
+
                   {/* Card Content */}
-                  <div className="relative z-10 flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-[#284935] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                      <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="relative z-10 flex items-start gap-3 sm:gap-4">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-[#284935] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                      <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
                         <path d="M13 5v2" />
                         <path d="M13 11v2" />
@@ -1190,25 +1196,25 @@ export default function KisanSetuApp() {
                       </svg>
                     </div>
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-[#244632] text-white px-2.5 py-0.5 rounded-full">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-[#244632] text-white px-2 sm:px-2.5 py-0.5 rounded-full">
                           Primary Service
                         </span>
-                        <span className="text-xs text-[#244632] font-semibold bg-[#d8eedb] px-3 py-0.5 rounded-full">
+                        <span className="text-[11px] sm:text-xs text-[#244632] font-semibold bg-[#d8eedb] px-2 sm:px-2.5 py-0.5 rounded-full border border-emerald-700/10">
                           Fast Entry • Gate #2
                         </span>
                       </div>
-                      <h4 className="text-xl sm:text-2xl font-black text-slate-900 font-serif">
+                      <h4 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-serif leading-tight">
                         {t.card1Title || "Mandi Gate Pass"}
                       </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed pr-1 sm:pr-0">
                         {t.card1Desc || "Book your mandi slot before you leave home and get your digital gate pass."}
                       </p>
                     </div>
                   </div>
 
                   <div className="relative z-10 w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
-                    <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#244632] group-hover:bg-[#1a3424] text-white py-3 px-6 rounded-xl font-bold text-sm sm:text-base shadow-sm transition active:scale-95">
+                    <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#244632] group-hover:bg-[#1a3424] text-white py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl font-bold text-sm sm:text-base shadow-sm transition active:scale-[0.98]">
                       <span>{t.card1Cta || "Book Slot →"}</span>
                     </span>
                   </div>
@@ -1217,11 +1223,11 @@ export default function KisanSetuApp() {
                 {/* CARD 2: MSP RATES */}
                 <div
                   onClick={() => setActiveTab("msp-rates")}
-                  className="p-6 relative overflow-hidden bg-[#fdfbf3] border border-[#f3e5d0] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[220px] group"
+                  className="p-4 sm:p-5 md:p-6 relative overflow-hidden bg-[#fdfbf3] border border-[#f3e5d0] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
                   {/* Decorative agricultural illustration matching reference */}
                   <svg
-                    className="absolute right-0 bottom-0 w-48 sm:w-56 h-full pointer-events-none select-none z-0"
+                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-56 h-full pointer-events-none select-none z-0"
                     viewBox="0 0 240 220"
                     preserveAspectRatio="xMaxYMax meet"
                     fill="none"
@@ -1274,21 +1280,21 @@ export default function KisanSetuApp() {
                   </svg>
 
                   {/* Card Content */}
-                  <div className="relative z-10 space-y-3">
-                    <div className="w-12 h-12 rounded-2xl bg-[#faeacf] text-[#c66a13] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                      <Icon name="calculator" className="w-6 h-6 text-[#c66a13]" />
+                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[66%] sm:max-w-[70%] md:max-w-none">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#faeacf] text-[#c66a13] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Icon name="calculator" className="w-5 h-5 sm:w-6 sm:h-6 text-[#c66a13]" />
                     </div>
                     <div>
-                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
+                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif leading-snug">
                         {t.card2Title || "MSP Rates"}
                       </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-[210px] sm:max-w-none">
+                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1 leading-relaxed">
                         {t.card2Desc || "Check the applicable support price for your crop and estimate your procurement value."}
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
+                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
                     <span>{t.card2Cta || "Check Rates →"}</span>
                   </div>
                 </div>
@@ -1296,11 +1302,11 @@ export default function KisanSetuApp() {
                 {/* CARD 3: MOISTURE PRE-CHECK */}
                 <div
                   onClick={() => setActiveTab("moisture")}
-                  className="p-6 relative overflow-hidden bg-[#f2f8fd] border border-[#d6e8f7] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[220px] group"
+                  className="p-4 sm:p-5 md:p-6 relative overflow-hidden bg-[#f2f8fd] border border-[#d6e8f7] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
                   {/* Decorative agricultural illustration matching reference */}
                   <svg
-                    className="absolute right-0 bottom-0 w-48 sm:w-56 h-full pointer-events-none select-none z-0"
+                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-56 h-full pointer-events-none select-none z-0"
                     viewBox="0 0 240 220"
                     preserveAspectRatio="xMaxYMax meet"
                     fill="none"
@@ -1366,21 +1372,21 @@ export default function KisanSetuApp() {
                   </svg>
 
                   {/* Card Content */}
-                  <div className="relative z-10 space-y-3">
-                    <div className="w-12 h-12 rounded-2xl bg-[#dff0fe] text-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                      <Icon name="droplet" className="w-6 h-6 text-[#2563eb]" />
+                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[66%] sm:max-w-[70%] md:max-w-none">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#dff0fe] text-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Icon name="droplet" className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb]" />
                     </div>
                     <div>
-                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
+                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif leading-snug">
                         {t.card3Title || "Moisture Pre-Check"}
                       </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-[210px] sm:max-w-none">
+                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1 leading-relaxed">
                         {t.card3Desc || "Check your grain's moisture reading before travelling to the mandi."}
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
+                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
                     <span>{t.card3Cta || "Check Moisture →"}</span>
                   </div>
                 </div>
@@ -1388,11 +1394,11 @@ export default function KisanSetuApp() {
                 {/* CARD 4: HELP & ASSISTANCE */}
                 <div
                   onClick={() => setActiveTab("help")}
-                  className="p-6 relative overflow-hidden bg-[#fdf5f6] border border-[#f8dfe4] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[220px] group"
+                  className="p-4 sm:p-5 md:p-6 relative overflow-hidden bg-[#fdf5f6] border border-[#f8dfe4] rounded-2xl sm:rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[175px] sm:min-h-[200px] md:min-h-[220px] group active:scale-[0.99]"
                 >
                   {/* Decorative agricultural illustration matching reference */}
                   <svg
-                    className="absolute right-0 bottom-0 w-48 sm:w-56 h-full pointer-events-none select-none z-0"
+                    className="absolute right-0 bottom-0 w-36 sm:w-44 md:w-56 h-full pointer-events-none select-none z-0"
                     viewBox="0 0 240 220"
                     preserveAspectRatio="xMaxYMax meet"
                     fill="none"
@@ -1450,21 +1456,21 @@ export default function KisanSetuApp() {
                   </svg>
 
                   {/* Card Content */}
-                  <div className="relative z-10 space-y-3">
-                    <div className="w-12 h-12 rounded-2xl bg-[#fae1e6] text-[#b91c47] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                      <Icon name="help-circle" className="w-6 h-6 text-[#b91c47]" />
+                  <div className="relative z-10 space-y-2 sm:space-y-3 max-w-[66%] sm:max-w-[70%] md:max-w-none">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#fae1e6] text-[#b91c47] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Icon name="help-circle" className="w-5 h-5 sm:w-6 sm:h-6 text-[#b91c47]" />
                     </div>
                     <div>
-                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
+                      <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif leading-snug">
                         {t.card4Title || "Help & Assistance"}
                       </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-[210px] sm:max-w-none">
+                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1 leading-relaxed">
                         {t.card4Desc || "Get help with booking, required documents, mandi visits, and KisanSetu services."}
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
+                  <div className="relative z-10 pt-3 sm:pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
                     <span>{t.card4Cta || "Get Help →"}</span>
                   </div>
                 </div>
