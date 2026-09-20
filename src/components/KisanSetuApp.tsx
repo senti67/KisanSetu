@@ -1062,347 +1062,410 @@ export default function KisanSetuApp() {
               </div>
 
               {/* Grid: Mandi Gate Pass is Primary & Prominent */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 {/* CARD 1: MANDI GATE PASS (PRIMARY - Spans full width on tablet/desktop or featured top) */}
                 <div
                   onClick={() => handleOpenBooking()}
-                  className="md:col-span-3 ks-card p-6 sm:p-7 relative overflow-hidden bg-[#f2f7f4] border-2 border-[#4a7c59]/50 hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-sm hover:shadow-md group"
+                  className="md:col-span-3 p-6 sm:p-7 relative overflow-hidden bg-[#eef6f0] border border-[#d2e7d7] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 group"
                 >
-                  {/* Decorative agricultural texture: Wheat stalks and field contours */}
-                  <div
-                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                  {/* Panoramic agricultural landscape illustration matching reference */}
+                  <svg
+                    className="absolute inset-0 w-full h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 900 200"
+                    preserveAspectRatio="xMaxYMid slice"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
-                    style={{
-                      WebkitMaskImage:
-                        "radial-gradient(ellipse 75% 85% at 85% 65%, black 25%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                      maskImage:
-                        "radial-gradient(ellipse 75% 85% at 85% 65%, black 25%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                    }}
                   >
-                    <svg
-                      className="absolute right-0 bottom-0 w-80 sm:w-96 h-full opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-[#2a4732]"
-                      viewBox="0 0 380 180"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* Field Contours */}
-                      <path
-                        d="M-20 170 C60 140 160 165 260 135 C320 115 370 140 400 135"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeDasharray="4 2"
-                      />
-                      <path
-                        d="M-40 140 C50 110 170 145 280 105 C330 85 370 105 400 95"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <path
-                        d="M-20 105 C70 80 190 115 300 75 C340 60 380 80 400 70"
-                        stroke="currentColor"
-                        strokeWidth="1.2"
-                        strokeDasharray="6 3"
-                      />
-                      <path
-                        d="M20 70 C100 45 210 80 320 45 C350 35 380 50 400 42"
-                        stroke="currentColor"
-                        strokeWidth="1"
-                      />
-                      {/* Elegant Primary Wheat Ear */}
-                      <path
-                        d="M360 190 C345 130 315 75 270 25"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                      />
-                      {/* Wheat grains & awns */}
-                      <path d="M270 25 C260 15 252 5 258 -5 C264 5 273 15 270 25 Z" fill="currentColor" />
-                      <path d="M258 -5 L245 -22" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M272 23 C282 13 290 3 284 -7 C278 3 269 13 272 23 Z" fill="currentColor" />
-                      <path d="M284 -7 L297 -24" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M278 45 C266 35 256 26 261 16 C268 25 280 35 278 45 Z" fill="currentColor" />
-                      <path d="M261 16 L246 2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M283 41 C295 32 305 23 300 13 C293 22 281 31 283 41 Z" fill="currentColor" />
-                      <path d="M300 13 L317 -1" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M289 67 C276 57 264 50 268 39 C276 48 290 57 289 67 Z" fill="currentColor" />
-                      <path d="M268 39 L251 27" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M296 62 C309 53 321 46 317 35 C309 44 295 52 296 62 Z" fill="currentColor" />
-                      <path d="M317 35 L336 23" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M303 91 C289 82 276 76 280 65 C288 73 304 81 303 91 Z" fill="currentColor" />
-                      <path d="M280 65 L262 55" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M312 85 C326 77 339 71 336 60 C327 68 311 75 312 85 Z" fill="currentColor" />
-                      <path d="M336 60 L356 50" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M320 117 C305 109 291 104 295 93 C303 100 321 107 320 117 Z" fill="currentColor" />
-                      <path d="M295 93 L277 84" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M331 110 C346 103 360 98 358 87 C349 94 330 100 331 110 Z" fill="currentColor" />
-                      <path d="M358 87 L379 79" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      {/* Secondary delicate stalk */}
-                      <path
-                        d="M375 200 C365 155 350 115 320 80"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      />
-                      <circle cx="330" cy="95" r="4" fill="currentColor" />
-                      <circle cx="345" cy="115" r="4" fill="currentColor" />
-                      <circle cx="318" cy="78" r="3.5" fill="currentColor" />
-                      <circle cx="308" cy="65" r="3" fill="currentColor" />
-                    </svg>
-                  </div>
+                    <defs>
+                      <radialGradient id="sun-glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="#fef3d6" stopOpacity="0.9" />
+                        <stop offset="60%" stopColor="#faeccb" stopOpacity="0.5" />
+                        <stop offset="100%" stopColor="#faeccb" stopOpacity="0" />
+                      </radialGradient>
+                    </defs>
+
+                    {/* Soft Rising Sun */}
+                    <circle cx="680" cy="80" r="42" fill="#faeccb" opacity="0.85" />
+                    <circle cx="680" cy="80" r="65" fill="url(#sun-glow)" />
+
+                    {/* Tiny flying birds in distance */}
+                    <g stroke="#7b9e84" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6">
+                      <path d="M605 76 Q610 70 615 76 Q620 70 625 76" />
+                      <path d="M628 88 Q632 83 636 88 Q640 83 644 88" />
+                    </g>
+
+                    {/* Back rolling hills / distant fields */}
+                    <path
+                      d="M250 200 C380 180 480 150 620 150 C710 150 790 168 900 155 L900 200 Z"
+                      fill="#d9ecdd"
+                      opacity="0.75"
+                    />
+
+                    {/* Middle rolling fields / terrace contours with furrow lines */}
+                    <path
+                      d="M100 200 C240 180 390 145 540 155 C660 162 760 140 900 162 L900 200 Z"
+                      fill="#ccdec0"
+                      opacity="0.65"
+                    />
+
+                    {/* Terraced field furrow lines */}
+                    <g stroke="#abc5b0" strokeWidth="1.2" opacity="0.65" fill="none">
+                      <path d="M420 200 C500 178 600 162 710 165 C780 167 840 155 900 168" />
+                      <path d="M480 200 C560 183 650 172 750 172 C810 172 860 164 900 176" strokeDasharray="6 3" />
+                      <path d="M560 200 C640 188 720 180 810 180 C860 180 890 175 900 182" />
+                      <path d="M650 166 L640 178" />
+                      <path d="M675 165 L668 180" />
+                      <path d="M700 166 L695 182" />
+                      <path d="M725 168 L723 184" />
+                      <path d="M750 168 L751 185" />
+                      <path d="M775 166 L779 184" />
+                      <path d="M800 163 L808 182" />
+                    </g>
+
+                    {/* Foreground gentle slope */}
+                    <path
+                      d="M0 200 C200 195 420 185 640 188 C760 190 830 182 900 190 L900 200 Z"
+                      fill="#e1efe4"
+                      opacity="0.8"
+                    />
+
+                    {/* Wheat Stalks on Right (Rich Botanical Silhouettes) */}
+                    <g opacity="0.75">
+                      <path d="M850 200 C850 160 842 120 832 75" stroke="#7aa384" strokeWidth="2.5" strokeLinecap="round" />
+                      <g fill="#88b292" stroke="#7aa384" strokeWidth="1">
+                        <path d="M832 75 C824 68 818 58 824 50 C830 58 836 67 832 75 Z" />
+                        <path d="M824 50 L812 32" strokeLinecap="round" />
+                        <path d="M834 73 C842 66 848 56 842 48 C836 56 830 65 834 73 Z" />
+                        <path d="M842 48 L854 30" strokeLinecap="round" />
+                        <path d="M834 90 C824 83 818 73 824 65 C830 73 836 82 834 90 Z" />
+                        <path d="M824 65 L810 48" strokeLinecap="round" />
+                        <path d="M836 88 C846 81 852 71 846 63 C840 71 834 80 836 88 Z" />
+                        <path d="M846 63 L860 46" strokeLinecap="round" />
+                        <path d="M837 106 C826 99 820 89 826 81 C832 89 838 98 837 106 Z" />
+                        <path d="M826 81 L810 65" strokeLinecap="round" />
+                        <path d="M839 104 C850 97 856 87 850 79 C844 87 837 96 839 104 Z" />
+                        <path d="M850 79 L866 63" strokeLinecap="round" />
+                        <path d="M840 122 C828 115 822 105 828 97 C834 105 841 114 840 122 Z" />
+                        <path d="M828 97 L810 82" strokeLinecap="round" />
+                        <path d="M842 120 C854 113 860 103 854 95 C847 103 840 112 842 120 Z" />
+                        <path d="M854 95 L872 80" strokeLinecap="round" />
+                        <path d="M843 138 C830 131 824 121 830 113 C836 121 844 130 843 138 Z" />
+                        <path d="M830 113 L812 100" strokeLinecap="round" />
+                        <path d="M845 136 C858 129 864 119 858 111 C851 119 843 128 845 136 Z" />
+                        <path d="M858 111 L876 98" strokeLinecap="round" />
+                      </g>
+                      <path d="M880 200 C875 145 855 90 820 40" stroke="#6f9879" strokeWidth="2.5" strokeLinecap="round" />
+                      <g fill="#7ea787" stroke="#6f9879" strokeWidth="1">
+                        <path d="M820 40 C814 33 808 24 815 16 C821 24 826 32 820 40 Z" />
+                        <path d="M815 16 L806 0" strokeLinecap="round" />
+                        <path d="M822 39 C829 32 836 23 831 15 C824 23 818 31 822 39 Z" />
+                        <path d="M831 15 L842 0" strokeLinecap="round" />
+                        <path d="M823 54 C815 47 808 38 816 30 C822 38 828 46 823 54 Z" />
+                        <path d="M816 30 L804 14" strokeLinecap="round" />
+                        <path d="M827 52 C835 45 843 36 837 28 C830 36 823 44 827 52 Z" />
+                        <path d="M837 28 L850 13" strokeLinecap="round" />
+                        <path d="M829 70 C819 63 812 54 820 46 C827 54 834 62 829 70 Z" />
+                        <path d="M820 46 L806 31" strokeLinecap="round" />
+                        <path d="M834 67 C843 60 851 51 845 43 C837 51 830 59 834 67 Z" />
+                        <path d="M845 43 L860 29" strokeLinecap="round" />
+                        <path d="M836 86 C825 79 817 70 826 62 C833 70 841 78 836 86 Z" />
+                        <path d="M826 62 L810 49" strokeLinecap="round" />
+                        <path d="M841 83 C851 76 860 67 853 59 C845 67 837 75 841 83 Z" />
+                        <path d="M853 59 L870 46" strokeLinecap="round" />
+                      </g>
+                      <path d="M860 180 C840 160 815 155 790 160" stroke="#7aa384" strokeWidth="2" strokeLinecap="round" fill="none" />
+                      <path d="M870 190 C890 170 895 145 885 125" stroke="#7aa384" strokeWidth="2" strokeLinecap="round" fill="none" />
+                    </g>
+                  </svg>
 
                   {/* Card Content */}
-                  <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-                    <div className="flex items-start gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-[#4a7c59] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition">
-                        <Icon name="ticket" className="w-7 h-7 text-emerald-100" />
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2.5">
-                          <span className="text-[10px] font-black uppercase tracking-wider bg-[#2a4732] text-white px-2.5 py-0.5 rounded-full">
-                            Primary Service
-                          </span>
-                          <span className="text-xs text-emerald-800 font-semibold">
-                            Fast Entry • Gate #2
-                          </span>
-                        </div>
-                        <h4 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-serif">
-                          {t.card1Title || "Mandi Gate Pass"}
-                        </h4>
-                        <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-                          {t.card1Desc || "Book your mandi slot before you leave home and get your digital gate pass."}
-                        </p>
-                      </div>
+                  <div className="relative z-10 flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-[#284935] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                      <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+                        <path d="M13 5v2" />
+                        <path d="M13 11v2" />
+                        <path d="M13 17v2" />
+                      </svg>
                     </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider bg-[#244632] text-white px-2.5 py-0.5 rounded-full">
+                          Primary Service
+                        </span>
+                        <span className="text-xs text-[#244632] font-semibold bg-[#d8eedb] px-3 py-0.5 rounded-full">
+                          Fast Entry • Gate #2
+                        </span>
+                      </div>
+                      <h4 className="text-xl sm:text-2xl font-black text-slate-900 font-serif">
+                        {t.card1Title || "Mandi Gate Pass"}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
+                        {t.card1Desc || "Book your mandi slot before you leave home and get your digital gate pass."}
+                      </p>
+                    </div>
+                  </div>
 
-                    <div className="w-full sm:w-auto shrink-0 pt-2 sm:pt-0">
-                      <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#4a7c59] group-hover:bg-[#3b6447] text-white py-3 px-6 rounded-xl font-bold text-sm sm:text-base shadow-xs transition active:scale-95">
-                        <span>{t.card1Cta || "Book Slot →"}</span>
-                      </span>
-                    </div>
+                  <div className="relative z-10 w-full sm:w-auto shrink-0 pt-1 sm:pt-0">
+                    <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#244632] group-hover:bg-[#1a3424] text-white py-3 px-6 rounded-xl font-bold text-sm sm:text-base shadow-sm transition active:scale-95">
+                      <span>{t.card1Cta || "Book Slot →"}</span>
+                    </span>
                   </div>
                 </div>
 
                 {/* CARD 2: MSP RATES */}
                 <div
                   onClick={() => setActiveTab("msp-rates")}
-                  className="ks-card p-6 relative overflow-hidden bg-[#fdf9f0] border border-[#e8ded1] hover:border-[#c86d12] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                  className="p-6 relative overflow-hidden bg-[#fdfbf3] border border-[#f3e5d0] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[220px] group"
                 >
-                  {/* Decorative agricultural texture: Upward market bars, Rupee watermark & grain motifs */}
-                  <div
-                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                  {/* Decorative agricultural illustration matching reference */}
+                  <svg
+                    className="absolute right-0 bottom-0 w-48 sm:w-56 h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 240 220"
+                    preserveAspectRatio="xMaxYMax meet"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
-                    style={{
-                      WebkitMaskImage:
-                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                      maskImage:
-                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                    }}
                   >
-                    <svg
-                      className="absolute right-0 bottom-0 w-44 h-44 opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-[#c86d12]"
-                      viewBox="0 0 180 180"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="140" cy="60" r="55" stroke="currentColor" strokeWidth="1" strokeDasharray="4 3" />
-                      <circle cx="140" cy="60" r="38" stroke="currentColor" strokeWidth="1" />
-                      <circle cx="140" cy="60" r="20" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 2" />
+                    <g opacity="0.85">
+                      <circle cx="165" cy="65" r="32" fill="#faeed6" />
                       <path
-                        d="M128 44 H154 M128 52 H150 M128 44 C142 44 146 60 134 68 L152 86"
-                        stroke="currentColor"
+                        d="M157 52 H173 M157 58 H170 M157 52 C167 52 171 63 162 69 L172 82"
+                        stroke="#d4ac75"
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
-                      <path
-                        d="M10 170 C45 165 75 145 105 130 C135 115 155 85 180 75"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <path
-                        d="M20 180 C55 175 90 155 120 140 C145 128 165 105 185 95"
-                        stroke="currentColor"
-                        strokeWidth="1.2"
-                        strokeDasharray="4 2"
-                      />
-                      <rect x="75" y="135" width="12" height="45" rx="3" fill="currentColor" />
-                      <rect x="95" y="115" width="12" height="65" rx="3" fill="currentColor" />
-                      <rect x="115" y="90" width="12" height="90" rx="3" fill="currentColor" />
-                      <rect x="135" y="65" width="12" height="115" rx="3" fill="currentColor" />
-                      <path d="M81 125 C77 120 78 112 81 108 C84 112 85 120 81 125 Z" fill="currentColor" />
-                      <path d="M101 105 C97 100 98 92 101 88 C104 92 105 100 101 105 Z" fill="currentColor" />
-                      <path d="M121 80 C117 75 118 67 121 63 C124 67 125 75 121 80 Z" fill="currentColor" />
-                    </svg>
-                  </div>
+                    </g>
+                    <g stroke="#ecd2ac" strokeWidth="1.5" opacity="0.8" fill="none">
+                      <path d="M30 215 C80 205 130 185 190 180 C210 178 230 180 250 182" />
+                      <path d="M10 200 C60 190 110 172 170 168 C200 166 225 170 245 172" strokeDasharray="5 3" />
+                      <path d="M50 225 C100 215 150 200 210 196" />
+                    </g>
+                    <g opacity="0.9">
+                      <rect x="132" y="152" width="13" height="42" rx="4" fill="#fae2be" />
+                      <rect x="151" y="132" width="13" height="62" rx="4" fill="#f6d5a8" />
+                      <rect x="170" y="108" width="13" height="86" rx="4" fill="#f0c690" />
+                      <rect x="189" y="82" width="13" height="112" rx="4" fill="#e9b474" />
+                    </g>
+                    <g opacity="0.85">
+                      <path d="M222 220 C220 180 214 140 204 100" stroke="#bfa170" strokeWidth="2" strokeLinecap="round" />
+                      <g fill="#cca976" stroke="#bfa170" strokeWidth="0.8">
+                        <path d="M204 100 C198 94 193 86 198 79 C203 86 208 93 204 100 Z" />
+                        <path d="M198 79 L189 65" strokeLinecap="round" />
+                        <path d="M205 99 C211 93 216 85 212 78 C206 85 201 92 205 99 Z" />
+                        <path d="M212 78 L221 64" strokeLinecap="round" />
+                        <path d="M206 114 C199 108 193 99 200 92 C205 100 210 108 206 114 Z" />
+                        <path d="M200 92 L190 79" strokeLinecap="round" />
+                        <path d="M208 112 C215 106 220 97 215 90 C209 97 203 105 208 112 Z" />
+                        <path d="M215 90 L226 77" strokeLinecap="round" />
+                        <path d="M209 130 C201 123 194 114 202 107 C207 115 213 123 209 130 Z" />
+                        <path d="M202 107 L191 95" strokeLinecap="round" />
+                        <path d="M212 128 C219 121 225 112 219 105 C213 112 206 120 212 128 Z" />
+                        <path d="M219 105 L231 93" strokeLinecap="round" />
+                        <path d="M212 148 C203 141 196 131 204 124 C210 132 216 141 212 148 Z" />
+                        <path d="M204 124 L192 112" strokeLinecap="round" />
+                        <path d="M215 145 C223 138 230 129 223 122 C216 129 209 138 215 145 Z" />
+                        <path d="M223 122 L236 110" strokeLinecap="round" />
+                      </g>
+                      <path d="M220 185 C208 175 198 172 188 176" stroke="#bfa170" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    </g>
+                  </svg>
 
                   {/* Card Content */}
                   <div className="relative z-10 space-y-3">
-                    <div className="w-12 h-12 rounded-xl bg-amber-50 text-[#c86d12] flex items-center justify-center shrink-0 group-hover:scale-105 transition">
-                      <Icon name="calculator" className="w-6 h-6 text-[#c86d12]" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#faeacf] text-[#c66a13] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Icon name="calculator" className="w-6 h-6 text-[#c66a13]" />
                     </div>
                     <div>
                       <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
                         {t.card2Title || "MSP Rates"}
                       </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-[210px] sm:max-w-none">
                         {t.card2Desc || "Check the applicable support price for your crop and estimate your procurement value."}
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-2 border-t border-[#f0e4d6] flex items-center justify-between text-xs sm:text-sm font-bold text-[#c86d12] group-hover:translate-x-1 transition">
+                  <div className="relative z-10 pt-4 flex items-center text-xs sm:text-sm font-bold text-[#b45d10] group-hover:translate-x-1 transition-transform">
                     <span>{t.card2Cta || "Check Rates →"}</span>
-                    <span>→</span>
                   </div>
                 </div>
 
                 {/* CARD 3: MOISTURE PRE-CHECK */}
                 <div
                   onClick={() => setActiveTab("moisture")}
-                  className="ks-card p-6 relative overflow-hidden bg-[#f0f6fa] border border-[#d9e6f2] hover:border-blue-500 rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                  className="p-6 relative overflow-hidden bg-[#f2f8fd] border border-[#d6e8f7] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[220px] group"
                 >
-                  {/* Decorative agricultural texture: Concentric ripple rings, droplet outlines & leaf veins */}
-                  <div
-                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                  {/* Decorative agricultural illustration matching reference */}
+                  <svg
+                    className="absolute right-0 bottom-0 w-48 sm:w-56 h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 240 220"
+                    preserveAspectRatio="xMaxYMax meet"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
-                    style={{
-                      WebkitMaskImage:
-                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                      maskImage:
-                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                    }}
                   >
-                    <svg
-                      className="absolute right-0 bottom-0 w-44 h-44 opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-blue-600"
-                      viewBox="0 0 180 180"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <ellipse cx="130" cy="125" rx="20" ry="12" stroke="currentColor" strokeWidth="1.2" />
-                      <ellipse cx="130" cy="125" rx="42" ry="24" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" />
-                      <ellipse cx="130" cy="125" rx="68" ry="38" stroke="currentColor" strokeWidth="1" />
-                      <ellipse cx="130" cy="125" rx="96" ry="54" stroke="currentColor" strokeWidth="0.8" strokeDasharray="6 3" />
-                      <ellipse cx="130" cy="125" rx="125" ry="70" stroke="currentColor" strokeWidth="0.6" />
+                    <g opacity="0.85">
                       <path
-                        d="M130 55 C112 85 104 105 104 120 C104 135 116 146 130 146 C144 146 156 135 156 120 C156 105 148 85 130 55 Z"
-                        stroke="currentColor"
-                        strokeWidth="2"
+                        d="M148 40 C143 50 140 56 140 61 C140 67 144 72 148 72 C152 72 156 67 156 61 C156 56 153 50 148 40 Z"
+                        fill="#cfe4fb"
                       />
                       <path
-                        d="M120 105 C116 112 115 119 116 126"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
+                        d="M178 65 C171 78 167 86 167 93 C167 101 172 107 178 107 C184 107 189 101 189 93 C189 86 185 78 178 65 Z"
+                        fill="#b8dbf9"
+                      />
+                    </g>
+                    <g opacity="0.8" fill="none">
+                      <path
+                        d="M70 190 C105 175 135 195 168 182 C195 170 215 178 240 172"
+                        stroke="#bcdcfa"
+                        strokeWidth="2.2"
                         strokeLinecap="round"
                       />
                       <path
-                        d="M162 42 C154 55 150 63 150 70 C150 77 155 82 162 82 C169 82 174 77 174 70 C174 63 170 55 162 42 Z"
-                        fill="currentColor"
+                        d="M95 205 C125 190 155 210 185 198 C210 187 228 193 245 188"
+                        stroke="#cfe4fb"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
                       />
-                      <circle cx="98" cy="65" r="4" fill="currentColor" />
-                      <circle cx="85" cy="90" r="3" fill="currentColor" />
                       <path
-                        d="M50 175 C70 140 100 110 140 90"
-                        stroke="currentColor"
+                        d="M120 220 C145 208 175 224 200 215 C220 206 235 210 245 206"
+                        stroke="#dbeafd"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                       />
-                      <path d="M80 142 C92 136 100 128 102 122" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M104 121 C118 117 126 109 128 103" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                    </svg>
-                  </div>
+                    </g>
+                    <g opacity="0.85">
+                      <path d="M225 220 C222 175 212 130 194 85" stroke="#90bce7" strokeWidth="2" strokeLinecap="round" />
+                      <g fill="#a5ccf2" stroke="#90bce7" strokeWidth="0.8">
+                        <path d="M194 85 C188 79 183 71 188 64 C193 71 198 78 194 85 Z" />
+                        <path d="M188 64 L180 50" strokeLinecap="round" />
+                        <path d="M195 84 C201 78 206 70 202 63 C196 70 191 77 195 84 Z" />
+                        <path d="M202 63 L211 49" strokeLinecap="round" />
+                        <path d="M196 100 C189 94 183 85 190 78 C195 86 200 94 196 100 Z" />
+                        <path d="M190 78 L180 65" strokeLinecap="round" />
+                        <path d="M198 98 C205 92 210 83 205 76 C199 83 193 91 198 98 Z" />
+                        <path d="M205 76 L216 63" strokeLinecap="round" />
+                        <path d="M199 116 C191 109 184 100 192 93 C197 101 203 109 199 116 Z" />
+                        <path d="M192 93 L181 81" strokeLinecap="round" />
+                        <path d="M202 114 C209 107 215 98 209 91 C203 98 196 106 202 114 Z" />
+                        <path d="M209 91 L221 79" strokeLinecap="round" />
+                        <path d="M203 134 C194 127 187 117 195 110 C201 118 207 127 203 134 Z" />
+                        <path d="M195 110 L183 98" strokeLinecap="round" />
+                        <path d="M206 131 C214 124 221 115 214 108 C207 115 200 124 206 131 Z" />
+                        <path d="M214 108 L227 96" strokeLinecap="round" />
+                        <path d="M208 154 C198 147 190 137 199 130 C205 138 212 147 208 154 Z" />
+                        <path d="M199 130 L186 118" strokeLinecap="round" />
+                        <path d="M211 150 C220 143 227 134 220 127 C213 134 205 143 211 150 Z" />
+                        <path d="M220 127 L234 115" strokeLinecap="round" />
+                      </g>
+                      <path d="M220 185 C205 172 190 170 178 175" stroke="#90bce7" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    </g>
+                  </svg>
 
                   {/* Card Content */}
                   <div className="relative z-10 space-y-3">
-                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition">
-                      <Icon name="droplet" className="w-6 h-6 text-blue-600" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#dff0fe] text-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Icon name="droplet" className="w-6 h-6 text-[#2563eb]" />
                     </div>
                     <div>
                       <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
                         {t.card3Title || "Moisture Pre-Check"}
                       </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-[210px] sm:max-w-none">
                         {t.card3Desc || "Check your grain's moisture reading before travelling to the mandi."}
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-2 border-t border-[#dce8f5] flex items-center justify-between text-xs sm:text-sm font-bold text-blue-700 group-hover:translate-x-1 transition">
+                  <div className="relative z-10 pt-4 flex items-center text-xs sm:text-sm font-bold text-[#1d4ed8] group-hover:translate-x-1 transition-transform">
                     <span>{t.card3Cta || "Check Moisture →"}</span>
-                    <span>→</span>
                   </div>
                 </div>
 
                 {/* CARD 4: HELP & ASSISTANCE */}
                 <div
                   onClick={() => setActiveTab("help")}
-                  className="ks-card p-6 relative overflow-hidden bg-[#fdf2f4] border border-[#fae0e4] hover:border-[#4a7c59] rounded-2xl cursor-pointer transition shadow-xs hover:shadow-md flex flex-col justify-between space-y-4 group"
+                  className="p-6 relative overflow-hidden bg-[#fdf5f6] border border-[#f8dfe4] rounded-3xl cursor-pointer transition-all duration-200 shadow-xs hover:shadow-md flex flex-col justify-between min-h-[220px] group"
                 >
-                  {/* Decorative agricultural texture: Headset, communication waves, advisory document & laurel */}
-                  <div
-                    className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
+                  {/* Decorative agricultural illustration matching reference */}
+                  <svg
+                    className="absolute right-0 bottom-0 w-48 sm:w-56 h-full pointer-events-none select-none z-0"
+                    viewBox="0 0 240 220"
+                    preserveAspectRatio="xMaxYMax meet"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"
-                    style={{
-                      WebkitMaskImage:
-                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                      maskImage:
-                        "radial-gradient(ellipse 75% 75% at 85% 85%, black 20%, rgba(0,0,0,0.5) 55%, transparent 85%)",
-                    }}
                   >
-                    <svg
-                      className="absolute right-0 bottom-0 w-44 h-44 opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-300 text-rose-600"
-                      viewBox="0 0 180 180"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="130" cy="110" r="62" stroke="currentColor" strokeWidth="0.8" strokeDasharray="5 3" />
-                      <circle cx="130" cy="110" r="46" stroke="currentColor" strokeWidth="1" />
-                      <circle cx="130" cy="110" r="30" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 2" />
-                      <path
-                        d="M102 110 A28 28 0 0 1 158 110"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
+                    <g opacity="0.85">
+                      <rect
+                        x="135"
+                        y="38"
+                        width="54"
+                        height="72"
+                        rx="6"
+                        fill="#fbe9ed"
+                        stroke="#f2c4cd"
+                        strokeWidth="1.5"
                       />
-                      <rect x="97" y="104" width="8" height="16" rx="4" fill="currentColor" />
-                      <rect x="155" y="104" width="8" height="16" rx="4" fill="currentColor" />
                       <path
-                        d="M101 115 C101 127 112 134 122 134"
-                        stroke="currentColor"
+                        d="M145 52 H175 M145 62 H179 M145 72 H173 M145 82 H165"
+                        stroke="#ebb3bd"
                         strokeWidth="2"
                         strokeLinecap="round"
                       />
-                      <circle cx="125" cy="134" r="3" fill="currentColor" />
+                    </g>
+                    <g opacity="0.9">
                       <path
-                        d="M50 160 L50 85 C50 80 54 76 59 76 L90 76 L108 94 L108 160 Z"
-                        stroke="currentColor"
-                        strokeWidth="1.2"
+                        d="M172 74 C172 66 180 60 190 60 C200 60 208 66 208 74 C208 79 205 84 199 86 L201 93 L194 88 C192 88 191 88 190 88 C180 88 172 82 172 74 Z"
+                        fill="#fbe0e6"
+                        stroke="#f0b6c2"
+                        strokeWidth="1.5"
+                        strokeLinejoin="round"
                       />
-                      <path d="M90 76 L90 94 L108 94" stroke="currentColor" strokeWidth="1.2" />
-                      <path d="M60 102 H85 M60 114 H95 M60 126 H90 M60 138 H80" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                      <path d="M125 155 C118 150 116 142 120 138 C125 142 128 150 125 155 Z" fill="currentColor" />
-                      <path d="M140 152 C135 146 135 138 140 135 C144 140 145 148 140 152 Z" fill="currentColor" />
-                      <path d="M152 144 C148 138 150 130 155 128 C158 133 157 141 152 144 Z" fill="currentColor" />
-                    </svg>
-                  </div>
+                      <circle cx="184" cy="74" r="1.5" fill="#dda2ad" />
+                      <circle cx="190" cy="74" r="1.5" fill="#dda2ad" />
+                      <circle cx="196" cy="74" r="1.5" fill="#dda2ad" />
+                    </g>
+                    <g opacity="0.75" stroke="#f6d3d9" strokeWidth="1.5" fill="none">
+                      <path d="M40 215 C90 205 140 192 195 188 C215 186 235 188 250 190" />
+                      <path d="M20 200 C70 190 120 176 175 174 C205 172 230 176 245 178" strokeDasharray="4 3" />
+                    </g>
+                    <g opacity="0.85">
+                      <path d="M225 220 C222 175 210 135 192 90" stroke="#dca3af" strokeWidth="2" strokeLinecap="round" />
+                      <g fill="#e9b6c1" stroke="#dca3af" strokeWidth="0.8">
+                        <path d="M192 90 C186 80 183 70 191 62 C196 71 199 81 192 90 Z" />
+                        <path d="M195 106 C186 100 176 96 182 85 C190 92 198 99 195 106 Z" />
+                        <path d="M200 102 C209 95 219 92 216 80 C207 87 200 95 200 102 Z" />
+                        <path d="M199 126 C188 120 177 116 185 103 C194 111 202 119 199 126 Z" />
+                        <path d="M206 120 C216 113 227 109 223 96 C213 103 205 112 206 120 Z" />
+                        <path d="M204 148 C192 142 179 137 188 123 C198 132 207 141 204 148 Z" />
+                        <path d="M213 140 C224 133 236 128 231 114 C220 122 211 132 213 140 Z" />
+                        <path d="M211 172 C197 165 183 160 193 144 C204 154 214 164 211 172 Z" />
+                        <path d="M219 164 C231 156 244 150 238 134 C226 143 216 154 219 164 Z" />
+                      </g>
+                    </g>
+                  </svg>
 
                   {/* Card Content */}
                   <div className="relative z-10 space-y-3">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-50 text-[#4a7c59] flex items-center justify-center shrink-0 group-hover:scale-105 transition">
-                      <Icon name="help-circle" className="w-6 h-6 text-[#4a7c59]" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#fae1e6] text-[#b91c47] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Icon name="help-circle" className="w-6 h-6 text-[#b91c47]" />
                     </div>
                     <div>
                       <h4 className="text-base sm:text-lg font-bold text-slate-900 font-serif">
                         {t.card4Title || "Help & Assistance"}
                       </h4>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed max-w-[210px] sm:max-w-none">
                         {t.card4Desc || "Get help with booking, required documents, mandi visits, and KisanSetu services."}
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative z-10 pt-2 border-t border-[#fad4da] flex items-center justify-between text-xs sm:text-sm font-bold text-[#4a7c59] group-hover:translate-x-1 transition">
+                  <div className="relative z-10 pt-4 flex items-center text-xs sm:text-sm font-bold text-[#a82042] group-hover:translate-x-1 transition-transform">
                     <span>{t.card4Cta || "Get Help →"}</span>
-                    <span>→</span>
                   </div>
                 </div>
               </div>
