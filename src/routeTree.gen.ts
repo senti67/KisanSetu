@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as InfrastructureIndexRouteImport } from './routes/infrastructure/index'
+import { Route as ApiInfrastructureAnalyzeSpecRouteImport } from './routes/api/infrastructure/analyze-spec'
 import { Route as ApiProcurementBookingsRouteImport } from './routes/api/procurement/bookings'
 import { Route as ApiProcurementCentersRouteImport } from './routes/api/procurement/centers'
 import { Route as ApiProcurementIvrRouteImport } from './routes/api/procurement/ivr'
@@ -25,6 +27,17 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InfrastructureIndexRoute = InfrastructureIndexRouteImport.update({
+  id: '/infrastructure/',
+  path: '/infrastructure/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInfrastructureAnalyzeSpecRoute =
+  ApiInfrastructureAnalyzeSpecRouteImport.update({
+    id: '/api/infrastructure/analyze-spec',
+    path: '/api/infrastructure/analyze-spec',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiProcurementBookingsRoute = ApiProcurementBookingsRouteImport.update({
   id: '/api/procurement/bookings',
   path: '/api/procurement/bookings',
@@ -44,6 +57,8 @@ const ApiProcurementIvrRoute = ApiProcurementIvrRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
+  '/infrastructure/': typeof InfrastructureIndexRoute
+  '/api/infrastructure/analyze-spec': typeof ApiInfrastructureAnalyzeSpecRoute
   '/api/procurement/bookings': typeof ApiProcurementBookingsRoute
   '/api/procurement/centers': typeof ApiProcurementCentersRoute
   '/api/procurement/ivr': typeof ApiProcurementIvrRoute
@@ -51,6 +66,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
+  '/infrastructure': typeof InfrastructureIndexRoute
+  '/api/infrastructure/analyze-spec': typeof ApiInfrastructureAnalyzeSpecRoute
   '/api/procurement/bookings': typeof ApiProcurementBookingsRoute
   '/api/procurement/centers': typeof ApiProcurementCentersRoute
   '/api/procurement/ivr': typeof ApiProcurementIvrRoute
@@ -59,6 +76,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/chat': typeof ApiChatRoute
+  '/infrastructure/': typeof InfrastructureIndexRoute
+  '/api/infrastructure/analyze-spec': typeof ApiInfrastructureAnalyzeSpecRoute
   '/api/procurement/bookings': typeof ApiProcurementBookingsRoute
   '/api/procurement/centers': typeof ApiProcurementCentersRoute
   '/api/procurement/ivr': typeof ApiProcurementIvrRoute
@@ -68,6 +87,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/api/chat'
+    | '/infrastructure/'
+    | '/api/infrastructure/analyze-spec'
     | '/api/procurement/bookings'
     | '/api/procurement/centers'
     | '/api/procurement/ivr'
@@ -75,6 +96,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/api/chat'
+    | '/infrastructure'
+    | '/api/infrastructure/analyze-spec'
     | '/api/procurement/bookings'
     | '/api/procurement/centers'
     | '/api/procurement/ivr'
@@ -82,6 +105,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/api/chat'
+    | '/infrastructure/'
+    | '/api/infrastructure/analyze-spec'
     | '/api/procurement/bookings'
     | '/api/procurement/centers'
     | '/api/procurement/ivr'
@@ -90,6 +115,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiChatRoute: typeof ApiChatRoute
+  InfrastructureIndexRoute: typeof InfrastructureIndexRoute
+  ApiInfrastructureAnalyzeSpecRoute: typeof ApiInfrastructureAnalyzeSpecRoute
   ApiProcurementBookingsRoute: typeof ApiProcurementBookingsRoute
   ApiProcurementCentersRoute: typeof ApiProcurementCentersRoute
   ApiProcurementIvrRoute: typeof ApiProcurementIvrRoute
@@ -109,6 +136,20 @@ declare module '@tanstack/react-router' {
       path: '/api/chat'
       fullPath: '/api/chat'
       preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/infrastructure/': {
+      id: '/infrastructure/'
+      path: '/infrastructure'
+      fullPath: '/infrastructure/'
+      preLoaderRoute: typeof InfrastructureIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/analyze-spec': {
+      id: '/api/infrastructure/analyze-spec'
+      path: '/api/infrastructure/analyze-spec'
+      fullPath: '/api/infrastructure/analyze-spec'
+      preLoaderRoute: typeof ApiInfrastructureAnalyzeSpecRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/procurement/bookings': {
@@ -138,6 +179,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiChatRoute: ApiChatRoute,
+  InfrastructureIndexRoute: InfrastructureIndexRoute,
+  ApiInfrastructureAnalyzeSpecRoute: ApiInfrastructureAnalyzeSpecRoute,
   ApiProcurementBookingsRoute: ApiProcurementBookingsRoute,
   ApiProcurementCentersRoute: ApiProcurementCentersRoute,
   ApiProcurementIvrRoute: ApiProcurementIvrRoute,

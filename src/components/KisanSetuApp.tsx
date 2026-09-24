@@ -13,6 +13,7 @@ import {
   type ProcurementCenter,
   type BookingToken,
 } from "@/lib/procurementApi";
+import ProcurementLinter from "./infrastructure/ProcurementLinter";
 
 const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: string }) => {
   const icons: Record<string, React.ReactNode> = {
@@ -45,6 +46,15 @@ const Icon = ({ name, className = "w-4 h-4" }: { name: string; className?: strin
         <circle cx="12" cy="12" r="10" />
         <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
         <line x1="12" x2="12.01" y1="17" y2="17" />
+      </g>
+    ),
+    "file-text": (
+      <g>
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" x2="8" y1="13" y2="13" />
+        <line x1="16" x2="8" y1="17" y2="17" />
+        <line x1="10" x2="8" y1="9" y2="9" />
       </g>
     ),
     shield: (
@@ -984,6 +994,20 @@ export default function KisanSetuApp() {
             >
               <Icon name="help-circle" className="w-4 h-4" />
               <span>{t.help}</span>
+            </button>
+
+            {/* Infrastructure Procurement DNDE Linter Tab */}
+            <button
+              type="button"
+              onClick={() => setActiveTab("infrastructure")}
+              className={`py-2.5 px-3.5 border-b-2 transition whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                activeTab === "infrastructure"
+                  ? "border-[#1b3a28] text-[#1b3a28] font-bold bg-white"
+                  : "border-transparent text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Icon name="file-text" className="w-4 h-4 text-[#1b3a28]" />
+              <span>DNDE Specs Linter</span>
             </button>
 
             {/* Officer Tab: Visible ONLY after officer logs in */}
@@ -2584,6 +2608,13 @@ export default function KisanSetuApp() {
                 <p className="text-slate-600">{t.faq3A}</p>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* TAB: INFRASTRUCTURE PROCUREMENT LINTER (DNDE) */}
+        {activeTab === "infrastructure" && (
+          <div className="pt-2">
+            <ProcurementLinter />
           </div>
         )}
       </main>
